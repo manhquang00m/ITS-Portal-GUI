@@ -7,18 +7,28 @@ import AdminLayout from './layouts/admin';
 import RTLLayout from './layouts/rtl';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme/theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false
+		}
+	}
+})
 
 ReactDOM.render(
 	<ChakraProvider theme={theme}>
 		<React.StrictMode>
-			<HashRouter>
-				<Switch>
-					<Route path={`/auth`} component={AuthLayout} />
-					<Route path={`/admin`} component={AdminLayout} />
-					<Route path={`/rtl`} component={RTLLayout} />
-					<Redirect from='/' to='/admin' />
-				</Switch>
-			</HashRouter>
+			<QueryClientProvider client={queryClient}>
+				<HashRouter>
+					<Switch>
+						<Route path={`/auth`} component={AuthLayout} />
+						<Route path={`/admin`} component={AdminLayout} />
+						<Route path={`/rtl`} component={RTLLayout} />
+						<Redirect from='/' to='/admin' />
+					</Switch>
+				</HashRouter>
+			</QueryClientProvider>
 		</React.StrictMode>
 	</ChakraProvider>,
 	document.getElementById('root')
