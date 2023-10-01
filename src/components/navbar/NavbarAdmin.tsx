@@ -6,13 +6,14 @@ import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 
 export default function AdminNavbar(props: {
 	secondary: boolean;
-	message: string|boolean;
+	message: string | boolean;
 	brandText: string;
 	logoText: string;
 	fixed: boolean;
+	breadCrumb: BreadcrumbType[]
 	onOpen: (...args: any[]) => any;
 }) {
-	const [ scrolled, setScrolled ] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
 
 	useEffect(() => {
 		window.addEventListener('scroll', changeNavbar);
@@ -22,7 +23,7 @@ export default function AdminNavbar(props: {
 		};
 	});
 
-	const { secondary,  brandText } = props;
+	const { secondary, brandText, breadCrumb } = props;
 
 	// Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
 	let mainText = useColorModeValue('navy.700', 'white');
@@ -96,22 +97,17 @@ export default function AdminNavbar(props: {
 				mb={gap}>
 				<Box mb={{ sm: '8px', md: '0px' }}>
 					<Breadcrumb>
-						<BreadcrumbItem color={secondaryText} fontSize='sm' mb='5px'>
-							<BreadcrumbLink href='#' color={secondaryText}>
-								Pages
-							</BreadcrumbLink>
-						</BreadcrumbItem>
-
-						<BreadcrumbItem color={secondaryText} fontSize='sm'>
-							<BreadcrumbLink href='#' color={secondaryText}>
-								{brandText}
-							</BreadcrumbLink>
-						</BreadcrumbItem>
+						{
+							breadCrumb.map((item: BreadcrumbType, index: number) => <BreadcrumbItem fontSize='sm' key={index}>
+								<BreadcrumbLink href='#' color={secondaryText}>
+									{item.name}
+								</BreadcrumbLink>
+							</BreadcrumbItem>)
+						}
 					</Breadcrumb>
 					{/* Here we create navbar brand, based on route name */}
-					<Link
+					<Text
 						color={mainText}
-						href='#'
 						bg='inherit'
 						borderRadius='inherit'
 						fontWeight='bold'
@@ -126,16 +122,16 @@ export default function AdminNavbar(props: {
 							boxShadow: 'none'
 						}}>
 						{brandText}
-					</Link>
+					</Text>
 				</Box>
 				<Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
 					<AdminNavbarLinks
-						onOpen={props.onOpen} 
+						onOpen={props.onOpen}
 						secondary={props.secondary}
-						fixed={props.fixed} 
+						fixed={props.fixed}
 					/>
 				</Box>
-			</Flex> 
+			</Flex>
 		</Box>
 	);
 }

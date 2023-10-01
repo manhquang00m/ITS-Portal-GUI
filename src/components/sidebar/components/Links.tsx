@@ -2,7 +2,7 @@
 
 import { NavLink, useLocation } from 'react-router-dom';
 // chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text, useColorModeValue } from '@chakra-ui/react';
 
 export function SidebarLinks(props: {
 	routes: RoutesType[];
@@ -19,23 +19,53 @@ export function SidebarLinks(props: {
 
 	// verifies if routeName is the one active (in browser input)
 	const activeRoute = (routeName: string) => {
+		console.log(location.pathname, '---', routeName)
 		return location.pathname.includes(routeName);
 	};
 
 	// this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
 	const createLinks = (
-		routes: RoutesType[], 
+		routes: RoutesType[],
 	) => {
-		return routes.map(
+		return routes.filter((item) => !item?.hidden).map(
 			(
 				route: RoutesType,
 				index: number
 			) => {
-				if (route.layout === '/admin' || route.layout === '/auth' || route.layout === '/rtl') {
-					return (
-						<NavLink key={index} to={route.layout + route.path}>
-							{route.icon ? (
-								<Box>
+				return (!route?.children ?
+					<NavLink key={index} to={route.layout + route.path}>
+						<Box>
+							<HStack
+								spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
+								py='5px'
+								ps='10px'>
+								<Flex w='100%' alignItems='center' justifyContent='center'>
+									<Box
+										color={activeRoute(route.path.toLowerCase()) ? activeIcon : textColor}
+										me='18px'>
+										{route.icon}
+									</Box>
+									<Text
+										me='auto'
+										color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
+										fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}>
+										{route.name}
+									</Text>
+								</Flex>
+								<Box
+									h='36px'
+									w='4px'
+									bg={activeRoute(route.path.toLowerCase()) ? brandColor : 'transparent'}
+									borderRadius='5px'
+								/>
+							</HStack>
+						</Box>
+					</NavLink> :
+					<Box>
+
+						<Menu>
+							<Accordion allowToggle >
+								<AccordionItem className='border-y-0'>
 									<HStack
 										spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
 										py='5px'
@@ -46,12 +76,17 @@ export function SidebarLinks(props: {
 												me='18px'>
 												{route.icon}
 											</Box>
-											<Text
-												me='auto'
-												color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
-												fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}>
-												{route.name}
-											</Text>
+
+											<AccordionButton className='w-full hover:bg-transparent focus:shadow-none pl-0'>
+												<Text
+													me='auto'
+													color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
+													fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}>
+													{route.name}
+												</Text>
+												<AccordionIcon />
+											</AccordionButton>
+
 										</Flex>
 										<Box
 											h='36px'
@@ -60,26 +95,29 @@ export function SidebarLinks(props: {
 											borderRadius='5px'
 										/>
 									</HStack>
-								</Box>
-							) : (
-								<Box>
-									<HStack
-										spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
-										py='5px'
-										ps='10px'>
-										<Text
-											me='auto'
-											color={activeRoute(route.path.toLowerCase()) ? activeColor : inactiveColor}
-											fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}>
-											{route.name}
-										</Text>
-										<Box h='36px' w='4px' bg='brand.400' borderRadius='5px' />
-									</HStack>
-								</Box>
-							)}
-						</NavLink>
-					);
-				}
+
+									<AccordionPanel pb={4} pl={'48px'} pt={0}>
+										{
+											route.children.map((chilRoute: any, index: number) => {
+
+												return <NavLink key={index} to={route.layout + route.path + chilRoute.path}>
+													<Text
+														mb={2}
+														me='auto'
+														color={activeRoute(chilRoute.path.toLowerCase()) ? activeColor : textColor}
+														fontWeight={activeRoute(chilRoute.path.toLowerCase()) ? 'bold' : 'normal'}>
+														{chilRoute.name}
+													</Text>
+												</NavLink>
+											})
+										}
+									</AccordionPanel>
+								</AccordionItem>
+							</Accordion>
+
+						</Menu>
+					</Box>
+				);
 			}
 		);
 	};

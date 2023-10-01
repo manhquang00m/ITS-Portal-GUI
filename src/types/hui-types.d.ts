@@ -1,5 +1,12 @@
 export {};
 
+interface RoutesChild {
+	name: string;
+	component: () => JSX.Element;
+	path: string;
+	children?: RoutesChild[]
+}
+
 declare global {
 	/**
    * Now declare things that go in the global namespace,
@@ -7,10 +14,17 @@ declare global {
    */
 	interface RoutesType {
 		name: string;
-		layout: string;
+		layout?: string;
 		component: () => JSX.Element;
-		icon: JSX.Element | string;
+		icon?: JSX.Element | string;
 		path: string;
 		secondary?: boolean;
+		hidden?:boolean;
+		children?: RoutesChild[]
+	}
+
+	interface BreadcrumbType {
+		path: string;
+		name: string;
 	}
 }
