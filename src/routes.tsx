@@ -1,5 +1,5 @@
 import { Icon } from '@chakra-ui/react';
-import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart } from 'react-icons/md';
+import { MdBarChart, MdPerson, MdHome, MdSchool, MdLock, MdOutlineShoppingCart } from 'react-icons/md';
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
@@ -19,10 +19,31 @@ const routes: RoutesType[] = [
 		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
 		component: MainDashboard
 	},
+	{
+		name: 'Quản lý lớp học',
+		layout: '/admin',
+		path: '/class',
+		icon: <Icon as={MdSchool} width='20px' height='20px' color='inherit' />,
+		component: NFTMarketplace,
+		children: [
+			{
+				path: '/after-class',
+				component: NFTMarketplace,
+				name: 'After Class',
+				children: [
+					{
+						path: '/detail',
+						component: DataTables,
+						name: 'xem chi tiet',
+					},
+				]
+			},
+		]
+	},
 	// {
 	// 	name: 'NFT Marketplace',
 	// 	layout: '/admin',
-	// 	path: '/nft-marketplace',
+	// 	path: '/nft',
 	// 	icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
 	// 	component: NFTMarketplace,
 	// 	secondary: true
@@ -34,21 +55,21 @@ const routes: RoutesType[] = [
 	// 	path: '/data-tables',
 	// 	component: DataTables
 	// },
-	{
-		name: 'Quản lý lớp học',
-		layout: '/admin',
-		path: '/profile/detail',
-		icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-		component: Profile
-	},
-	{
-		name: 'Profile',
-		layout: '/admin',
-		path: '/profile/detail',
-		icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-		hidden: true,
-		component: Profile
-	},
+	// {
+	// 	name: 'Quản lý lớp học',
+	// 	layout: '/admin',
+	// 	path: '/profile/detail',
+	// 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
+	// 	component: Profile
+	// },
+	// {
+	// 	name: 'Profile',
+	// 	layout: '/admin',
+	// 	path: '/profile/detail',
+	// 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
+	// 	hidden: true,
+	// 	component: Profile
+	// },
 	// {
 	// 	name: 'Sign In',
 	// 	layout: '/auth',
