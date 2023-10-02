@@ -19,7 +19,6 @@ export function SidebarLinks(props: {
 
 	// verifies if routeName is the one active (in browser input)
 	const activeRoute = (routeName: string) => {
-		console.log(location.pathname, '---', routeName)
 		return location.pathname.includes(routeName);
 	};
 
@@ -61,8 +60,7 @@ export function SidebarLinks(props: {
 							</HStack>
 						</Box>
 					</NavLink> :
-					<Box>
-
+					<Box key={index}>
 						<Menu>
 							<Accordion allowToggle >
 								<AccordionItem className='border-y-0'>
