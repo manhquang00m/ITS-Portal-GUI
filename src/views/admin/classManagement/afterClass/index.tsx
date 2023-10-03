@@ -40,10 +40,11 @@ import * as yup from "yup";
 import kienThucImg from "assets/img/classManage/kienthuc.png";
 import baiHocImg from "assets/img/classManage/baihoctiep.png";
 import logoITS from "assets/img/layout/logoITS.png";
+import { toPng } from 'html-to-image';
 
-import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
+
 import { useRef } from "react";
-
+import { MdPhone, MdPublic } from "react-icons/md";
 export default function AfterClass() {
   const schema = yup.object({
     teacher: yup.string().required("Đây là trường hợp bắt buộc !"),
@@ -61,19 +62,19 @@ export default function AfterClass() {
   const afrerClassRef = useRef(null);
   const exportDivAsPng = () => {
     const div = afrerClassRef.current;
-    html2canvas(div, {
-      scale: 3,
-    })
-      .then((canvas) => {
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png", 1.0);
-        link.download = "exported-image.png";
-        link.click();
+
+    toPng(div, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'my-image-name.png'
+        link.href = dataUrl
+        link.click()
       })
-      .catch((error) => {
-        console.error("Error exporting div as PNG:", error);
-      });
+      .catch((err) => {
+        console.log(err)
+      })
   };
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
@@ -233,25 +234,19 @@ export default function AfterClass() {
             {/* Footer */}
             <Grid mt={4} templateColumns="repeat(3, 1fr)">
               <Box className="h-6 grid grid-cols-12">
-                <span>
-                  <MdPhone fontSize={"24px"} />
-                </span>
+                <MdPhone fontSize={"24px"} />
                 <Text className=" col-span-10" ml={2}>0929424056</Text>
               </Box>
               <Center>
                 <Box className="h-6 grid grid-cols-12">
-                  <span>
-                    <MdPublic fontSize={"24px"} />
-                  </span>
+                  <MdPublic fontSize={"24px"} />
                   <Text className=" col-span-10" ml={2}>www.its.edu.vn</Text>
                 </Box>
               </Center>
-              <Box className="h-6 grid grid-cols-12" justifyContent={"end"}>
-                <span>
-                  <MdFacebook fontSize={"24px"} />
-                </span>
-                <Text className=" col-span-10" ml={2}>ITS Academy Viet Nam</Text>
-              </Box>
+              <Flex alignItems={"center"} className="h-6" justifyContent={"end"}>
+                <MdPublic fontSize={"24px"} />
+                <Text className="" ml={2}>ITS Academy Viet Nam</Text>
+              </Flex>
             </Grid>
           </Card>
         </GridItem>
