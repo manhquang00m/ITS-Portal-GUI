@@ -24,6 +24,7 @@
 		"apexcharts": "^3.35.2",
 		"axios": "^1.5.0",
 		"framer-motion": "^4.1.17",
+		"html2canvas": "^1.4.1",
 		"react": "^17.0.2",
 		"react-apexcharts": "^1.4.0",
 		"react-calendar": "^3.7.0",
