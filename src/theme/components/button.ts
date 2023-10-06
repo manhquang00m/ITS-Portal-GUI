@@ -97,7 +97,22 @@ export const buttonStyles = {
 					_hover: {
 						bg: mode('secondaryGray.100', 'brand.400')(props)
 					}
-				})
+				}),
+				brandOutline: (props: any) => ({
+					bg: 'white',
+					border: mode('1px solid', '0px solid')(props),
+					borderColor: mode('brand.500', 'brand.400')(props),
+					color: mode('brand.500', 'brand.400')(props),
+					_focus: {
+						bg: mode('white.500', 'white.400')(props)
+					},
+					_active: {
+						bg: mode('white.500', 'white.400')(props)
+					},
+					_hover: {
+						bg: "#d0d0d0"
+					}
+				}),
 			}
 		}
 	}
