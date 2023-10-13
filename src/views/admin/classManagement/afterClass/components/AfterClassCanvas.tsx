@@ -14,7 +14,8 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer,
+  Alert,
+  AlertIcon,
   Center,
 } from "@chakra-ui/react";
 import { toPng } from "html-to-image";
@@ -25,9 +26,11 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
+import { toast } from 'react-toastify';
 
 interface IPropsAfterClassCanvas {
   data: IFormAfterClass;
+  onClose: () => void;
 }
 interface AfterClassCanvasRef {
   exportAfterClass: () => void;
@@ -35,22 +38,23 @@ interface AfterClassCanvasRef {
 export const AfterClassCanvas = forwardRef<
   AfterClassCanvasRef,
   IPropsAfterClassCanvas
->((props, ref) => {
+>(({ data, onClose }, ref) => {
   //   console.log("Child", props?.data);
-  console.log("Child", props.data);
   const afrerClassRef = useRef(null);
-
   const exportDivAsPng = () => {
     const div = afrerClassRef.current;
     toPng(div, { cacheBust: true })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = "my-image-name.png";
+        link.download = "after-class.png";
         link.href = dataUrl;
         link.click();
+        onClose();
+        toast.success("Tải after-class thành công")
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Tải after-class thất bại")
+        onClose();
       });
   };
 
@@ -79,8 +83,8 @@ export const AfterClassCanvas = forwardRef<
           </Heading>
           <Spacer />
           <Box>
-            <Text>Date: 02/12/2023</Text>
-            <Text>Teacher: Vu Manh Quang</Text>
+            <Text>Date: {data.date}</Text>
+            <Text>Teacher: {data.teacher}</Text>
           </Box>
         </Flex>
         <Grid mt={4} templateColumns="repeat(5, 1fr)" gap={4}>
@@ -99,10 +103,7 @@ export const AfterClassCanvas = forwardRef<
                     <Heading as="h4" size="md">
                       Kiến Thức Đạt Được
                     </Heading>
-                    <Text>
-                      Khái niệm về Class, lập trình hướng đối tượng,lập trình
-                      hướng đối tượng
-                    </Text>
+                    <Text>{data.knowledge}</Text>
                   </Box>
                 </Flex>
               </GridItem>
@@ -119,59 +120,60 @@ export const AfterClassCanvas = forwardRef<
                     <Heading as="h4" size="md">
                       Bài Học Tiếp Theo
                     </Heading>
-                    <Text>Khái niệm về Class</Text>
+                    <Text>{data.next_lecture}</Text>
                   </Box>
                 </Flex>
               </GridItem>
             </Grid>
 
             {/* Table */}
-            <TableContainer>
-              <Table variant="striped">
-                <Thead>
-                  <Tr>
-                    <Th
-                      color={"white"}
-                      textAlign="center"
-                      backgroundColor={"red.400"}
-                    >
-                      Học Sinh
-                    </Th>
-                    <Th
-                      color={"white"}
-                      textAlign="center"
-                      backgroundColor={"green.400"}
-                    >
-                      Nhận xét buổi học
-                    </Th>
-                    <Th
-                      color={"white"}
-                      textAlign="center"
-                      backgroundColor={"green.900"}
-                    >
-                      Kết quả học tập
-                    </Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  <Tr>
-                    <Td>inches</Td>
-                    <Td>millimetres (mm)</Td>
-                    <Td>25.4</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>feet</Td>
-                    <Td>centimetres (cm)</Td>
-                    <Td>30.48</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td>0.91444</Td>
-                  </Tr>
-                </Tbody>
-              </Table>
-            </TableContainer>
+            <Table variant="striped">
+              <Thead>
+                <Tr>
+                  <Th
+                    color={"white"}
+                    width={"20%"}
+                    textAlign="center"
+                    backgroundColor={"red.400"}
+                  >
+                    Học Sinh
+                  </Th>
+                  <Th
+                    color={"white"}
+                    width={"40%"}
+                    textAlign="center"
+                    backgroundColor={"green.400"}
+                  >
+                    Nhận xét buổi học
+                  </Th>
+                  <Th
+                    color={"white"}
+                    width={"40%"}
+                    textAlign="center"
+                    backgroundColor={"green.900"}
+                  >
+                    Kết quả học tập
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {data.comments.map((comment, index) => {
+                  return (
+                    <Tr key={index}>
+                      <Td>
+                        <p>{comment.student}</p>
+                      </Td>
+                      <Td>
+                        <p>{comment.comment}</p>
+                      </Td>
+                      <Td>
+                        <p>{comment.result}</p>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
           </GridItem>
           <GridItem w="100%" className="flex items-center">
             <Progress
@@ -188,7 +190,7 @@ export const AfterClassCanvas = forwardRef<
           <Flex alignItems={"center"} className="h-6 ">
             <MdPhone fontSize={"24px"} />
             <Text className="" ml={2}>
-              0929424056
+              0986884289
             </Text>
           </Flex>
           <Center>
