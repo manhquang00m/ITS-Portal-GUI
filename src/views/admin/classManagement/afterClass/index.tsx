@@ -31,10 +31,10 @@ import { useEffect, useRef } from "react";
 import { MdDeleteOutline, MdOutlineNoteAdd } from "react-icons/md";
 import { IFormAfterClass } from "types/class-management/after-class.type";
 import { AfterClassCanvas } from "./components/AfterClassCanvas";
-import { toast, ToastContainer } from "react-toastify";
 
 interface AfterClassCanvasRef {
   exportAfterClass: () => void;
+  shareImage: () => void;
 }
 export default function AfterClass() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,13 +75,18 @@ export default function AfterClass() {
   }, []);
 
   const onSubmit = async (values: any) => {
-    console.log("Form: ", values);
     onOpen();
   };
 
   const handleButtonClick = () => {
     if (childRef.current) {
       childRef.current.exportAfterClass();
+    }
+  };
+
+  const handleShareImage = () => {
+    if (childRef.current) {
+      childRef.current.shareImage();
     }
   };
   return (
@@ -257,7 +262,7 @@ export default function AfterClass() {
                           className="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                           w={"100%"}
                           onClick={() => remove(index)}
-                          // rightIcon={}
+                        // rightIcon={}
                         >
                           Xoá
                           <MdDeleteOutline fontWeight={"medium"} />
@@ -307,7 +312,7 @@ export default function AfterClass() {
             ></AfterClassCanvas>
           </ModalBody>
           <ModalFooter>
-            <Button mx={3} variant="brandOutline">
+            <Button mx={3} variant="brandOutline" onClick={handleShareImage}>
               Chia sẻ
             </Button>
             <Button onClick={handleButtonClick} variant="brand">

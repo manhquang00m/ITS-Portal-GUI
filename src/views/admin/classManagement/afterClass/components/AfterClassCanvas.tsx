@@ -18,7 +18,7 @@ import {
   AlertIcon,
   Center,
 } from "@chakra-ui/react";
-import { toPng } from "html-to-image";
+import { toBlob, toPng } from "html-to-image";
 import kienThucImg from "assets/img/classManage/kienthuc.png";
 import baiHocImg from "assets/img/classManage/baihoctiep.png";
 import logoITS from "assets/img/layout/logoITS.png";
@@ -27,6 +27,7 @@ import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
 import { toast } from 'react-toastify';
+import { async } from "q";
 
 interface IPropsAfterClassCanvas {
   data: IFormAfterClass;
@@ -34,6 +35,7 @@ interface IPropsAfterClassCanvas {
 }
 interface AfterClassCanvasRef {
   exportAfterClass: () => void;
+  shareImage: () => void;
 }
 export const AfterClassCanvas = forwardRef<
   AfterClassCanvasRef,
@@ -58,10 +60,38 @@ export const AfterClassCanvas = forwardRef<
       });
   };
 
+  // const navigateShare = () => {
+
+  // }
+
+  const handleShareImage = () => {
+    const div = afrerClassRef.current;
+    toBlob(div).then(async (blob) => {
+      const shareData = {
+        files: [
+          new File([blob], 'afterClass.png', {
+            type: 'image/png',
+          }),
+        ],
+        title: "Gửi After Class",
+        text: "images",
+      }
+      if (navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này")
+    }).catch((err) => {
+      console.error(err)
+    })
+
+  }
+
   useImperativeHandle(ref, () => ({
     exportAfterClass() {
       exportDivAsPng();
     },
+    shareImage() {
+      handleShareImage();
+    }
   }));
   // downloadImage(afrerClassRef.current);
   return (
