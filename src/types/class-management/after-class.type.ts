@@ -8,5 +8,6 @@ export interface IFormAfterClass {
     }[];
     knowledge?: string;
     next_lecture?: string;
+    progress?:number;
 }
 

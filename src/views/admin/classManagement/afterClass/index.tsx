@@ -31,6 +31,7 @@ import { useEffect, useRef } from "react";
 import { MdDeleteOutline, MdOutlineNoteAdd } from "react-icons/md";
 import { IFormAfterClass } from "types/class-management/after-class.type";
 import { AfterClassCanvas } from "./components/AfterClassCanvas";
+import { SliderThumbWithTooltip } from "components/slider/SliderThumbWithTooltip";
 
 interface AfterClassCanvasRef {
   exportAfterClass: () => void;
@@ -45,18 +46,20 @@ export default function AfterClass() {
     .shape({
       teacher: yup.string().required("Đây là trường thông tin bắt buộc !"),
       date: yup.string().required("Đây là trường thông tin bắt buộc !"),
+      progress: yup.number().required("Đây là trường thông tin bắt buộc !"),
       comments: yup.array(),
       knowledge: yup.string().required("Đây là trường thông tin bắt buộc !"),
       next_lecture: yup.string().required("Đây là trường thông tin bắt buộc !"),
     })
     .required();
-  const { handleSubmit, control, getValues } = useForm<IFormAfterClass>({
+  const { handleSubmit, control, getValues, watch } = useForm<IFormAfterClass>({
     defaultValues: {
       teacher: undefined,
       date: undefined,
       comments: undefined,
       knowledge: undefined,
       next_lecture: undefined,
+      progress: undefined,
     },
     resolver: yupResolver(schema),
   });
@@ -89,6 +92,8 @@ export default function AfterClass() {
       childRef.current.shareImage();
     }
   };
+
+  console.log(watch("progress"))
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
@@ -96,7 +101,7 @@ export default function AfterClass() {
         <GridItem colSpan={{ base: 2, "2xl": 2 }} w="100%">
           <form onSubmit={handleSubmit(onSubmit)}>
             <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
-              <Card variant="elevated" className="p-3">
+              <Card variant="elevated" className="p-4 pb-6">
                 <Heading size="md" mb={3}>
                   Thông tin chung
                 </Heading>
@@ -161,11 +166,29 @@ export default function AfterClass() {
                       );
                     }}
                   />
+                  <Controller
+                    control={control}
+                    name="progress"
+                    render={({ field, fieldState }) => {
+                      return (
+                        <FormControl isRequired isInvalid={!!fieldState?.error}>
+                          <FormLabel>Tiến độ hoàn thành</FormLabel>
+                          <SliderThumbWithTooltip
+                            value={field.value}
+                            onChange={field.onChange}
+                          />
+                          <FormErrorMessage>
+                            {fieldState?.error?.message}
+                          </FormErrorMessage>
+                        </FormControl>
+                      );
+                    }}
+                  />
                 </SimpleGrid>
               </Card>
 
               {/* Nhan xet */}
-              <Card variant="elevated" className="p-3 ">
+              <Card variant="elevated" className="p-4">
                 <Heading size="md" mb={3}>
                   Nhận xét học sinh
                 </Heading>
@@ -262,7 +285,7 @@ export default function AfterClass() {
                           className="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                           w={"100%"}
                           onClick={() => remove(index)}
-                        // rightIcon={}
+                          // rightIcon={}
                         >
                           Xoá
                           <MdDeleteOutline fontWeight={"medium"} />
@@ -302,7 +325,7 @@ export default function AfterClass() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay p={4} />
         <ModalContent p={4} minWidth={"80%"}>
-          <ModalHeader>Preview</ModalHeader>
+          <ModalHeader paddingBottom={0}>Preview</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <AfterClassCanvas

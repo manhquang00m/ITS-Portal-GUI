@@ -22,11 +22,11 @@ import { toBlob, toPng } from "html-to-image";
 import kienThucImg from "assets/img/classManage/kienthuc.png";
 import baiHocImg from "assets/img/classManage/baihoctiep.png";
 import logoITS from "assets/img/layout/logoITS.png";
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { async } from "q";
 
 interface IPropsAfterClassCanvas {
@@ -45,45 +45,44 @@ export const AfterClassCanvas = forwardRef<
   const afrerClassRef = useRef(null);
   const exportDivAsPng = () => {
     const div = afrerClassRef.current;
-    toPng(div, { cacheBust: true })
+    toPng(div, { cacheBust: true, quality: 1 })
       .then((dataUrl) => {
         const link = document.createElement("a");
         link.download = "after-class.png";
         link.href = dataUrl;
         link.click();
         onClose();
-        toast.success("Tải after-class thành công")
+        toast.success("Tải after-class thành công");
       })
       .catch((err) => {
-        toast.error("Tải after-class thất bại")
+        toast.error("Tải after-class thất bại");
         onClose();
       });
   };
 
-  // const navigateShare = () => {
-
-  // }
-
   const handleShareImage = () => {
     const div = afrerClassRef.current;
-    toBlob(div).then(async (blob) => {
-      const shareData = {
-        files: [
-          new File([blob], 'afterClass.png', {
-            type: 'image/png',
-          }),
-        ],
-        title: "Gửi After Class",
-        text: "images",
-      }
-      if (navigator.canShare(shareData)) {
-        await navigator.share(shareData);
-      } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này")
-    }).catch((err) => {
-      console.error(err)
-    })
-
-  }
+    toBlob(div)
+      .then(async (blob) => {
+        const shareData = {
+          files: [
+            new File([blob], "afterClass.png", {
+              type: "image/png",
+            }),
+          ],
+          title: "Gửi After Class",
+          text: "images",
+        };
+        const isCanShare = navigator?.canShare(shareData)
+        console.log(isCanShare)
+        if (isCanShare) {
+          await navigator.share(shareData);
+        } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
+      })
+      .catch((err) => {
+        toast.error("Trình duyệt của bạn không hỗ trợ chức năng này")
+      });
+  };
 
   useImperativeHandle(ref, () => ({
     exportAfterClass() {
@@ -91,8 +90,9 @@ export const AfterClassCanvas = forwardRef<
     },
     shareImage() {
       handleShareImage();
-    }
+    },
   }));
+
   // downloadImage(afrerClassRef.current);
   return (
     <Box overflow={{ base: "scroll", xl: "hidden" }}>
@@ -113,8 +113,12 @@ export const AfterClassCanvas = forwardRef<
           </Heading>
           <Spacer />
           <Box>
-            <Text>Date: {data.date}</Text>
-            <Text>Teacher: {data.teacher}</Text>
+            <Text>
+              Date: <span className="font-bold">{data.date}</span>
+            </Text>
+            <Text>
+              Teacher: <span className="font-bold">{data.teacher}</span>
+            </Text>
           </Box>
         </Flex>
         <Grid mt={4} templateColumns="repeat(5, 1fr)" gap={4}>
@@ -205,14 +209,30 @@ export const AfterClassCanvas = forwardRef<
               </Tbody>
             </Table>
           </GridItem>
-          <GridItem w="100%" className="flex items-center">
-            <Progress
-              colorScheme={"orange"}
-              w="100%"
-              height="48px"
-              value={60}
-              className="-rotate-90"
-            />
+          <GridItem
+            w="100%"
+            minHeight={"300px"}
+            className="flex items-center flex-col "
+          >
+            <Text fontWeight={"bold"}>{`${data.progress} %`}</Text>
+            {/* <div className="h-[200px] w-full pt-[76px]">
+              <Progress
+                colorScheme={"orange"}
+                w="100%"
+                height="48px"
+                value={60}
+                className="-rotate-90 border border-[#ccc]"
+              />
+            </div> */}
+            <div className="w-12 p-1 h-full bg-[#efe6da] rounded-full flex flex-col-reverse shadow-2xl border border-dotted border-[#eacea9]">
+              <Box
+                height={`${data.progress}%`}
+                className="bg-[#f59010] w-full rounded-full"
+              ></Box>
+            </div>
+            <Text color={"#f59010"} fontWeight={"bold"}>
+              Tiến độ hoàn thành lộ trình
+            </Text>
           </GridItem>
         </Grid>
         {/* Footer */}
