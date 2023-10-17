@@ -44,7 +44,7 @@ ReactDOM.render(
         <ToastContainer />
         <Router>
           <Switch>
-            <PrivateRoute>
+            <PrivateRoute path="/admin">
               <AdminLayout />
             </PrivateRoute>
             <Route path={`/auth`} component={AuthLayout} />

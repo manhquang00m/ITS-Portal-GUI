@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -180,15 +180,18 @@ function SignIn() {
                 </Text>
               </NavLink>
             </Flex>
-            <Button
-              fontSize='sm'
-              variant='brand'
-              fontWeight='500'
-              w='100%'
-              h='50'
-              mb='24px'>
-              Sign In
-            </Button>
+            <Link to={'/admin'}>
+              <Button
+                fontSize='sm'
+                variant='brand'
+                fontWeight='500'
+                w='100%'
+                h='50'
+                mb='24px'>
+                Sign In
+              </Button>
+            </Link>
+
           </FormControl>
           <Flex
             flexDirection='column'

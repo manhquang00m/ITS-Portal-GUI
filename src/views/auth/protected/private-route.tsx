@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-export function PrivateRoute({ children }: { children: ReactNode }) {
-  let auth = false;
+export function PrivateRoute({ children, path }: { children: ReactNode, path: string }) {
+  let auth = true;
   return (
     <Route
-      path={"/admin"}
+      path={path}
       render={({ location }) =>
         auth ? (
           children
