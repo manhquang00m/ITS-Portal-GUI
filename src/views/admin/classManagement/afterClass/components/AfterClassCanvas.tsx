@@ -27,7 +27,7 @@ import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
 import { toast } from "react-toastify";
-import { async } from "q";
+import dayjs from 'dayjs'
 
 interface IPropsAfterClassCanvas {
   data: IFormAfterClass;
@@ -114,7 +114,7 @@ export const AfterClassCanvas = forwardRef<
           <Spacer />
           <Box>
             <Text>
-              Date: <span className="font-bold">{data.date}</span>
+              Date: <span className="font-bold">{dayjs(data.date).format('DD/MM/YYYY')}</span>
             </Text>
             <Text>
               Teacher: <span className="font-bold">{data.teacher}</span>
@@ -215,15 +215,6 @@ export const AfterClassCanvas = forwardRef<
             className="flex items-center flex-col "
           >
             <Text fontWeight={"bold"}>{`${data.progress} %`}</Text>
-            {/* <div className="h-[200px] w-full pt-[76px]">
-              <Progress
-                colorScheme={"orange"}
-                w="100%"
-                height="48px"
-                value={60}
-                className="-rotate-90 border border-[#ccc]"
-              />
-            </div> */}
             <div className="w-12 p-1 h-full bg-[#efe6da] rounded-full flex flex-col-reverse shadow-2xl border border-dotted border-[#eacea9]">
               <Box
                 height={`${data.progress}%`}

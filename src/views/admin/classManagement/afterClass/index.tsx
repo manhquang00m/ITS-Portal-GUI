@@ -59,7 +59,7 @@ export default function AfterClass() {
       comments: undefined,
       knowledge: undefined,
       next_lecture: undefined,
-      progress: undefined,
+      progress: 1,
     },
     resolver: yupResolver(schema),
   });
@@ -267,7 +267,7 @@ export default function AfterClass() {
                                 <Input
                                   backgroundColor={"white"}
                                   {...restField}
-                                  placeholder="Nhập tên ..."
+                                  placeholder="Nhập kết quả ..."
                                 />
                                 <FormErrorMessage>
                                   {fieldState?.error?.message}
@@ -312,7 +312,7 @@ export default function AfterClass() {
                 </Button>
               </Card>
             </SimpleGrid>
-            <Button mt={4} variant="brand" type="submit">
+            <Button width={{ base: "100%", lg: "max-content" }} float={"right"} mt={4} variant="brand" type="submit">
               Tạo after class
             </Button>
             <Button onClick={onOpen} mt={4} ml={4} colorScheme="facebook">
