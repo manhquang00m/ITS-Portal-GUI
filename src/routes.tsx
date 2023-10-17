@@ -4,6 +4,8 @@ import { MdBarChart, MdPerson, MdHome, MdSchool, MdLock, MdOutlineShoppingCart }
 // Admin Imports
 import MainDashboard from 'views/admin/default';
 import NFTMarketplace from 'views/admin/marketplace';
+import AfterClass from 'views/admin/classManagement/afterClass';
+
 import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
@@ -28,7 +30,7 @@ const routes: RoutesType[] = [
 		children: [
 			{
 				path: '/after-class',
-				component: NFTMarketplace,
+				component: AfterClass,
 				name: 'After Class',
 				children: [
 					{
