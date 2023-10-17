@@ -51,7 +51,7 @@ export const SliderThumbWithTooltip = forwardRef<any, ISliderComp>(
           isOpen={showTooltip}
           label={value ? `${value}%` : "0%"}
         >
-          <SliderThumb>
+          <SliderThumb bg="brand.600">
           </SliderThumb>
         </Tooltip>
       </Slider>

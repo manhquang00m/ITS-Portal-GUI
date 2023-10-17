@@ -93,7 +93,6 @@ export default function AfterClass() {
     }
   };
 
-  console.log(watch("progress"))
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       {/* Main Fields */}
@@ -285,7 +284,7 @@ export default function AfterClass() {
                           className="bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
                           w={"100%"}
                           onClick={() => remove(index)}
-                          // rightIcon={}
+                        // rightIcon={}
                         >
                           Xoá
                           <MdDeleteOutline fontWeight={"medium"} />
@@ -315,9 +314,9 @@ export default function AfterClass() {
             <Button width={{ base: "100%", lg: "max-content" }} float={"right"} mt={4} variant="brand" type="submit">
               Tạo after class
             </Button>
-            <Button onClick={onOpen} mt={4} ml={4} colorScheme="facebook">
+            {/* <Button onClick={onOpen} mt={4} ml={4} colorScheme="facebook">
               Open
-            </Button>
+            </Button> */}
           </form>
         </GridItem>
         {/* img after class */}

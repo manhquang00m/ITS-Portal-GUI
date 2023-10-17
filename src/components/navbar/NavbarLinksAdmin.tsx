@@ -14,6 +14,10 @@ import {
 	useColorModeValue,
 	useColorMode
 } from '@chakra-ui/react';
+import {
+	Link as LinkRoute,
+} from "react-router-dom";
+
 // Custom Components
 import { ItemContent } from 'components/menu/ItemContent';
 import { SearchBar } from 'components/navbar/searchBar/SearchBar';
@@ -215,7 +219,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							color='red.400'
 							borderRadius='8px'
 							px='14px'>
-							<Text fontSize='sm'>Log out</Text>
+							<LinkRoute to="/auth"><Text fontSize='sm'>Log out</Text></LinkRoute>
 						</MenuItem>
 					</Flex>
 				</MenuList>

@@ -15,6 +15,7 @@ export default function Auth() {
 	const getRoute = () => {
 		return window.location.pathname !== '/auth/full-screen-maps';
 	};
+	console.log(getRoute())
 	const getRoutes = (
 		routes: RoutesType[]
 	): any => {

@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/css/App.css";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import AuthLayout from "./layouts/auth";
 import AdminLayout from "./layouts/admin";
 import RTLLayout from "./layouts/rtl";
@@ -9,7 +14,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme/theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import { PrivateRoute } from "views/auth/protected/private-route";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,14 +42,16 @@ ReactDOM.render(
         />
         {/* Same as */}
         <ToastContainer />
-        <HashRouter>
+        <Router>
           <Switch>
+            <PrivateRoute path="/admin">
+              <AdminLayout />
+            </PrivateRoute>
             <Route path={`/auth`} component={AuthLayout} />
-            <Route path={`/admin`} component={AdminLayout} />
             <Route path={`/rtl`} component={RTLLayout} />
-            <Redirect from="/" to="/admin" />
+            {/* <Redirect from="/" to="/admin" /> */}
           </Switch>
-        </HashRouter>
+        </Router>
       </QueryClientProvider>
     </React.StrictMode>
   </ChakraProvider>,
