@@ -16,15 +16,15 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { toBlob, toPng } from "html-to-image";
-import kienThucImg from "../../../../../assets/img/classManage/kienthuc.png";
-import baiHocImg from "../../../../../assets/img/classManage/baihoctiep.png";
-import logoITS from "../../../../../assets/img/layout/logoITS.png";
+import kienThucImg from "assets/img/classManage/kienthuc.png";
+import baiHocImg from "assets/img/classManage/baihoctiep.png";
+import logoITS from "assets/img/layout/logoITS.png";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
 import { toast } from "react-toastify";
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 interface IPropsAfterClassCanvas {
   data: IFormAfterClass;
@@ -42,8 +42,10 @@ export const AfterClassCanvas = forwardRef<
   const afrerClassRef = useRef(null);
   const exportDivAsPng = () => {
     const div = afrerClassRef.current;
+    console.log(div);
     toPng(div, { cacheBust: true, quality: 1 })
       .then((dataUrl) => {
+        console.log("chay vao day");
         const link = document.createElement("a");
         link.download = "after-class.png";
         link.href = dataUrl;
@@ -52,7 +54,7 @@ export const AfterClassCanvas = forwardRef<
         toast.success("Tải after-class thành công");
       })
       .catch((err) => {
-        console.error(err)
+        console.error(err);
         toast.error("Tải after-class thất bại");
         onClose();
       });
@@ -71,15 +73,15 @@ export const AfterClassCanvas = forwardRef<
           title: "Gửi After Class",
           text: "images",
         };
-        const isCanShare = navigator?.canShare(shareData)
-        console.log(isCanShare)
+        const isCanShare = navigator?.canShare(shareData);
+        console.log(isCanShare);
         if (isCanShare) {
           await navigator.share(shareData);
         } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
       })
       .catch((err) => {
-        console.error(err)
-        toast.error("Trình duyệt của bạn không hỗ trợ chức năng này")
+        console.error(err);
+        toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
       });
   };
 
@@ -102,7 +104,7 @@ export const AfterClassCanvas = forwardRef<
       >
         {/* heading */}
         <Flex alignItems="center" h={"50px"}>
-          <Image h="56px" w="100px" src={logoITS} alt="logo" />
+          <Image h="56px" w="100px" src={logoITS} />
           <Spacer />
           <Heading
             size={"lg"}
@@ -113,7 +115,10 @@ export const AfterClassCanvas = forwardRef<
           <Spacer />
           <Box>
             <Text>
-              Date: <span className="font-bold">{dayjs(data.date).format('DD/MM/YYYY')}</span>
+              Date:{" "}
+              <span className="font-bold">
+                {dayjs(data.date).format("DD/MM/YYYY")}
+              </span>
             </Text>
             <Text>
               Teacher: <span className="font-bold">{data.teacher}</span>
@@ -131,7 +136,7 @@ export const AfterClassCanvas = forwardRef<
                   p={3}
                   borderTopRadius={"xl"}
                 >
-                  <Image h="60px" w="60px" src={kienThucImg} alt="logo" />
+                  <Image h="60px" w="60px" src={kienThucImg} />
                   <Box ml={4}>
                     <Heading as="h4" size="md">
                       Kiến Thức Đạt Được
@@ -148,7 +153,7 @@ export const AfterClassCanvas = forwardRef<
                   p={3}
                   borderTopRadius={"xl"}
                 >
-                  <Image h="60px" w="60px" src={baiHocImg} alt="logo" />
+                  <Image h="60px" w="60px" src={baiHocImg} />
                   <Box ml={4}>
                     <Heading as="h4" size="md">
                       Bài Học Tiếp Theo
