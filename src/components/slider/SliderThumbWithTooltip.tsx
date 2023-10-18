@@ -6,9 +6,7 @@ import {
   SliderThumb,
   SliderMark,
   Tooltip,
-  Box,
 } from "@chakra-ui/react";
-import { MdGraphicEq } from "react-icons/md";
 
 interface ISliderComp {
   placeholder?: string;
@@ -19,7 +17,7 @@ interface ISliderComp {
 export const SliderThumbWithTooltip = forwardRef<any, ISliderComp>(
   (props: ISliderComp, ref) => {
     const [showTooltip, setShowTooltip] = useState(false);
-    const { placeholder, value, onChange } = props;
+    const { value, onChange } = props;
 
     return (
       <Slider
