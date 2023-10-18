@@ -52,7 +52,7 @@ export default function AfterClass() {
       next_lecture: yup.string().required("Đây là trường thông tin bắt buộc !"),
     })
     .required();
-  const { handleSubmit, control, getValues, watch } = useForm<IFormAfterClass>({
+  const { handleSubmit, control, getValues } = useForm<IFormAfterClass>({
     defaultValues: {
       teacher: undefined,
       date: undefined,

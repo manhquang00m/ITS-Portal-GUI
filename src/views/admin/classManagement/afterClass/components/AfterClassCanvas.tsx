@@ -7,22 +7,19 @@ import {
   Image,
   Flex,
   Spacer,
-  Progress,
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  Alert,
-  AlertIcon,
   Center,
 } from "@chakra-ui/react";
 import { toBlob, toPng } from "html-to-image";
-import kienThucImg from "assets/img/classManage/kienthuc.png";
-import baiHocImg from "assets/img/classManage/baihoctiep.png";
-import logoITS from "assets/img/layout/logoITS.png";
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import kienThucImg from "../../../../../assets/img/classManage/kienthuc.png";
+import baiHocImg from "../../../../../assets/img/classManage/baihoctiep.png";
+import logoITS from "../../../../../assets/img/layout/logoITS.png";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
 import { IFormAfterClass } from "types/class-management/after-class.type";
@@ -55,6 +52,7 @@ export const AfterClassCanvas = forwardRef<
         toast.success("Tải after-class thành công");
       })
       .catch((err) => {
+        console.error(err)
         toast.error("Tải after-class thất bại");
         onClose();
       });
@@ -80,6 +78,7 @@ export const AfterClassCanvas = forwardRef<
         } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
       })
       .catch((err) => {
+        console.error(err)
         toast.error("Trình duyệt của bạn không hỗ trợ chức năng này")
       });
   };
@@ -103,7 +102,7 @@ export const AfterClassCanvas = forwardRef<
       >
         {/* heading */}
         <Flex alignItems="center" h={"50px"}>
-          <Image h="40px" w="130px" src={logoITS} alt="logo" />
+          <Image h="56px" w="100px" src={logoITS} alt="logo" />
           <Spacer />
           <Heading
             size={"lg"}
