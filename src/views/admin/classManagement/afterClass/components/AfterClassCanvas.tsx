@@ -153,7 +153,7 @@ export const AfterClassCanvas = forwardRef<
                   p={3}
                   borderTopRadius={"xl"}
                 >
-                  <Image h="60px" w="60px" src={baiHocImg} />
+                  {/* <Image h="60px" w="60px" src={baiHocImg} /> */}
                   <Box ml={4}>
                     <Heading as="h4" size="md">
                       Bài Học Tiếp Theo
