@@ -1,6 +1,6 @@
 // Chakra imports
 import { Flex, useColorModeValue, Image, Text } from '@chakra-ui/react';
-import logo from 'assets/img/layout/logoITS.png'
+import logoITS from 'assets/img/layout/logoITS.png'
 // Custom components
 import { HSeparator } from 'components/separator/Separator';
 
@@ -10,7 +10,7 @@ export function SidebarBrand() {
 
 	return (
 		<Flex alignItems='center' flexDirection='column'>
-			<Image h='60px' w='125px' src={logo} />
+			<Image h='60px' w='125px' src={logoITS} />
 			<Text mt='10px' mb='10px' color={logoColor} size='xl'><span className='font-semibold'>ITS</span> Learning Management System</Text>
 			<HSeparator mb='20px' />
 		</Flex>

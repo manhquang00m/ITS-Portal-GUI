@@ -1,9 +1,10 @@
 import { Icon } from '@chakra-ui/react';
-import { MdHome, MdSchool, MdLock } from 'react-icons/md';
+import { MdHome, MdSchool, MdLock, MdPerson } from 'react-icons/md';
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
 import NFTMarketplace from 'views/admin/marketplace';
+import Profile from 'views/admin/profile';
 import AfterClass from 'views/admin/classManagement/afterClass';
 import DataTables from 'views/admin/dataTables';
 // Auth Imports
@@ -60,14 +61,13 @@ const routes: RoutesType[] = [
 	// 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
 	// 	component: Profile
 	// },
-	// {
-	// 	name: 'Profile',
-	// 	layout: '/admin',
-	// 	path: '/profile/detail',
-	// 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-	// 	hidden: true,
-	// 	component: Profile
-	// },
+	{
+		name: 'Profile',
+		layout: '/admin',
+		path: '/profile/detail',
+		icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
+		component: Profile
+	},
 	{
 		name: 'Sign In',
 		layout: '/auth',

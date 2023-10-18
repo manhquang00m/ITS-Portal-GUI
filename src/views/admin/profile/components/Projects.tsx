@@ -3,7 +3,7 @@ import { Text, useColorModeValue } from '@chakra-ui/react';
 // Assets
 import Project1 from 'assets/img/profile/Project1.png';
 import Project2 from 'assets/img/profile/Project2.png';
-import Project3 from 'assets/img/profile/Project3.png';
+import ProjectCC3 from 'assets/img/profile/Project3.png';
 // Custom components
 import Card from 'components/card/Card';
 import Project from 'views/admin/profile/components/Project';
@@ -41,7 +41,7 @@ export default function Projects(props: { [x: string]: any }) {
 			/>
 			<Project
 				boxShadow={cardShadow}
-				image={Project3}
+				image={ProjectCC3}
 				ranking='3'
 				link='#'
 				title='Most essential tips for Burnout'

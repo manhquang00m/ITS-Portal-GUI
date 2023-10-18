@@ -15,10 +15,10 @@ import {
   Td,
   Center,
 } from "@chakra-ui/react";
-import { toBlob, toPng } from "html-to-image";
-import kienThucImg from "assets/img/classManage/kienthuc.png";
-import baiHocImg from "assets/img/classManage/baihoctiep.png";
-import logoITS from "assets/img/layout/logoITS.png";
+import { toBlob, toPng } from 'html-to-image';
+import kienThucImg from 'assets/img/classManage/kienthuc.png';
+import baiHocImg from 'assets/img/classManage/baihoctiep.png';
+import logoITS from 'assets/img/layout/logoITS.png';
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
@@ -104,7 +104,7 @@ export const AfterClassCanvas = forwardRef<
       >
         {/* heading */}
         <Flex alignItems="center" h={"50px"}>
-          <Image h="56px" w="100px" src={logoITS} />
+          {/* <Image h="56px" w="100px" src={logoITS} /> */}
           <Spacer />
           <Heading
             size={"lg"}
@@ -136,7 +136,7 @@ export const AfterClassCanvas = forwardRef<
                   p={3}
                   borderTopRadius={"xl"}
                 >
-                  <Image h="60px" w="60px" src={kienThucImg} />
+                  {/* <Image h="60px" w="60px" src={kienThucImg} /> */}
                   <Box ml={4}>
                     <Heading as="h4" size="md">
                       Kiến Thức Đạt Được
