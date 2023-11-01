@@ -44,12 +44,12 @@ ReactDOM.render(
         <ToastContainer />
         <Router>
           <Switch>
-            <PrivateRoute path="/admin">
+            {/* <PrivateRoute path="/admin">
               <AdminLayout />
-            </PrivateRoute>
+            </PrivateRoute> */}
             <Route path={`/auth`} component={AuthLayout} />
             {/* <Route path={`/rtl`} component={RTLLayout} /> */}
-            <Redirect from="/" to="/admin" />
+            {/* <Redirect from="/" to="/admin" /> */}
           </Switch>
         </Router>
       </QueryClientProvider>
