@@ -38,9 +38,7 @@ export default function Dashboard(props: { [x: string]: any }) {
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
-  const getRoute = () => {
-    return window.location.pathname !== "/admin/full-screen-maps";
-  };
+
   const getActiveRoute = (routes: RoutesType[]): string => {
     const defaultRoute = "Default Brand Text";
     const url = window.location.href;
@@ -131,6 +129,7 @@ export default function Dashboard(props: { [x: string]: any }) {
       );
     });
   };
+  console.log(getRoutes(routes))
   document.documentElement.dir = "ltr";
   const { onOpen } = useDisclosure();
   return (
@@ -180,7 +179,7 @@ export default function Dashboard(props: { [x: string]: any }) {
           >
             <Switch>
               {getRoutes(routes)}
-              <Redirect from="/" to="/admin/default" />
+              {/* <Redirect from="/" to="/admin/default" /> */}
             </Switch>
           </Box>
           {/* <Box>
