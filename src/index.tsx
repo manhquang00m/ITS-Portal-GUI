@@ -47,8 +47,7 @@ ReactDOM.render(
             <PrivateRoute path="/admin">
               <AdminLayout />
             </PrivateRoute>
-            <Route path={`/auth`} component={AuthLayout} />
-            {/* <Route path={`/rtl`} component={RTLLayout} /> */}
+            <Route path='/auth' component={AuthLayout} />
             <Redirect from="/" to="/admin" />
           </Switch>
         </Router>
