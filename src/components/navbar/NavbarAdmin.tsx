@@ -8,7 +8,6 @@ export default function AdminNavbar(props: {
 	secondary: boolean;
 	message: string | boolean;
 	brandText: string;
-	logoText: string;
 	fixed: boolean;
 	breadCrumb: BreadcrumbType[]
 	onOpen: (...args: any[]) => any;

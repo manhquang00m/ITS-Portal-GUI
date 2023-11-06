@@ -8,6 +8,7 @@ import AfterClass from 'views/admin/classManagement/afterClass';
 import DataTables from 'views/admin/dataTables';
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
+import { ListTeacher } from 'views/admin/classManagement/teacher/list/list-teacher';
 
 const routes: RoutesType[] = [
 	{
@@ -33,6 +34,18 @@ const routes: RoutesType[] = [
 						path: '/detail',
 						component: DataTables,
 						name: 'xem chi tiet',
+					},
+				]
+			},
+			{
+				path: '/teacher',
+				component: ListTeacher,
+				name: 'Giáo viên',
+				children: [
+					{
+						path: '/detail',
+						component: DataTables,
+						name: 'Xem chi tiết',
 					},
 				]
 			},
