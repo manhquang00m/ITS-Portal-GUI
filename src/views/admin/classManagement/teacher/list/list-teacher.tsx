@@ -1,5 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { Button, Table } from 'antd'
+import { getTeachers } from 'api/teacher.api'
+import { useGetTeachers } from 'hook/query/teacher/use-get-teachers'
 import { columns, data } from './config'
 
 
