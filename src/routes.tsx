@@ -9,6 +9,7 @@ import DataTables from 'views/admin/dataTables';
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
 import { ListTeacher } from 'views/admin/classManagement/teacher/list/list-teacher';
+import CreateEditTeacher from 'views/admin/classManagement/teacher/detail/create-edit/create-edit-teacher';
 
 const routes: RoutesType[] = [
 	{
@@ -46,6 +47,11 @@ const routes: RoutesType[] = [
 						path: '/detail',
 						component: DataTables,
 						name: 'Xem chi tiết',
+					},
+					{
+						path: '/create',
+						component: CreateEditTeacher,
+						name: 'Tạo giảng viên',
 					},
 				]
 			},

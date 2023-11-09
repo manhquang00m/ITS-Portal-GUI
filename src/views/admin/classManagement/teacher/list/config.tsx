@@ -1,5 +1,7 @@
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { Link } from "react-router-dom";
+import { IDetailTeacher } from "types/class-management/teacher.type";
 
 interface DataType {
   key: string;
@@ -9,75 +11,67 @@ interface DataType {
   tags: string[];
 }
 
-export const columns: ColumnsType<DataType> = [
+export const columns: ColumnsType<IDetailTeacher> = [
   {
-    title: 'Name',
+    title: 'ID',
+    dataIndex: 'teacherId',
+    key: 'teacherId',
+  },
+  {
+    title: 'Tên giáo viên',
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>,
+    render: (text) => <Link className="text-[#422AFB]" to={"/view"}>{text}</Link>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Giới tính',
+    dataIndex: 'gender',
+    key: 'gender',
   },
   {
-    title: 'Address',
+    title: 'Level',
+    dataIndex: 'level',
+    key: 'level',
+  },
+  {
+    title: 'Địa chỉ',
     dataIndex: 'address',
     key: 'address',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags: string[]) => (
-      <span>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </span>
-    ),
+    title: 'Cơ quan',
+    dataIndex: 'institution',
+    key: 'institution',
   },
+  // {
+  //   title: 'Tags',
+  //   key: 'tags',
+  //   dataIndex: 'tags',
+  //   render: (tags: string[]) => (
+  //     <span>
+  //       {tags.map((tag) => {
+  //         let color = tag.length > 5 ? 'geekblue' : 'green';
+  //         if (tag === 'loser') {
+  //           color = 'volcano';
+  //         }
+  //         return (
+  //           <Tag color={color} key={tag}>
+  //             {tag.toUpperCase()}
+  //           </Tag>
+  //         );
+  //       })}
+  //     </span>
+  //   ),
+  // },
   {
     title: 'Action',
     key: 'action',
     render: (text: any, record: any) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a>Invite {record?.name}</a>
         <a>Delete</a>
       </Space>
     ),
   },
 ];
 
-export const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];

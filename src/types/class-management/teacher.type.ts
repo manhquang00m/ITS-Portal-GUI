@@ -30,3 +30,11 @@ export interface IListTeacher {
 export interface IResponseTeacher extends IResponseListCommon {
     data: IListTeacher
 }
+
+export interface IFormTeacher {
+    name: string;
+    gender: string;
+    level: string;
+    institution: string;
+    address: string;
+}
