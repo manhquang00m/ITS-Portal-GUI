@@ -66,13 +66,13 @@ export default function ViewDetailTeacher() {
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }} >
             <Card variant="elevated" className="p-4 pb-6">
-                <Card variant="elevated" className="px-8 py-10 mb-8" backgroundImage={"linear-gradient(to bottom, #7551FF,#3311DB)"}>
+                <Card variant="elevated" px={{ base: "16px", xl: "32px" }} className="py-10 mb-8" backgroundImage={"linear-gradient(to bottom, #7551FF,#3311DB)"}>
                     <Flex>
                         <Box w="500px" >
-                            <Heading color={'white'} as="h2" size="xl">
+                            <Heading color={'white'} as="h2" fontSize={{ base: "24px" }}>
                                 Mã giảng viên #09746
                             </Heading>
-                            <Text marginTop={'8px'} fontSize="lg" color={'white'}>Ngày cập nhật: July 27, 2022 at 09:44 AM</Text>
+                            <Text marginTop={'8px'} fontSize={{ base: "md", xl: "lg" }} color={'white'}>Ngày cập nhật: July 27, 2022 at 09:44 AM</Text>
                         </Box>
                         <Spacer />
                         <Center w="124px" >

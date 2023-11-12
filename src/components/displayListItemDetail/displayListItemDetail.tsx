@@ -11,13 +11,13 @@ export default function DisplayListItemDetail({ data }: IPropsDisplayListItem) {
             templateColumns="repeat(4, 1fr)"
             gap={4}
         >
-            <GridItem colSpan={1}  >
+            <GridItem colSpan={{ base: 4, lg: 1 }}  >
                 <Heading as="h3" size="lg">
                     {data?.heading}
                 </Heading>
             </GridItem>
-            <GridItem colSpan={3}  >
-                <SimpleGrid columns={3} spacing={4}>
+            <GridItem colSpan={{ base: 4, lg: 3 }} >
+                <SimpleGrid columns={{ base: 2, lg: 3 }} spacing={4}>
                     {
                         data?.list?.map((item) => {
                             return <>

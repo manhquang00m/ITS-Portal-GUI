@@ -1,8 +1,9 @@
 /* eslint-disable */
 // Chakra Imports
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
+import { Link } from 'react-router-dom';
 
 export default function AdminNavbar(props: {
 	secondary: boolean;
@@ -97,11 +98,15 @@ export default function AdminNavbar(props: {
 				<Box mb={{ sm: '8px', md: '0px' }}>
 					<Breadcrumb>
 						{
-							breadCrumb.map((item: BreadcrumbType, index: number) => <BreadcrumbItem fontSize='sm' key={index}>
-								<BreadcrumbLink href='#' color={secondaryText}>
-									{item.name}
-								</BreadcrumbLink>
-							</BreadcrumbItem>)
+							breadCrumb.map((item: BreadcrumbType, index: number) => {
+								const to = breadCrumb.slice(0, index + 1).map((crumb) => crumb.path).join('/').replace(/\/+/g, '/');;
+								console.log(to)
+								return <BreadcrumbItem fontSize='sm' key={index}>
+									<BreadcrumbLink as={Link} to={index !== 0 && `/admin${to}`} color={secondaryText}>
+										{item.name}
+									</BreadcrumbLink>
+								</BreadcrumbItem>
+							})
 						}
 					</Breadcrumb>
 					{/* Here we create navbar brand, based on route name */}
