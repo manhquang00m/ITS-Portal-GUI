@@ -1,12 +1,14 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { IFormTeacher } from 'types/class-management/teacher.type';
 import Card from "components/card/Card";
-import { useCreateTeacher } from 'hook/query/teacher/use-get-teachers';
+import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query/teacher/use-get-teachers';
+import { useHistory, useParams } from 'react-router-dom';
+import { Spin } from 'antd';
 
 export default function CreateEditTeacher() {
-    const { handleSubmit, control, getValues } = useForm<IFormTeacher>({
+    const { handleSubmit, control, getValues, reset } = useForm<IFormTeacher>({
         defaultValues: {
             name: undefined,
             gender: undefined,
@@ -17,12 +19,28 @@ export default function CreateEditTeacher() {
         // resolver: yupResolver(schema),
     });
 
-    const { mutate: createTeacher, isSuccess } = useCreateTeacher();
+    const { id }: { id: string } = useParams();
+    const { mutate: createTeacher, isLoading: loadingCreate } = useCreateTeacher();
+    const { mutate: editTeacher, isLoading: loadingEdit } = useEditTeacher(id);
+    const { data: detailTeacher, isFetching: isLoadingDetail } = useGetDetailTeacher(id, !!id)
+    console.log(loadingCreate, loadingEdit, isLoadingDetail)
+    useEffect(() => {
+        if (detailTeacher) {
+            const { createdAt, createdBy, status, updatedAt, updatedBy, userId, version, ...restData } = detailTeacher.data
+            reset({ ...restData })
+        }
+    }, [detailTeacher])
+
     const onSubmit = async (values: IFormTeacher) => {
+        if (id) {
+            await editTeacher(values)
+            return
+        }
         await createTeacher(values)
     };
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+            <Spin spinning={isLoadingDetail || loadingCreate || loadingEdit} fullscreen />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card variant="elevated" className="p-4 pb-6">
                     <Heading size="md" mb={3}>
@@ -100,7 +118,6 @@ export default function CreateEditTeacher() {
                     Lưu dữ liệu
                 </Button>
             </form>
-
         </Box>
 
     )

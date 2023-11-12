@@ -24,7 +24,8 @@ export interface IDetailTeacher {
 
 
 export interface IListTeacher {
-    list: IDetailTeacher[]
+    list: IDetailTeacher[],
+    totalElements: number
 }
 
 export interface IResponseTeacher extends IResponseListCommon {
@@ -37,4 +38,10 @@ export interface IFormTeacher {
     level: string;
     institution: string;
     address: string;
+}
+
+export interface IResponseDetailTeacher {
+    code: number;
+    message: string;
+    data: IDetailTeacher;
 }
