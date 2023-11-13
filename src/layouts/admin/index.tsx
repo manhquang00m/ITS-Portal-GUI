@@ -4,43 +4,52 @@ import { Portal, Box, useDisclosure } from "@chakra-ui/react";
 import Navbar from "components/navbar/NavbarAdmin";
 import Sidebar from "components/sidebar/Sidebar";
 import { SidebarContext } from "contexts/SidebarContext";
-import { useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import routes from "routes";
 
-export const getBreadcrumb = (routes: RoutesType[]): BreadcrumbType[] => {
-  const listbreadcrumb: BreadcrumbType[] = [];
-  const url = window.location.href;
-  const index = url.indexOf("#");
-  const urlPath = url.substring(index + 1, url.length);
-  const findBreadcrumb = (routes: RoutesType[]) => {
-    for (const route of routes) {
-      const routePath = route.path;
-      if (urlPath.includes(routePath)) {
-        listbreadcrumb.push({
-          path: route.path,
-          name: route.name,
-        });
-        if (route.children) {
-          findBreadcrumb(route.children);
-        }
-      }
-    }
-  };
 
-  findBreadcrumb(routes);
-  return listbreadcrumb;
-};
 // Custom Chakra theme
 export default function Dashboard(props: { [x: string]: any }) {
   const { ...rest } = props;
   // states and functions
   const [fixed] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const location = useLocation();
+  const [urlPath, setUrlPath] = useState(location.pathname);
+
   // functions for changing the states from components
-  const getRoute = () => {
-    return window.location.pathname !== "/admin/full-screen-maps";
+  const history = useHistory();
+  history.listen((location) => {
+    setUrlPath(location.pathname)
+  });
+  const getBreadcrumb = (routes: RoutesType[]): BreadcrumbType[] => {
+    const listbreadcrumb: BreadcrumbType[] = [];
+    const findBreadcrumb = (routes: RoutesType[]) => {
+      for (const route of routes) {
+        const routePath = route.path;
+        if (urlPath.includes(routePath)) {
+          listbreadcrumb.push({
+            path: route.path,
+            name: route.name,
+          });
+          if (route.children) {
+            findBreadcrumb(route.children);
+          }
+        }
+      }
+    };
+
+    findBreadcrumb(routes);
+    return listbreadcrumb;
   };
+  const breadCrumb = useMemo(() => {
+    console.log(urlPath)
+
+    return getBreadcrumb(routes)
+  }, [urlPath])
+
   const getActiveRoute = (routes: RoutesType[]): string => {
     const defaultRoute = "Default Brand Text";
     const url = window.location.href;
@@ -66,7 +75,7 @@ export default function Dashboard(props: { [x: string]: any }) {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
       if (
-        window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+        urlPath.indexOf(routes[i].layout + routes[i].path) !== -1
       ) {
         return routes[i].secondary;
       }
@@ -77,7 +86,7 @@ export default function Dashboard(props: { [x: string]: any }) {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
       if (
-        window.location.href.indexOf(routes[i].layout + routes[i].path) !== -1
+        urlPath.indexOf(routes[i].layout + routes[i].path) !== -1
       ) {
         return routes[i].name;
       }
@@ -160,31 +169,27 @@ export default function Dashboard(props: { [x: string]: any }) {
             <Box>
               <Navbar
                 onOpen={onOpen}
-                logoText={"Horizon UI Dashboard PRO"}
                 brandText={getActiveRoute(routes)}
                 secondary={getActiveNavbar(routes)}
                 message={getActiveNavbarText(routes)}
-                breadCrumb={getBreadcrumb(routes)}
+                breadCrumb={breadCrumb}
                 fixed={fixed}
                 {...rest}
               />
             </Box>
           </Portal>
-
-          {getRoute() ? (
-            <Box
-              mx="auto"
-              p={{ base: "20px", md: "30px" }}
-              pe="20px"
-              minH="100vh"
-              pt="50px"
-            >
-              <Switch>
-                {getRoutes(routes)}
-                <Redirect from="/" to="/admin/default" />
-              </Switch>
-            </Box>
-          ) : null}
+          <Box
+            mx="auto"
+            p={{ base: "20px", md: "30px" }}
+            pe="20px"
+            minH="100vh"
+            pt="50px"
+          >
+            <Switch>
+              {getRoutes(routes)}
+              <Redirect from="/" to="/admin/default" />
+            </Switch>
+          </Box>
           {/* <Box>
 						<Footer />
 					</Box> */}

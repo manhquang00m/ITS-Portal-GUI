@@ -8,6 +8,9 @@ import AfterClass from 'views/admin/classManagement/afterClass';
 import DataTables from 'views/admin/dataTables';
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
+import { ListTeacher } from 'views/admin/classManagement/teacher/list/list-teacher';
+import CreateEditTeacher from 'views/admin/classManagement/teacher/detail/create-edit/create-edit-teacher';
+import ViewDetailTeacher from 'views/admin/classManagement/teacher/detail/view/view-detail-teacher';
 
 const routes: RoutesType[] = [
 	{
@@ -33,6 +36,28 @@ const routes: RoutesType[] = [
 						path: '/detail',
 						component: DataTables,
 						name: 'xem chi tiet',
+					},
+				]
+			},
+			{
+				path: '/teacher',
+				component: ListTeacher,
+				name: 'Giáo viên',
+				children: [
+					{
+						path: '/detail/:id',
+						component: ViewDetailTeacher,
+						name: 'Xem chi tiết',
+					},
+					{
+						path: '/create',
+						component: CreateEditTeacher,
+						name: 'Tạo giảng viên',
+					},
+					{
+						path: '/edit/:id',
+						component: CreateEditTeacher,
+						name: 'Chỉnh sửa giảng viên',
 					},
 				]
 			},
