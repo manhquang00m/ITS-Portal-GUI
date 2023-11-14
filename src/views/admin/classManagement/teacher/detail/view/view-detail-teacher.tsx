@@ -77,7 +77,7 @@ export default function ViewDetailTeacher() {
                         <Spacer />
                         <Center w="124px" >
 
-                            <Button onClick={linkToEdit} color={"white"} rightIcon={<MdEdit />} background={"linear-gradient(293.45deg, rgb(250, 112, 154) 0%, rgb(254, 225, 64) 92.27%)"}>
+                            <Button variant={"unstyled"} width={"160px"} onClick={linkToEdit} color={"white"} rightIcon={<MdEdit />} background={"linear-gradient(293.45deg, rgb(250, 112, 154) 0%, rgb(254, 225, 64) 92.27%)"}>
                                 Chỉnh sửa
                             </Button>
                         </Center>

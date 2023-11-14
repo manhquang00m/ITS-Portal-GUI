@@ -18,9 +18,6 @@ export function ListTeacher() {
     };
 
     const onChangePagination = (page: number, pageSize: number) => {
-        console.log(page, pageSize)
-        console.log("limit old: ", filter?.limit)
-
         setFilter({
             ...filter,
             page: pageSize !== filter?.limit ? 1 : page,

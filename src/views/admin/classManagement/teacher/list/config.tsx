@@ -1,4 +1,4 @@
-import { IconButton } from "@chakra-ui/react";
+import { Button, IconButton } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
@@ -67,7 +67,7 @@ export const columns = (history: any): ColumnsType<IDetailTeacher> => {
     //   ),
     // },
     {
-      title: 'Action',
+      title: 'Tác vụ',
       key: 'action',
       fixed: 'right',
       width: 120,

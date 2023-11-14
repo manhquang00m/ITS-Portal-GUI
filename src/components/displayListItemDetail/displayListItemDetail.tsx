@@ -12,7 +12,7 @@ export default function DisplayListItemDetail({ data }: IPropsDisplayListItem) {
             gap={4}
         >
             <GridItem colSpan={{ base: 4, lg: 1 }}  >
-                <Heading as="h3" size="lg">
+                <Heading as="h3" size="lg" >
                     {data?.heading}
                 </Heading>
             </GridItem>
