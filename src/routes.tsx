@@ -11,6 +11,7 @@ import SignInCentered from 'views/auth/signIn';
 import { ListTeacher } from 'views/admin/classManagement/teacher/list/list-teacher';
 import CreateEditTeacher from 'views/admin/classManagement/teacher/detail/create-edit/create-edit-teacher';
 import ViewDetailTeacher from 'views/admin/classManagement/teacher/detail/view/view-detail-teacher';
+import { ListClass } from 'views/admin/classManagement/class/list/list-class';
 
 const routes: RoutesType[] = [
 	{
@@ -58,6 +59,28 @@ const routes: RoutesType[] = [
 						path: '/edit/:id',
 						component: CreateEditTeacher,
 						name: 'Chỉnh sửa giảng viên',
+					},
+				]
+			},
+			{
+				path: '/zoom',
+				component: ListClass,
+				name: 'Lớp',
+				children: [
+					{
+						path: '/detail/:id',
+						component: ViewDetailTeacher,
+						name: 'Xem chi tiết',
+					},
+					{
+						path: '/create',
+						component: CreateEditTeacher,
+						name: 'Tạo lớp học',
+					},
+					{
+						path: '/edit/:id',
+						component: CreateEditTeacher,
+						name: 'Chỉnh sửa lớp học',
 					},
 				]
 			},

@@ -1,17 +1,16 @@
 import { Box, Button } from '@chakra-ui/react'
 import { Table } from 'antd'
-import { getTeachers } from 'api/teacher.api'
-import { useGetTeachers } from 'hook/query/teacher/use-get-teachers'
+import { useGetClass } from 'hook/query/class/use-query-class'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { IFilterTeacher } from 'types/class-management/teacher.type'
+import { IFilterClass } from 'types/class-management/class.type'
 import { columns } from './config'
 
 
-export function ListTeacher() {
+export function ListClass() {
 
-    const [filter, setFilter] = useState<IFilterTeacher>({ page: 1, limit: 10 })
-    const { data, isLoading } = useGetTeachers(filter)
+    const [filter, setFilter] = useState<IFilterClass>({ page: 1, limit: 10 })
+    const { data, isLoading } = useGetClass(filter)
     const history = useHistory();
     const addTeacher = () => {
         history.push('/admin/class/teacher/create');
@@ -28,7 +27,7 @@ export function ListTeacher() {
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
             <Button onClick={addTeacher} width={"160px"} float={"right"} mb={4} variant="brand" >
-                Thêm giảng viên
+                Tạo lớp học
             </Button>
             <Table scroll={{ x: 1500, y: 450 }} loading={isLoading} className='mt-2' columns={columns(history)} dataSource={data?.data?.list} rowKey="teacherId" pagination={{
                 pageSizeOptions: [5, 10, 20, 50],
