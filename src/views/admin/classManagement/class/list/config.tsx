@@ -24,7 +24,7 @@ export const columns = (history: any): ColumnsType<IDetailClass> => {
       title: 'ID khóa học',
       dataIndex: 'courseId',
       key: 'courseId',
-      width: 100,
+      width: 120,
     },
     {
       title: 'Tên lớp',

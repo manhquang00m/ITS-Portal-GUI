@@ -1,17 +1,15 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getClass,createClass,editClass,getDetailClass } from "api/manage-class.api";
+import { createCourse, editCourse, getCourses, getDetailCourse } from "api/course.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IFilterClass, IFormClass } from "types/class-management/class.type";
-import { IFilterTeacher, IFormTeacher } from "types/class-management/teacher.type";
+import { IFilterCourse, IFormCourse } from "types/class-management/course.type";
 
-
-export const useGetClass = (params: IFilterClass) => {
+export const useGetCourse = (params: IFilterCourse) => {
     return useQuery({
-        queryKey: ['class', params],
+        queryKey: ['Courses', params],
         queryFn: async () => {
             try {
-                return await getClass(params)
+                return await getCourses(params)
             } catch (error) { }
         },
         refetchOnWindowFocus: false,
@@ -19,14 +17,14 @@ export const useGetClass = (params: IFilterClass) => {
     });
 }
 
-export const useCreateClass = () => {
+export const useCreateCourse = () => {
     const history = useHistory()
     return useMutation({
-        mutationFn: async (payload: IFormClass) => {
-            return await createClass(payload)
+        mutationFn: async (payload: IFormCourse) => {
+            return await createCourse(payload)
         },
         onSuccess() {
-            history?.push(`/admin/class/zoom`)
+            history?.push(`/admin/class/course`)
             toast.success("Dữ liệu của bạn đã được lưu");
         },
         onError() {
@@ -35,14 +33,14 @@ export const useCreateClass = () => {
     })
 }
 
-export const useEditClass = (id: string) => {
+export const useEditCourse = (id: string) => {
     const history = useHistory()
     return useMutation({
-        mutationFn: async (payload: IFormClass) => {
-            return await editClass(payload, id)
+        mutationFn: async (payload: IFormCourse) => {
+            return await editCourse(payload, id)
         },
         onSuccess() {
-            history?.push(`/admin/class/zoom`)
+            history?.push(`/admin/class/course`)
             toast.success("Dữ liệu của bạn đã được cập nhật");
         },
         onError() {
@@ -51,12 +49,12 @@ export const useEditClass = (id: string) => {
     })
 }
 
-export const useGetDetailClass = (id: string, enabled?: boolean) => {
+export const useGetDetailCourse= (id: string, enabled?: boolean) => {
     return useQuery({
-        queryKey: ['detail-class', id],
+        queryKey: ['detail-course', id],
         queryFn: async () => {
             try {
-                return await getDetailClass(id)
+                return await getDetailCourse(id)
             } catch (error) { }
         },
         refetchOnWindowFocus: false,
