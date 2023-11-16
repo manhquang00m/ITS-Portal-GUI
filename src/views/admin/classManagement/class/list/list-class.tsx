@@ -13,7 +13,7 @@ export function ListClass() {
     const { data, isLoading } = useGetClass(filter)
     const history = useHistory();
     const addTeacher = () => {
-        history.push('/admin/class/teacher/create');
+        history.push('/admin/class/zoom/create');
     };
 
     const onChangePagination = (page: number, pageSize: number) => {

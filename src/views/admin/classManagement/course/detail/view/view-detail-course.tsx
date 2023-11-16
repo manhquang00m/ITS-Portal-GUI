@@ -54,10 +54,9 @@ export default function ViewDetailCourse() {
       <Card variant="elevated" className="p-4 pb-6">
         <DisplayHeadingDetail
           url_edit={`/admin/class/course/edit/${id}`}
-          id={detailCourse?.data?.courseId}
+          heading={`Mã khóa học #${detailCourse?.data?.courseId}`}
           updated_at={detailCourse?.data?.updatedAt}
         />
-
         <DisplayListItemDetail data={inforCourse}></DisplayListItemDetail>
         <Divider className="my-4" />
         <DisplayListItemDetail data={inforCommon}></DisplayListItemDetail>

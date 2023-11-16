@@ -9,7 +9,7 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Card from "components/card/Card";
 import { useParams } from "react-router-dom";
@@ -22,6 +22,7 @@ import {
   useEditClass,
   useGetDetailClass,
 } from "hook/query/class/use-query-class";
+import { useGetCourse } from "hook/query/course/use-query-course";
 
 export default function CreateEditClass() {
   const { handleSubmit, control, getValues, reset } = useForm<IFormClass>({
@@ -36,16 +37,21 @@ export default function CreateEditClass() {
     id,
     !!id
   );
+  const { data: listCourse, isLoading: loadingCourse } = useGetCourse({ page: 1, limit: 100 });
+
+  const optionCourse = useMemo(() => {
+    if (!listCourse?.data?.list?.length) return []
+    return listCourse?.data?.list.map((course) => {
+      return {
+        value: course?.courseId?.toString(),
+        name: `${course?.name} - ${course?.code}`,
+      }
+    })
+  }, [listCourse])
+
   //   useEffect(() => {
   //     if (detailClass) {
   //       const {
-  //         createdAt,
-  //         createdBy,
-  //         status,
-  //         updatedAt,
-  //         updatedBy,
-  //         userId,
-  //         version,
   //         ...restData
   //       } = detailClass.data;
   //       reset({ ...restData });
@@ -53,6 +59,9 @@ export default function CreateEditClass() {
   //   }, [detailClass]);
 
   const onSubmit = async (values: IFormClass) => {
+    if (values?.totalLesson) {
+      values.totalLesson = parseInt(values.totalLesson as string)
+    }
     if (id) {
       await editClass(values);
       return;
@@ -108,6 +117,19 @@ export default function CreateEditClass() {
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
                   <FormLabel>Tổng bài học </FormLabel>
                   <Input {...restField} placeholder="Nhập tổng bài học" />
+                  <FormErrorMessage>
+                    {fieldState?.error?.message}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            />
+            <Controller
+              control={control}
+              name="courseId"
+              render={({ field: { onChange, value }, fieldState }) => (
+                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                  <FormLabel>Khóa học</FormLabel>
+                  <SelectComp options={optionCourse} value={value} onChange={onChange} placeholder="Chọn khóa học" />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

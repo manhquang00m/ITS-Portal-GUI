@@ -40,8 +40,8 @@ export default function CreateEditCourse() {
 
   useEffect(() => {
     if (detailCourse) {
-      const { name, description, code,  } = detailCourse.data;
-      reset({ name, description, code });
+      const { name, description, code, courseId } = detailCourse.data;
+      reset({ name, description, code, courseId });
     }
   }, [detailCourse]);
 

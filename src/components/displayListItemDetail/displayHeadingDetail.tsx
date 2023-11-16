@@ -12,13 +12,13 @@ import { MdEdit } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
 interface PropsDisplayHeadingDetail {
-  id?: number;
   updated_at?: string;
   url_edit: string;
+  heading: string;
 }
 
 export default function DisplayHeadingDetail({
-  id,
+  heading,
   updated_at,
   url_edit,
 }: PropsDisplayHeadingDetail) {
@@ -36,7 +36,7 @@ export default function DisplayHeadingDetail({
       <Flex>
         <Box w="500px">
           <Heading color={"white"} as="h2" fontSize={{ base: "24px" }}>
-            Mã giảng viên #{id}
+            {heading}
           </Heading>
           <Text
             marginTop={"8px"}
