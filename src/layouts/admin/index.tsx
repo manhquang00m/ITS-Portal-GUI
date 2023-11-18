@@ -180,8 +180,10 @@ export default function Dashboard(props: { [x: string]: any }) {
           </Portal>
           <Box
             mx="auto"
-            p={{ base: "20px", md: "30px" }}
-            pe="20px"
+            p={{ base: "20px", md: "20px" }}
+            pr={{ base: "10px", md: "10px" }}
+
+            // pe="20px"
             minH="100vh"
             pt="50px"
           >
@@ -190,9 +192,6 @@ export default function Dashboard(props: { [x: string]: any }) {
               <Redirect from="/" to="/admin/default" />
             </Switch>
           </Box>
-          {/* <Box>
-						<Footer />
-					</Box> */}
         </Box>
       </SidebarContext.Provider>
     </Box>

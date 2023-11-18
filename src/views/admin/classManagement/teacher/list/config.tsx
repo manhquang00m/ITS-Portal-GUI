@@ -1,6 +1,7 @@
 import { Button, IconButton } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { IFilter, IFilterInput } from "components/filter/types";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailTeacher } from "types/class-management/teacher.type";
@@ -16,35 +17,35 @@ interface DataType {
 export const columns = (history: any): ColumnsType<IDetailTeacher> => {
   return [
     {
-      title: 'ID',
-      dataIndex: 'teacherId',
-      key: 'teacherId',
+      title: "ID",
+      dataIndex: "teacherId",
+      key: "teacherId",
       width: 60,
     },
     {
-      title: 'Tên giáo viên',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Tên giáo viên",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Giới tính',
-      dataIndex: 'gender',
-      key: 'gender',
+      title: "Giới tính",
+      dataIndex: "gender",
+      key: "gender",
     },
     {
-      title: 'Level',
-      dataIndex: 'level',
-      key: 'level',
+      title: "Level",
+      dataIndex: "level",
+      key: "level",
     },
     {
-      title: 'Địa chỉ',
-      dataIndex: 'address',
-      key: 'address',
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
     },
     {
-      title: 'Cơ quan',
-      dataIndex: 'institution',
-      key: 'institution',
+      title: "Cơ quan",
+      dataIndex: "institution",
+      key: "institution",
     },
     // {
     //   title: 'Tags',
@@ -67,29 +68,47 @@ export const columns = (history: any): ColumnsType<IDetailTeacher> => {
     //   ),
     // },
     {
-      title: 'Tác vụ',
-      key: 'action',
-      fixed: 'right',
+      title: "Tác vụ",
+      key: "action",
+      fixed: "right",
       width: 120,
       render: (_, record: IDetailTeacher) => (
         <Space size="middle">
           <IconButton
-            variant='outline'
-            aria-label='Call Sage'
-            fontSize='20px'
+            variant="outline"
+            aria-label="Call Sage"
+            fontSize="20px"
             icon={<MdEdit />}
-            onClick={() => history?.push(`/admin/class/teacher/edit/${record?.teacherId}`)}
+            onClick={() =>
+              history?.push(`/admin/class/teacher/edit/${record?.teacherId}`)
+            }
           />
           <IconButton
-            variant='outline'
-            aria-label='Call Sage'
-            fontSize='20px'
+            variant="outline"
+            aria-label="Call Sage"
+            fontSize="20px"
             icon={<MdRemoveRedEye />}
-            onClick={() => history?.push(`/admin/class/teacher/detail/${record?.teacherId}`)}
+            onClick={() =>
+              history?.push(`/admin/class/teacher/detail/${record?.teacherId}`)
+            }
           />
         </Space>
       ),
     },
-  ]
-}
+  ];
+};
 
+export const filterItems: IFilterInput[] = [
+  {
+    type: "inputText",
+    label: "Tên giáo viên",
+    controlName: "name",
+    placeHolder: "Nhập tên",
+  },
+  {
+    type: "inputText",
+    label: "Level",
+    controlName: "level",
+    placeHolder: "Nhập level",
+  },
+];
