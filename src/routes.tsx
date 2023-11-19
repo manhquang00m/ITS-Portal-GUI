@@ -1,5 +1,5 @@
 import { Icon } from "@chakra-ui/react";
-import { MdHome, MdSchool, MdLock } from "react-icons/md";
+import { MdHome, MdSchool, MdLock, MdOutlineCalendarMonth } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
@@ -17,6 +17,12 @@ import CreateEditCourse from "views/admin/classManagement/course/detail/create-e
 import ViewDetailCourse from "views/admin/classManagement/course/detail/view/view-detail-course";
 import CreateEditClass from "views/admin/classManagement/class/detail/create-edit/create-edit-class";
 import ViewDetailClass from "views/admin/classManagement/class/detail/view/view-detail-class";
+import { ListScheduleConfig } from "views/admin/classManagement/schedule-config/list/list-sechedule-config";
+import CreateEditScheduleConfig from "views/admin/classManagement/schedule-config/detail/create-edit/create-edit-schedule-config";
+import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-teacher";
+import ViewDetailScheduleInstance from "views/admin/scheduleInstance/detail/view/view-detail-schedule-instance";
+import CreateEditScheduleInstance from "views/admin/scheduleInstance/detail/create-edit/create-edit-schedule-instance";
+import { ListScheduleInstance } from "views/admin/scheduleInstance/list/list-sechedule-instance";
 
 const routes: RoutesType[] = [
 	{
@@ -25,6 +31,21 @@ const routes: RoutesType[] = [
 		path: "/default",
 		icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
 		component: MainDashboard,
+	},
+	{
+		name: "Lịch dạy",
+		layout: "/admin",
+		path: "/schedule-instance",
+		icon: <Icon as={MdOutlineCalendarMonth} width="20px" height="20px" color="inherit" />,
+		component: ListScheduleInstance,
+
+	},
+	{
+		name: "Chỉnh sửa lịch dạy",
+		layout: "/admin",
+		path: "/schedule-instance-edit/:id",
+		hidden: true,
+		component: CreateEditScheduleInstance,
 	},
 	{
 		name: "Quản lý lớp học",
@@ -108,6 +129,28 @@ const routes: RoutesType[] = [
 						path: "/edit/:id",
 						component: CreateEditCourse,
 						name: "Chỉnh sửa khoá học",
+					},
+				],
+			},
+			{
+				path: "/schedule-config",
+				component: ListScheduleConfig,
+				name: "Cài đặt lịch dạy",
+				children: [
+					{
+						path: "/detail/:id",
+						component: ViewDetailScheduleConfig,
+						name: "Xem chi tiết",
+					},
+					{
+						path: "/create",
+						component: CreateEditScheduleConfig,
+						name: "Tạo lịch dạy",
+					},
+					{
+						path: "/edit/:id",
+						component: CreateEditScheduleConfig,
+						name: "Chỉnh sửa lịch dạy",
 					},
 				],
 			},

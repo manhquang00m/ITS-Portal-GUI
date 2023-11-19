@@ -12,4 +12,5 @@ export interface IFilter {
   filterItems: IFilterInput[];
   searchParams: any;
   handleSearch: (params: any) => void;
+  initialValue?: Record<string, unknown | undefined>;
 }

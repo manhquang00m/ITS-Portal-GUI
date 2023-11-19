@@ -1,25 +1,22 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetTeachers } from "hook/query/teacher/use-get-teachers";
+import { useGetScheduleInstance } from "hook/query/schedule-instance/use-schedule-instance";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IFilterTeacher } from "types/class-management/teacher.type";
+import { IFilterScheduleConfig } from "types/class-management/schedule-config.type";
+import { IFilterScheduleInstance } from "types/class-management/schedule-instance.type";
 import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
-export function ListTeacher() {
-  const [filter, setFilter] = useState<IFilterTeacher>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetTeachers(filter);
+export function ListScheduleInstance() {
+  const [filter, setFilter] = useState<IFilterScheduleInstance>({ page: 1, limit: 10 });
+  const { data, isLoading } = useGetScheduleInstance(filter);
   const history = useHistory();
   const initialValue = {
     name: "",
     level: "",
   }
-  const addTeacher = () => {
-    history.push("/admin/class/teacher/create");
-  };
-
   const onChangePagination = (page: number, pageSize: number) => {
     setFilter({
       ...filter,
@@ -28,7 +25,7 @@ export function ListTeacher() {
     });
   };
 
-  const handleSearch = (values: IFilterTeacher) => {
+  const handleSearch = (values: IFilterScheduleInstance) => {
     const clearValues = clearParamsObject(values)
     setFilter({
       page: 1,
@@ -36,31 +33,17 @@ export function ListTeacher() {
       ...clearValues
     })
   };
-  const rightButton = useMemo(
-    () => (
-      <Button
-        onClick={addTeacher}
-        width={"160px"}
-        float={"right"}
-        variant="brand"
-      >
-        Thêm giảng viên
-      </Button>
-    ),
-    []
-  );
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
       <Filter
         filterItems={filterItems}
         handleSearch={handleSearch}
-        rightButton={rightButton}
         searchParams={filter}
         initialValue={initialValue}
       />
       <Table
-        scroll={{ x: 1500, y: 450 }}
+        scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
         columns={columns(history)}

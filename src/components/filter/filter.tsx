@@ -10,6 +10,8 @@ import {
   FormLabel,
   FormErrorMessage,
   Input,
+  Flex,
+  Button,
 } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -20,6 +22,7 @@ export default function Filter({
   searchParams,
   filterItems,
   handleSearch,
+  initialValue
 }: IFilter) {
   const { handleSubmit, control, getValues, reset } = useForm({
     defaultValues: searchParams,
@@ -27,6 +30,11 @@ export default function Filter({
   const onSubmit = (values: any) => {
     handleSearch(values);
   };
+
+  const clearFilter = () => {
+    reset(initialValue)
+    handleSearch(getValues())
+  }
 
   const renderFilterList = useMemo(
     () =>
@@ -37,7 +45,7 @@ export default function Filter({
             control={control}
             name={item?.controlName}
             render={({ field: { ref, ...restField }, fieldState }) => (
-              <FormControl isRequired isInvalid={!!fieldState?.error}>
+              <FormControl isInvalid={!!fieldState?.error}>
                 <FormLabel>{item?.label}</FormLabel>
                 {item?.type === "inputText" && (
                   <Input {...restField} placeholder={item?.placeHolder} />
@@ -68,6 +76,10 @@ export default function Filter({
             <SimpleGrid columns={{ base: 1, xl: 3, "2xl": 4 }} spacing={4}>
               {renderFilterList}
             </SimpleGrid>
+            <Flex mt={"12px"} justifyContent={"end"}>
+              <Button variant={"outline"} onClick={clearFilter} >Xóa lựa chọn</Button>
+              <Button ml={"8px"} variant={"brandOutline"} type="submit">Tìm kiếm</Button>
+            </Flex>
           </form>
         </AccordionPanel>
       </AccordionItem>

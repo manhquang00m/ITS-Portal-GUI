@@ -9,12 +9,10 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Card from "components/card/Card";
 import { useParams } from "react-router-dom";
 import { Spin } from "antd";
-import { optionsGender } from "./config";
 import SelectComp from "components/fields/SelectField";
 import { IFormClass } from "types/class-management/class.type";
 import {
@@ -22,7 +20,7 @@ import {
   useEditClass,
   useGetDetailClass,
 } from "hook/query/class/use-query-class";
-import { useGetCourse } from "hook/query/course/use-query-course";
+import { useGetOptionsCourse } from "hook/data-list/use-get-options";
 
 export default function CreateEditClass() {
   const { handleSubmit, control, getValues, reset } = useForm<IFormClass>({
@@ -37,17 +35,8 @@ export default function CreateEditClass() {
     id,
     !!id
   );
-  const { data: listCourse, isLoading: loadingCourse } = useGetCourse({ page: 1, limit: 100 });
 
-  const optionCourse = useMemo(() => {
-    if (!listCourse?.data?.list?.length) return []
-    return listCourse?.data?.list.map((course) => {
-      return {
-        value: course?.courseId?.toString(),
-        name: `${course?.name} - ${course?.code}`,
-      }
-    })
-  }, [listCourse])
+  const optionCourse = useGetOptionsCourse()
 
   //   useEffect(() => {
   //     if (detailClass) {

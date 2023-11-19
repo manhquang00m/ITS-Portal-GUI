@@ -6,13 +6,6 @@ import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailTeacher } from "types/class-management/teacher.type";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
 
 export const columns = (history: any): ColumnsType<IDetailTeacher> => {
   return [

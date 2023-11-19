@@ -45,8 +45,6 @@ export default function Dashboard(props: { [x: string]: any }) {
     return listbreadcrumb;
   };
   const breadCrumb = useMemo(() => {
-    console.log(urlPath)
-
     return getBreadcrumb(routes)
   }, [urlPath])
 
@@ -93,7 +91,6 @@ export default function Dashboard(props: { [x: string]: any }) {
     }
     return activeNavbar;
   };
-  // console.log(getActiveNavbarText(routes))
   const getRoutes = (routes: RoutesType[]): any => {
     return routes.flatMap((route: RoutesType, key: any) => {
       if (route.children) {
@@ -140,6 +137,7 @@ export default function Dashboard(props: { [x: string]: any }) {
       );
     });
   };
+  console.log(getRoutes(routes))
   document.documentElement.dir = "ltr";
   const { onOpen } = useDisclosure();
   return (
@@ -181,7 +179,6 @@ export default function Dashboard(props: { [x: string]: any }) {
           <Box
             mx="auto"
             p={{ base: "20px", md: "20px" }}
-            pr={{ base: "10px", md: "10px" }}
 
             // pe="20px"
             minH="100vh"

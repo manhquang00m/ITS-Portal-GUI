@@ -70,10 +70,13 @@ export default function AdminNavbar(props: {
 			mx='auto'
 			mt={secondaryMargin}
 			pb='8px'
-			right={{ base: '12px', md: '30px', lg: '0', xl: '0' }}
+			right={{ base: '12px', md: '30px', lg: '20px' }}
 			px={{
 				sm: paddingX,
 				md: '10px'
+			}}
+			pr={{
+				xl: 0
 			}}
 			ps={{
 				xl: '12px'
@@ -84,7 +87,8 @@ export default function AdminNavbar(props: {
 				base: 'calc(100vw - 6%)',
 				md: 'calc(100vw - 8%)',
 				lg: 'calc(100vw - 6%)',
-				xl: 'calc(100vw - 300px)',
+				xl: 'calc(100vw - 346px)',
+				'2xl': 'calc(100vw - 320px)',
 			}}>
 			<Flex
 				w='100%'
