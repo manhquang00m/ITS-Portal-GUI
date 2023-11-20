@@ -1,15 +1,19 @@
-
-import { IFilterScheduleConfig, IFormScheduleConfig, IResponseDetailScheduleConfig, IResponseScheduleConfig } from "types/class-management/schedule-config.type";
+import { IResponseAfterClass } from "types/class-management/after-class.type";
+import { IFilterScheduleInstance, IFormScheduleInstance, IResponseDetailScheduleInstance, IResponseScheduleInstance } from "types/class-management/schedule-instance.type";
 import http from "utils/http";
 
-export const getScheduleConfigs = (params: IFilterScheduleConfig): Promise<IResponseScheduleConfig> =>
-  http.get("schedule-config", { params: params }).then((response) => response?.data);
+export const getScheduleInstances = (params: IFilterScheduleInstance): Promise<IResponseScheduleInstance> =>
+  http.get("schedule-instance", { params: params }).then((response) => response?.data);
 
-export const createScheduleConfig = (payload: IFormScheduleConfig) =>
-  http.post("schedule-config", payload);
+export const createScheduleInstance = (payload: IFormScheduleInstance) =>
+  http.post("schedule-instance", payload);
 
-export const editScheduleConfig = (payload: IFormScheduleConfig, id: string) =>
-  http.put(`schedule-config/${id}`, payload);
+export const editScheduleInstance = (payload: IFormScheduleInstance, id: string) =>
+  http.put(`schedule-instance/${id}`, payload);
 
-export const getDetailScheduleConfig = (id: string): Promise<IResponseDetailScheduleConfig> =>
-  http.get(`schedule-config/${id}`).then((response) => response?.data);
+export const getDetailScheduleInstance = (id: string): Promise<IResponseDetailScheduleInstance> =>
+  http.get(`schedule-instance/${id}`).then((response) => response?.data);
+
+
+export const getAfterClass = (scheduleInstanceId: number): Promise<IResponseAfterClass> =>
+  http.get(`schedule-instance/${scheduleInstanceId}/generate-after-class`).then((response) => response?.data);

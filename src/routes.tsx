@@ -37,15 +37,15 @@ const routes: RoutesType[] = [
 		layout: "/admin",
 		path: "/schedule-instance",
 		icon: <Icon as={MdOutlineCalendarMonth} width="20px" height="20px" color="inherit" />,
+		secondary: true,
 		component: ListScheduleInstance,
-
-	},
-	{
-		name: "Chỉnh sửa lịch dạy",
-		layout: "/admin",
-		path: "/schedule-instance-edit/:id",
-		hidden: true,
-		component: CreateEditScheduleInstance,
+		children: [
+			{
+				path: "/edit/:id",
+				component: CreateEditScheduleInstance,
+				name: "Chỉnh sửa lịch dạy",
+			},
+		]
 	},
 	{
 		name: "Quản lý lớp học",

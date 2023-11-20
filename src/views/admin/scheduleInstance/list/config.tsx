@@ -6,7 +6,7 @@ import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailScheduleInstance } from "types/class-management/schedule-instance.type";
 
 
-export const columns = (history: any): ColumnsType<IDetailScheduleInstance> => {
+export const columns = (history: any, changeIdSchedule: (id: number) => void): ColumnsType<IDetailScheduleInstance> => {
   return [
     {
       title: "ID",
@@ -62,15 +62,13 @@ export const columns = (history: any): ColumnsType<IDetailScheduleInstance> => {
               history?.push(`/admin/schedule-instance/edit/${record?.scheduleInstanceId}`)
             }
           />
-          {/* <IconButton
+          <IconButton
             variant="outline"
             aria-label="Call Sage"
             fontSize="20px"
             icon={<MdRemoveRedEye />}
-            onClick={() =>
-              history?.push(`/admin/schedule-instance/detail/${record?.scheduleInstanceId}`)
-            }
-          /> */}
+            onClick={() => changeIdSchedule(record?.scheduleInstanceId)}
+          />
         </Space>
       ),
     },

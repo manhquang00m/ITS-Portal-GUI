@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createScheduleConfig, editScheduleConfig, getDetailScheduleConfig, getScheduleConfigs } from "api/schedule-instance.api";
+import { createScheduleConfig, editScheduleConfig, getDetailScheduleConfig, getScheduleConfigs } from "api/schedule-config.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterScheduleConfig, IFormScheduleConfig } from "types/class-management/schedule-config.type";

@@ -28,7 +28,11 @@ export default function Dashboard(props: { [x: string]: any }) {
     const listbreadcrumb: BreadcrumbType[] = [];
     const findBreadcrumb = (routes: RoutesType[]) => {
       for (const route of routes) {
-        const routePath = route.path;
+        let routePath = route.path;
+        const colonIndex = routePath.indexOf(':');
+        if (colonIndex !== -1) {
+          routePath = routePath.substring(0, colonIndex);
+        }
         if (urlPath.includes(routePath)) {
           listbreadcrumb.push({
             path: route.path,
@@ -47,12 +51,15 @@ export default function Dashboard(props: { [x: string]: any }) {
   const breadCrumb = useMemo(() => {
     return getBreadcrumb(routes)
   }, [urlPath])
-
+  console.log(breadCrumb)
   const getActiveRoute = (routes: RoutesType[]): string => {
     const defaultRoute = "Default Brand Text";
     const url = window.location.href;
+    console.log(url)
     for (const route of routes) {
       const routePath = route.layout + route.path;
+      console.log(routePath)
+
       if (url.includes(routePath)) {
         if (route.children) {
           for (const childRoute of route.children) {
@@ -62,6 +69,7 @@ export default function Dashboard(props: { [x: string]: any }) {
             }
           }
         }
+        console.log(route.name)
 
         return route.name;
       }
@@ -92,9 +100,9 @@ export default function Dashboard(props: { [x: string]: any }) {
     return activeNavbar;
   };
   const getRoutes = (routes: RoutesType[]): any => {
-    return routes.flatMap((route: RoutesType, key: any) => {
+    return routes.flatMap((route: RoutesType, key: number) => {
       if (route.children) {
-        return route.children.flatMap((childRoute: any, index: number) => {
+        let resRoute = route.children.flatMap((childRoute: any, index: number) => {
           if (childRoute?.children) {
             let listRouteDetail = childRoute.children.map(
               (detail: any, index: number) => {
@@ -127,6 +135,14 @@ export default function Dashboard(props: { [x: string]: any }) {
             />
           );
         });
+        if (route.secondary) {
+          resRoute.push(<Route
+            path={route.layout + route.path}
+            component={route.component}
+            key={key}
+          />)
+        }
+        return resRoute
       }
       return (
         <Route

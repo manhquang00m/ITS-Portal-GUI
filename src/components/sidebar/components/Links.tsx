@@ -31,7 +31,7 @@ export function SidebarLinks(props: {
 				route: RoutesType,
 				index: number
 			) => {
-				return (!route?.children ?
+				return (route.children && route?.secondary || !route.children ?
 					<NavLink key={index} to={route.layout + route.path}>
 						<Box>
 							<HStack

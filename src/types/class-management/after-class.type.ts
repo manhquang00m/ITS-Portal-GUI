@@ -1,3 +1,5 @@
+import { IResponseListCommon } from "types/base/base-api.type";
+
 export interface IFormAfterClass {
     teacher?: string;
     date?: string;
@@ -8,6 +10,28 @@ export interface IFormAfterClass {
     }[];
     knowledge?: string;
     next_lecture?: string;
-    progress?:number;
+    progress?: number;
 }
 
+export interface IStudentProgress {
+    studentName: string;
+    currentProcess: number;
+    teacherReview: string;
+    checkIn: string;
+    checkOut: string;
+    status: string;
+    result: string;
+}
+
+export interface IAfterClass {
+    date: string;
+    teacherName: string;
+    currentLesson: string;
+    nextLesson: string;
+    averageScoreProgress: number;
+    studentProgress: IStudentProgress[]
+}
+
+export interface IResponseAfterClass extends IResponseListCommon {
+    data: IAfterClass
+}

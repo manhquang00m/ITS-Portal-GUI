@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createScheduleInstance, editScheduleInstance, getDetailScheduleInstance, getScheduleInstances } from "api/schedule-config.api copy";
+import { createScheduleInstance, editScheduleInstance, getAfterClass, getDetailScheduleInstance, getScheduleInstances } from "api/schedule-instance.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterScheduleInstance, IFormScheduleInstance } from "types/class-management/schedule-instance.type";
@@ -16,7 +16,19 @@ export const useGetScheduleInstance = (params: IFilterScheduleInstance) => {
         retry: 2,
     });
 }
-
+export const useGetAfterClass = (id: number, enabled: boolean) => {
+    return useQuery({
+        queryKey: ['generate-after-class', id],
+        queryFn: async () => {
+            try {
+                return await getAfterClass(id)
+            } catch (error) { }
+        },
+        refetchOnWindowFocus: false,
+        retry: 2,
+        enabled
+    });
+}
 export const useCreateScheduleInstance = () => {
     const history = useHistory()
     return useMutation({
