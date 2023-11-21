@@ -6,6 +6,13 @@ export const optionRole = [{
     name: 'Trợ giảng',
 }]
 
+export const optionsStatusStudent = [{
+    name: 'Đi học',
+    value: 'active',
+}, {
+    name: 'Nghỉ học',
+    value: 'disable',
+}]
 
 export const optionWeekDay = [{
     name: 'Thứ 2',

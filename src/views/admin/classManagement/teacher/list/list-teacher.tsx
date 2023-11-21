@@ -40,7 +40,6 @@ export function ListTeacher() {
     () => (
       <Button
         onClick={addTeacher}
-        width={"160px"}
         float={"right"}
         variant="brand"
       >
@@ -60,7 +59,7 @@ export function ListTeacher() {
         initialValue={initialValue}
       />
       <Table
-        scroll={{ x: 1500, y: 450 }}
+        scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
         columns={columns(history)}

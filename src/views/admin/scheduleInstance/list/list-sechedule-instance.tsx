@@ -1,5 +1,7 @@
 import {
-  Box, Button, Modal,
+  Box,
+  Button,
+  Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
@@ -8,9 +10,12 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetAfterClass, useGetScheduleInstance } from "hook/query/schedule-instance/use-schedule-instance";
+import {
+  useGetAfterClass,
+  useGetScheduleInstance,
+} from "hook/query/schedule-instance/use-schedule-instance";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterScheduleConfig } from "types/class-management/schedule-config.type";
@@ -23,27 +28,36 @@ interface AfterClassCanvasRef {
   shareImage: () => void;
 }
 export function ListScheduleInstance() {
-  const [filter, setFilter] = useState<IFilterScheduleInstance>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterScheduleInstance>({
+    page: 1,
+    limit: 10,
+  });
   const [scheduleID, setScheduleID] = useState<number>(undefined);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const childRef = useRef<AfterClassCanvasRef>(null);
   const { data, isLoading } = useGetScheduleInstance(filter);
-  const { data: dataAfterClass, isLoading: loadingAfterClass } = useGetAfterClass(scheduleID, !!scheduleID);
+  const { data: dataAfterClass, isFetching: loadingAfterClass } =
+    useGetAfterClass(scheduleID, !!scheduleID);
 
   const changeIdSchedule = (id: number) => {
-    setScheduleID(id)
-  }
+    setScheduleID(id);
+  };
 
   useEffect(() => {
-    if (dataAfterClass && scheduleID) onOpen()
-  }, [dataAfterClass])
+    if (!isOpen) {
+      setScheduleID(undefined);
+    }
+  }, [isOpen]);
 
+  useEffect(() => {
+    if (dataAfterClass && scheduleID) onOpen();
+  }, [dataAfterClass]);
 
   const history = useHistory();
   const initialValue = {
-    name: "",
-    level: "",
-  }
+    teacherId: "",
+    classId: "",
+  };
   const onChangePagination = (page: number, pageSize: number) => {
     setFilter({
       ...filter,
@@ -53,12 +67,12 @@ export function ListScheduleInstance() {
   };
 
   const handleSearch = (values: IFilterScheduleInstance) => {
-    const clearValues = clearParamsObject(values)
+    const clearValues = clearParamsObject(values);
     setFilter({
       page: 1,
       limit: 10,
-      ...clearValues
-    })
+      ...clearValues,
+    });
   };
 
   const handleButtonClick = () => {
@@ -73,9 +87,13 @@ export function ListScheduleInstance() {
     }
   };
 
-
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
+      <Spin
+        spinning={loadingAfterClass}
+        fullscreen
+      />
+
       <Filter
         filterItems={filterItems}
         handleSearch={handleSearch}
@@ -83,8 +101,8 @@ export function ListScheduleInstance() {
         initialValue={initialValue}
       />
       <Table
-        scroll={{ x: 800, y: 450 }}
-        loading={isLoading}
+        scroll={{ x: 1000, y: 450 }}
+        loading={isLoading }
         className="mt-2"
         columns={columns(history, changeIdSchedule)}
         dataSource={data?.data?.list}
@@ -98,12 +116,12 @@ export function ListScheduleInstance() {
           pageSize: filter?.limit,
         }}
       />
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay p={4} />
-        <ModalContent p={4} minWidth={"80%"}>
+        <ModalContent mt={"30px"} mx={"10px"} p={{ base: "0", md: "2", xl: "4" }} minWidth={"90%"}>
           <ModalHeader paddingBottom={0}>Preview</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody >
             <AfterClassCanvas
               data={dataAfterClass?.data}
               onClose={onClose}

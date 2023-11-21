@@ -33,7 +33,7 @@ export default function CreateEditScheduleInstance() {
     const { id }: { id: string } = useParams();
     const { mutate: createScheduleInstance, isLoading: loadingCreate } = useCreateScheduleInstance();
     const { mutate: editScheduleInstance, isLoading: loadingEdit } = useEditScheduleInstance(id);
-    const { data: detailScheduleInstance, isFetching: isLoadingDetail } = useGetDetailScheduleInstance(id, false)
+    const { data: detailScheduleInstance, isFetching: isLoadingDetail } = useGetDetailScheduleInstance(id, !!id)
 
 
     useEffect(() => {

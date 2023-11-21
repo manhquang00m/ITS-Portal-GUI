@@ -1,10 +1,9 @@
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailScheduleConfig } from "types/class-management/schedule-config.type";
-
 
 export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
   return [
@@ -35,6 +34,14 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
       title: "Vai trò giáo viên",
       dataIndex: "teacherRole",
       key: "teacherRole",
+      render: (text) =>
+        text === "Chủ nhiệm" || text === "Trợ giảng" ? (
+          <Tag color={text === "Chủ nhiệm" ? "green" : "gold"} key={text}>
+            {text}
+          </Tag>
+        ) : (
+          text
+        ),
     },
     {
       title: "Thời gian dạy",
@@ -48,24 +55,32 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
       width: 120,
       render: (_, record: IDetailScheduleConfig) => (
         <Space size="middle">
-          <IconButton
-            variant="outline"
-            aria-label="Call Sage"
-            fontSize="20px"
-            icon={<MdEdit />}
-            onClick={() =>
-              history?.push(`/admin/class/schedule-config/edit/${record?.scheduleConfigId}`)
-            }
-          />
-          <IconButton
-            variant="outline"
-            aria-label="Call Sage"
-            fontSize="20px"
-            icon={<MdRemoveRedEye />}
-            onClick={() =>
-              history?.push(`/admin/class/schedule-config/detail/${record?.scheduleConfigId}`)
-            }
-          />
+          <Tooltip label="Chỉnh sửa">
+            <IconButton
+              variant="outline"
+              aria-label="Call Sage"
+              fontSize="20px"
+              icon={<MdEdit />}
+              onClick={() =>
+                history?.push(
+                  `/admin/class/schedule-config/edit/${record?.scheduleConfigId}`
+                )
+              }
+            />
+          </Tooltip>
+          <Tooltip label="Xem chi tiết">
+            <IconButton
+              variant="outline"
+              aria-label="Call Sage"
+              fontSize="20px"
+              icon={<MdRemoveRedEye />}
+              onClick={() =>
+                history?.push(
+                  `/admin/class/schedule-config/detail/${record?.scheduleConfigId}`
+                )
+              }
+            />
+          </Tooltip>
         </Space>
       ),
     },
@@ -75,14 +90,14 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
 export const filterItems: IFilterInput[] = [
   {
     type: "inputText",
-    label: "Tên giáo viên",
-    controlName: "name",
-    placeHolder: "Nhập tên",
+    label: "ID giáo viên",
+    controlName: "teacherId",
+    placeHolder: "Nhập id",
   },
   {
     type: "inputText",
-    label: "Level",
-    controlName: "level",
-    placeHolder: "Nhập level",
+    label: "ID lớp học",
+    controlName: "classId",
+    placeHolder: "Nhập id",
   },
 ];

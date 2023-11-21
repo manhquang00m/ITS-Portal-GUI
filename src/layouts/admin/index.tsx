@@ -6,9 +6,15 @@ import Sidebar from "components/sidebar/Sidebar";
 import { SidebarContext } from "contexts/SidebarContext";
 import { useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+  useRouteMatch,
+} from "react-router-dom";
 import routes from "routes";
-
 
 // Custom Chakra theme
 export default function Dashboard(props: { [x: string]: any }) {
@@ -22,14 +28,14 @@ export default function Dashboard(props: { [x: string]: any }) {
   // functions for changing the states from components
   const history = useHistory();
   history.listen((location) => {
-    setUrlPath(location.pathname)
+    setUrlPath(location.pathname);
   });
   const getBreadcrumb = (routes: RoutesType[]): BreadcrumbType[] => {
     const listbreadcrumb: BreadcrumbType[] = [];
     const findBreadcrumb = (routes: RoutesType[]) => {
       for (const route of routes) {
         let routePath = route.path;
-        const colonIndex = routePath.indexOf(':');
+        const colonIndex = routePath.indexOf(":");
         if (colonIndex !== -1) {
           routePath = routePath.substring(0, colonIndex);
         }
@@ -49,28 +55,29 @@ export default function Dashboard(props: { [x: string]: any }) {
     return listbreadcrumb;
   };
   const breadCrumb = useMemo(() => {
-    return getBreadcrumb(routes)
-  }, [urlPath])
-  console.log(breadCrumb)
+    return getBreadcrumb(routes);
+  }, [urlPath]);
   const getActiveRoute = (routes: RoutesType[]): string => {
     const defaultRoute = "Default Brand Text";
     const url = window.location.href;
-    console.log(url)
+    console.log(url);
     for (const route of routes) {
       const routePath = route.layout + route.path;
-      console.log(routePath)
+      console.log("path", routePath);
 
       if (url.includes(routePath)) {
-        if (route.children) {
+        if (route.children || route.secondary) {
           for (const childRoute of route.children) {
-            const childRoutePath = routePath + childRoute.path;
+            let childRoutePath = routePath + childRoute.path;
+            const colonIndex = childRoutePath.indexOf(":");
+            if (colonIndex !== -1 && route.secondary) {
+              childRoutePath = childRoutePath.substring(0, colonIndex);
+            }
             if (url.includes(childRoutePath)) {
               return childRoute.name;
             }
           }
         }
-        console.log(route.name)
-
         return route.name;
       }
     }
@@ -80,9 +87,7 @@ export default function Dashboard(props: { [x: string]: any }) {
   const getActiveNavbar = (routes: RoutesType[]): boolean => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
-      if (
-        urlPath.indexOf(routes[i].layout + routes[i].path) !== -1
-      ) {
+      if (urlPath.indexOf(routes[i].layout + routes[i].path) !== -1) {
         return routes[i].secondary;
       }
     }
@@ -91,9 +96,7 @@ export default function Dashboard(props: { [x: string]: any }) {
   const getActiveNavbarText = (routes: RoutesType[]): string | boolean => {
     let activeNavbar = false;
     for (let i = 0; i < routes.length; i++) {
-      if (
-        urlPath.indexOf(routes[i].layout + routes[i].path) !== -1
-      ) {
+      if (urlPath.indexOf(routes[i].layout + routes[i].path) !== -1) {
         return routes[i].name;
       }
     }
@@ -102,47 +105,54 @@ export default function Dashboard(props: { [x: string]: any }) {
   const getRoutes = (routes: RoutesType[]): any => {
     return routes.flatMap((route: RoutesType, key: number) => {
       if (route.children) {
-        let resRoute = route.children.flatMap((childRoute: any, index: number) => {
-          if (childRoute?.children) {
-            let listRouteDetail = childRoute.children.map(
-              (detail: any, index: number) => {
-                return (
-                  <Route
-                    path={
-                      route.layout + route.path + childRoute.path + detail.path
-                    }
-                    component={detail.component}
-                    key={index}
-                  />
-                );
-              }
-            );
-            const flagRoute = (
+        let resRoute = route.children.flatMap(
+          (childRoute: any, index: number) => {
+            if (childRoute?.children) {
+              let listRouteDetail = childRoute.children.map(
+                (detail: any, index: number) => {
+                  return (
+                    <Route
+                      path={
+                        route.layout +
+                        route.path +
+                        childRoute.path +
+                        detail.path
+                      }
+                      component={detail.component}
+                      key={index}
+                    />
+                  );
+                }
+              );
+              const flagRoute = (
+                <Route
+                  path={route.layout + route.path + childRoute.path}
+                  component={childRoute.component}
+                  key={index}
+                />
+              );
+              listRouteDetail.push(flagRoute);
+              return listRouteDetail;
+            }
+            return (
               <Route
                 path={route.layout + route.path + childRoute.path}
                 component={childRoute.component}
                 key={index}
               />
             );
-            listRouteDetail.push(flagRoute);
-            return listRouteDetail;
           }
-          return (
+        );
+        if (route.secondary) {
+          resRoute.push(
             <Route
-              path={route.layout + route.path + childRoute.path}
-              component={childRoute.component}
-              key={index}
+              path={route.layout + route.path}
+              component={route.component}
+              key={key}
             />
           );
-        });
-        if (route.secondary) {
-          resRoute.push(<Route
-            path={route.layout + route.path}
-            component={route.component}
-            key={key}
-          />)
         }
-        return resRoute
+        return resRoute;
       }
       return (
         <Route
@@ -153,7 +163,6 @@ export default function Dashboard(props: { [x: string]: any }) {
       );
     });
   };
-  console.log(getRoutes(routes))
   document.documentElement.dir = "ltr";
   const { onOpen } = useDisclosure();
   return (
@@ -195,7 +204,6 @@ export default function Dashboard(props: { [x: string]: any }) {
           <Box
             mx="auto"
             p={{ base: "20px", md: "20px" }}
-
             // pe="20px"
             minH="100vh"
             pt="50px"
@@ -210,4 +218,3 @@ export default function Dashboard(props: { [x: string]: any }) {
     </Box>
   );
 }
-

@@ -21,9 +21,10 @@ import {
   useGetDetailClass,
 } from "hook/query/class/use-query-class";
 import { useGetOptionsCourse } from "hook/data-list/use-get-options";
+import { useEffect } from "react";
 
 export default function CreateEditClass() {
-  const { handleSubmit, control, getValues, reset } = useForm<IFormClass>({
+  const { handleSubmit, control, reset } = useForm<IFormClass>({
     defaultValues: {},
     // resolver: yupResolver(schema),
   });
@@ -36,20 +37,18 @@ export default function CreateEditClass() {
     !!id
   );
 
-  const optionCourse = useGetOptionsCourse()
+  const optionCourse = useGetOptionsCourse();
 
-  //   useEffect(() => {
-  //     if (detailClass) {
-  //       const {
-  //         ...restData
-  //       } = detailClass.data;
-  //       reset({ ...restData });
-  //     }
-  //   }, [detailClass]);
+  useEffect(() => {
+    if (detailClass) {
+      const { name, detail,totalLesson,courseId } = detailClass.data;
+      reset({ name, detail,totalLesson,courseId });
+    }
+  }, [detailClass]);
 
   const onSubmit = async (values: IFormClass) => {
     if (values?.totalLesson) {
-      values.totalLesson = parseInt(values.totalLesson as string)
+      values.totalLesson = parseInt(values.totalLesson as string);
     }
     if (id) {
       await editClass(values);
@@ -118,7 +117,12 @@ export default function CreateEditClass() {
               render={({ field: { onChange, value }, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
                   <FormLabel>Khóa học</FormLabel>
-                  <SelectComp options={optionCourse} value={value} onChange={onChange} placeholder="Chọn khóa học" />
+                  <SelectComp
+                    options={optionCourse}
+                    value={value}
+                    onChange={onChange}
+                    placeholder="Chọn khóa học"
+                  />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

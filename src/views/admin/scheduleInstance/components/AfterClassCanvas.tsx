@@ -38,14 +38,11 @@ export const AfterClassCanvas = forwardRef<
   AfterClassCanvasRef,
   IPropsAfterClassCanvas
 >(({ data, onClose }, ref) => {
-  //   console.log("Child", props?.data);
   const afrerClassRef = useRef(null);
   const exportDivAsPng = () => {
     const div = afrerClassRef.current;
-    console.log(div);
     toPng(div, { cacheBust: true, quality: 1 })
       .then((dataUrl) => {
-        console.log("chay vao day");
         const link = document.createElement("a");
         link.download = "after-class.png";
         link.href = dataUrl;
@@ -54,7 +51,6 @@ export const AfterClassCanvas = forwardRef<
         toast.success("Tải after-class thành công");
       })
       .catch((err) => {
-        console.error(err);
         toast.error("Tải after-class thất bại");
         onClose();
       });
@@ -74,13 +70,11 @@ export const AfterClassCanvas = forwardRef<
           text: "images",
         };
         const isCanShare = navigator?.canShare(shareData);
-        console.log(isCanShare);
         if (isCanShare) {
           await navigator.share(shareData);
         } else toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
       })
       .catch((err) => {
-        console.error(err);
         toast.error("Trình duyệt của bạn không hỗ trợ chức năng này");
       });
   };
@@ -100,7 +94,7 @@ export const AfterClassCanvas = forwardRef<
       <Card
         borderRadius={0}
         ref={afrerClassRef}
-        minWidth={{ base: "1024px", "2xl": "100%" }}
+        minWidth={{ base: "1024px", xl: "100%" }}
       >
         {/* heading */}
         <Flex alignItems="center" h={"50px"}>
@@ -117,7 +111,7 @@ export const AfterClassCanvas = forwardRef<
             <Text>
               Date:{" "}
               <span className="font-bold">
-                {dayjs(data.date).format("DD/MM/YYYY")}
+                {data.date}
               </span>
             </Text>
             <Text>

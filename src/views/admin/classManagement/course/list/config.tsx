@@ -1,6 +1,7 @@
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailClass } from "types/class-management/class.type";
 import { IDetailCourse } from "types/class-management/course.type";
@@ -43,26 +44,45 @@ export const columns = (history: any): ColumnsType<IDetailCourse> => {
       width: 120,
       render: (_, record: IDetailCourse) => (
         <Space size="middle">
-          <IconButton
-            variant="outline"
-            aria-label="Call Sage"
-            fontSize="20px"
-            icon={<MdEdit />}
-            onClick={() =>
-              history?.push(`/admin/class/course/edit/${record?.courseId}`)
-            }
-          />
-          <IconButton
-            variant="outline"
-            aria-label="Call Sage"
-            fontSize="20px"
-            icon={<MdRemoveRedEye />}
-            onClick={() =>
-              history?.push(`/admin/class/course/detail/${record?.courseId}`)
-            }
-          />
+          <Tooltip label="Chỉnh sửa">
+            <IconButton
+              variant="outline"
+              aria-label="Call Sage"
+              fontSize="20px"
+              icon={<MdEdit />}
+              onClick={() =>
+                history?.push(`/admin/class/course/edit/${record?.courseId}`)
+              }
+            />
+          </Tooltip>
+          <Tooltip label="Xem chi tiết">
+            <IconButton
+              variant="outline"
+              aria-label="Call Sage"
+              fontSize="20px"
+              icon={<MdRemoveRedEye />}
+              onClick={() =>
+                history?.push(`/admin/class/course/detail/${record?.courseId}`)
+              }
+            />
+          </Tooltip>
         </Space>
       ),
     },
   ];
 };
+
+export const filterItems: IFilterInput[] = [
+  {
+    type: "inputText",
+    label: "Tên khoá học",
+    controlName: "courseName",
+    placeHolder: "Nhập khoá học",
+  },
+  {
+    type: "inputText",
+    label: "Mã số khoá học",
+    controlName: "courseCode",
+    placeHolder: "Nhập mã khoá học",
+  },
+];

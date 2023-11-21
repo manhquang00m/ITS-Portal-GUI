@@ -9,13 +9,16 @@ import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
 export function ListScheduleConfig() {
-  const [filter, setFilter] = useState<IFilterScheduleConfig>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterScheduleConfig>({
+    page: 1,
+    limit: 10,
+  });
   const { data, isLoading } = useGetScheduleConfig(filter);
   const history = useHistory();
   const initialValue = {
-    name: "",
-    level: "",
-  }
+    teacherId: "",
+    classId: "",
+  };
   const addScheduleConfig = () => {
     history.push("/admin/class/schedule-config/create");
   };
@@ -29,21 +32,16 @@ export function ListScheduleConfig() {
   };
 
   const handleSearch = (values: IFilterScheduleConfig) => {
-    const clearValues = clearParamsObject(values)
+    const clearValues = clearParamsObject(values);
     setFilter({
       page: 1,
       limit: 10,
-      ...clearValues
-    })
+      ...clearValues,
+    });
   };
   const rightButton = useMemo(
     () => (
-      <Button
-        onClick={addScheduleConfig}
-        width={"160px"}
-        float={"right"}
-        variant="brand"
-      >
+      <Button onClick={addScheduleConfig} float={"right"} variant="brand">
         Đặt lịch dạy
       </Button>
     ),

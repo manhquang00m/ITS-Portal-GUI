@@ -1,14 +1,20 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
+import Filter from "components/filter/filter";
 import { useGetClass } from "hook/query/class/use-query-class";
 import { useGetCourse } from "hook/query/course/use-query-course";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterClass } from "types/class-management/class.type";
 import { IFilterCourse } from "types/class-management/course.type";
-import { columns } from "./config";
+import { clearParamsObject } from "utils/helper";
+import { columns, filterItems } from "./config";
 
 export function ListCourse() {
+  const initialValue = {
+    courseName: "",
+    courseCode: "",
+  };
   const [filter, setFilter] = useState<IFilterCourse>({ page: 1, limit: 10 });
   const { data, isLoading } = useGetCourse(filter);
   const history = useHistory();
@@ -23,18 +29,31 @@ export function ListCourse() {
       limit: pageSize,
     });
   };
-
-  return (
-    <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
-      <Button
-        onClick={addCourse}
-        width={"160px"}
-        float={"right"}
-        mb={4}
-        variant="brand"
-      >
+  const handleSearch = (values: IFilterClass) => {
+    const clearValues = clearParamsObject(values);
+    setFilter({
+      page: 1,
+      limit: 10,
+      ...clearValues,
+    });
+  };
+  const rightButton = useMemo(
+    () => (
+      <Button onClick={addCourse} float={"right"} variant="brand">
         Tạo khoá học
       </Button>
+    ),
+    []
+  );
+  return (
+    <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
+      <Filter
+        filterItems={filterItems}
+        handleSearch={handleSearch}
+        rightButton={rightButton}
+        searchParams={filter}
+        initialValue={initialValue}
+      />
       <Table
         scroll={{ x: 600, y: 450 }}
         loading={isLoading}
