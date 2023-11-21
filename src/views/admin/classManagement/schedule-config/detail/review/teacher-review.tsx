@@ -52,12 +52,12 @@ export default function TeacherReview() {
   }, [detailStudentProgress]);
 
   const onSubmit = async (values: IResponseStudentProgressInstance) => {
-    console.log(values)
     if (id) {
       await teacherReview(values);
       return;
     }
   };
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Spin spinning={loadingReview || isLoadingDetail} fullscreen />
@@ -82,13 +82,13 @@ export default function TeacherReview() {
                 <GridItem colSpan={{ base: 24, xl: 6 }}>
                   <Controller
                     control={control}
+                    disabled
                     name={`data.${index}.studentName`}
                     render={({ field: { ref, ...restField }, fieldState }) => {
                       return (
                         <FormControl isInvalid={!!fieldState?.error}>
                           <FormLabel>Học sinh {`(${index + 1})`}</FormLabel>
                           <Input
-                            disabled
                             backgroundColor={"white"}
                             {...restField}
                             placeholder="Nhập tên học sinh ..."
@@ -116,7 +116,7 @@ export default function TeacherReview() {
                           value={value}
                           onChange={onChange}
                           placeholder="Chọn trạng thái"
-                          className= {"bg-white"}
+                          className={"bg-white"}
                         />
                         <FormErrorMessage>
                           {fieldState?.error?.message}
@@ -131,7 +131,7 @@ export default function TeacherReview() {
                     name={`data.${index}.teacherReview`}
                     render={({ field: { ref, ...restField }, fieldState }) => {
                       return (
-                        <FormControl isInvalid={!!fieldState?.error}>
+                        <FormControl isRequired isInvalid={!!fieldState?.error}>
                           <FormLabel>Nhận xét buổi học</FormLabel>
                           <Input
                             backgroundColor={"white"}
@@ -152,7 +152,7 @@ export default function TeacherReview() {
                     name={`data.${index}.result`}
                     render={({ field: { ref, ...restField }, fieldState }) => {
                       return (
-                        <FormControl isInvalid={!!fieldState?.error}>
+                        <FormControl isRequired isInvalid={!!fieldState?.error}>
                           <FormLabel>Kết quả học tập</FormLabel>
                           <Input
                             backgroundColor={"white"}

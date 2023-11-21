@@ -2,6 +2,7 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import dayjs from "dayjs";
 import {
   MdAddPhotoAlternate,
   MdComment,
@@ -37,6 +38,9 @@ export const columns = (
       title: "Thời gian dạy",
       dataIndex: "date",
       key: "date",
+      render: (text: string) => {
+        return dayjs(text).format("DD/MM/YYYY h:mm A")
+      }
     },
     {
       title: "Vai trò giáo viên",
@@ -47,15 +51,11 @@ export const columns = (
       title: "Bài học hôm nay",
       dataIndex: "currentLesson",
       key: "currentLesson",
-      width: 140,
-
     },
     {
       title: "Bài học tiếp theo",
       dataIndex: "nextLesson",
       key: "nextLesson",
-      width: 140,
-
     },
     {
       title: "Tác vụ",
