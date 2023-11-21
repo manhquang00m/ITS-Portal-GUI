@@ -140,7 +140,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
         </MenuList>
       </Menu>
       <Text
-        w="100%"
+        w={{ base: '50%', md: "100%" }}
         ml={"8px"}
         borderColor={borderColor}
         fontSize="sm"

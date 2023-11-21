@@ -5,6 +5,17 @@ import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailScheduleConfig } from "types/class-management/schedule-config.type";
 
+const weekDayName: Record<string, string> = {
+  '1': "Thứ hai",
+  '2': "Thứ ba",
+  '3': "Thứ tư",
+  '4': "Thứ năm",
+  '5': "Thứ sáu",
+  '6': "Thứ bảy",
+  '7': "Chủ nhật",
+
+}
+
 export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
   return [
     {
@@ -26,9 +37,12 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
       width: 120,
     },
     {
-      title: "Ngày dạy",
+      title: "Ngày dạy trong tuần",
       dataIndex: "weekDay",
       key: "weekDay",
+      render: (text: string) => {
+        return weekDayName[text]
+      }
     },
     {
       title: "Vai trò giáo viên",
