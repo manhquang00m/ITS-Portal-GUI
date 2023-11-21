@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, SimpleGrid } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { IFormTeacher } from 'types/class-management/teacher.type';
@@ -6,6 +6,9 @@ import Card from "components/card/Card";
 import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query/teacher/use-get-teachers';
 import { useHistory, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
+import { optionsGender } from './config';
+import SelectComp from 'components/fields/SelectField';
+
 
 export default function CreateEditTeacher() {
     const { handleSubmit, control, getValues, reset } = useForm<IFormTeacher>({
@@ -42,8 +45,8 @@ export default function CreateEditTeacher() {
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
             <Spin spinning={isLoadingDetail || loadingCreate || loadingEdit} fullscreen />
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Card variant="elevated" className="p-4 pb-6">
-                    <Heading size="md" mb={3}>
+                <Card variant="elevated" className="p-4 ">
+                    <Heading size="md" mb={6} color={useColorModeValue('navy.700', 'white')}>
                         Thông tin giảng viên
                     </Heading>
                     <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
@@ -76,10 +79,10 @@ export default function CreateEditTeacher() {
                         <Controller
                             control={control}
                             name="gender"
-                            render={({ field: { ref, ...restField }, fieldState }) => (
+                            render={({ field: { ref, value, onChange }, fieldState }) => (
                                 <FormControl isRequired isInvalid={!!fieldState?.error}>
                                     <FormLabel>Giới tính</FormLabel>
-                                    <Input {...restField} placeholder="Nhập địa chỉ ..." />
+                                    <SelectComp options={optionsGender} value={value} onChange={onChange} placeholder="Chọn giới tính" />
                                     <FormErrorMessage>
                                         {fieldState?.error?.message}
                                     </FormErrorMessage>

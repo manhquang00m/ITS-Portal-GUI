@@ -70,22 +70,25 @@ export default function AdminNavbar(props: {
 			mx='auto'
 			mt={secondaryMargin}
 			pb='8px'
-			right={{ base: '12px', md: '30px', lg: '30px', xl: '30px' }}
+			right={{ base: '12px', md: '30px', lg: '20px' }}
 			px={{
 				sm: paddingX,
 				md: '10px'
+			}}
+			pr={{
+				xl: 0
 			}}
 			ps={{
 				xl: '12px'
 			}}
 			pt='8px'
-			top={{ base: '12px', md: '16px', xl: '18px' }}
+			top={{ base: '12px', md: '16px', xl: '2px' }}
 			w={{
 				base: 'calc(100vw - 6%)',
 				md: 'calc(100vw - 8%)',
 				lg: 'calc(100vw - 6%)',
-				xl: 'calc(100vw - 350px)',
-				'2xl': 'calc(100vw - 365px)'
+				xl: 'calc(100vw - 346px)',
+				'2xl': 'calc(100vw - 320px)',
 			}}>
 			<Flex
 				w='100%'
@@ -115,7 +118,7 @@ export default function AdminNavbar(props: {
 						bg='inherit'
 						borderRadius='inherit'
 						fontWeight='bold'
-						fontSize='34px'
+						fontSize='30px'
 						_hover={{ color: { mainText } }}
 						_active={{
 							bg: 'inherit',

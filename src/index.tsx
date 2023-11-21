@@ -26,7 +26,14 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.render(
-  <ConfigProvider theme={{ token: { fontFamily: 'Roboto' } }}>
+  <ConfigProvider theme={{
+    token: { fontFamily: 'Roboto' }, components: {
+      Table: {
+        headerBg: "#ffffff",
+        borderColor: "#e2e8f0",
+      }
+    }
+  }}>
     <ChakraProvider theme={theme}>
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>

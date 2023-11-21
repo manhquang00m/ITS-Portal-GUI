@@ -93,7 +93,7 @@ export const AfterClassCanvas = forwardRef<
       handleShareImage();
     },
   }));
-
+  console.log(data.date)
   // downloadImage(afrerClassRef.current);
   return (
     <Box overflow={{ base: "scroll", xl: "hidden" }}>
@@ -117,11 +117,11 @@ export const AfterClassCanvas = forwardRef<
             <Text>
               Date:{" "}
               <span className="font-bold">
-                {dayjs(data.date).format("DD/MM/YYYY")}
+                {data?.date}
               </span>
             </Text>
             <Text>
-              Teacher: <span className="font-bold">{data.teacher}</span>
+              Teacher: <span className="font-bold">{data?.teacher}</span>
             </Text>
           </Box>
         </Flex>

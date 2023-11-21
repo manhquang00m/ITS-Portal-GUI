@@ -4,9 +4,9 @@ class Http {
     instance: AxiosInstance
     constructor() {
         this.instance = axios.create({
-            baseURL: 'http://management-tool-403211.as.r.appspot.com/api/',
+            baseURL: 'https://management-tool-403211.as.r.appspot.com/api/',
             timeout: 10000,
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         })
     }
 }
