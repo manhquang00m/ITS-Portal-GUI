@@ -22,7 +22,10 @@ import logoITS from "assets/img/layout/logoITS.png";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { MdFacebook, MdPhone, MdPublic } from "react-icons/md";
 import Card from "components/card/Card";
-import { IAfterClass, IFormAfterClass } from "types/class-management/after-class.type";
+import {
+  IAfterClass,
+  IFormAfterClass,
+} from "types/class-management/after-class.type";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
 
@@ -109,10 +112,7 @@ export const AfterClassCanvas = forwardRef<
           <Spacer />
           <Box>
             <Text>
-              Date:{" "}
-              <span className="font-bold">
-                {data.date}
-              </span>
+              Date: <span className="font-bold">{data.date}</span>
             </Text>
             <Text>
               Teacher: <span className="font-bold">{data.teacherName}</span>
@@ -196,10 +196,10 @@ export const AfterClassCanvas = forwardRef<
                         <p>{studentProgress.studentName}</p>
                       </Td>
                       <Td>
-                        <p>{studentProgress.teacherReview}</p>
+                        <p>{studentProgress.status==='disable' ? <span className="text-red-400">Nghỉ học</span> : studentProgress.teacherReview}</p>
                       </Td>
                       <Td>
-                        <p>{studentProgress.result}</p>
+                        <p>{studentProgress.status !=='disable' && studentProgress.result}</p>
                       </Td>
                     </Tr>
                   );

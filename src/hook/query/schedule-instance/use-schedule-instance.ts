@@ -106,7 +106,7 @@ export const useTeacherReview = (id: string) => {
   const history = useHistory();
   return useMutation({
     mutationFn: async (payload: IResponseStudentProgressInstance) => {
-      return await teacherReview(payload, id);
+      return await teacherReview(payload.data, id);
     },
     onSuccess() {
       history?.push(`/admin/schedule-instance`);

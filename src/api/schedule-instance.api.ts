@@ -46,6 +46,6 @@ export const getStudentProgress = (
     .then((response) => response?.data);
 
 export const teacherReview = (
-  payload: IResponseStudentProgressInstance,
+  payload: IStudentProgressInstance[],
   id: string
 ) => http.put(`/student/student-progress/${id}`, payload);
