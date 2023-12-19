@@ -18,6 +18,8 @@ export interface IDetailScheduleConfig {
     updatedBy: string;
     version: number;
     status: string;
+    className: string;
+    teacherName: string;
 }
 
 export interface IListScheduleConfig {

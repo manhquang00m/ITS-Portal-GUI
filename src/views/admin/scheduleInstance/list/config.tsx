@@ -108,14 +108,14 @@ export const columns = (
 export const filterItems: IFilterInput[] = [
   {
     type: "inputText",
-    label: "ID giáo viên",
-    controlName: "teacherId",
-    placeHolder: "Nhập id",
+    label: "Giáo viên",
+    controlName: "teacherName",
+    placeHolder: "Nhập tên giáo viên",
   },
   {
     type: "inputText",
-    label: "ID lớp học",
-    controlName: "classId",
-    placeHolder: "Nhập id",
+    label: "Lớp học",
+    controlName: "className",
+    placeHolder: "Nhập tên lớp học",
   },
 ];

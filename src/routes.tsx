@@ -29,6 +29,9 @@ import ViewDetailScheduleInstance from "views/admin/scheduleInstance/detail/view
 import CreateEditScheduleInstance from "views/admin/scheduleInstance/detail/create-edit/create-edit-schedule-instance";
 import { ListScheduleInstance } from "views/admin/scheduleInstance/list/list-sechedule-instance";
 import TeacherReview from "views/admin/classManagement/schedule-config/detail/review/teacher-review";
+import { ListStudent } from "views/admin/classManagement/student/list/list-student";
+import ViewDetailStudent from "views/admin/classManagement/student/detail/view/view-detail-student";
+import CreateEditStudent from "views/admin/classManagement/student/detail/create-edit/create-edit-student";
 
 const routes: RoutesType[] = [
   {
@@ -97,12 +100,34 @@ const routes: RoutesType[] = [
           {
             path: "/create",
             component: CreateEditTeacher,
-            name: "Tạo giảng viên",
+            name: "Thêm giáo viên",
           },
           {
             path: "/edit/:id",
             component: CreateEditTeacher,
-            name: "Chỉnh sửa giảng viên",
+            name: "Chỉnh sửa giáo viên",
+          },
+        ],
+      },
+      {
+        path: "/student",
+        component: ListStudent,
+        name: "Học sinh",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailStudent,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditStudent,
+            name: "Thêm học sinh",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditStudent,
+            name: "Chỉnh sửa học sinh",
           },
         ],
       },

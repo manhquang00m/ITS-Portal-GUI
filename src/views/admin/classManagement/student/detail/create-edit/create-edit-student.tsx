@@ -1,45 +1,47 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
-import { IFormTeacher } from 'types/class-management/teacher.type';
+import { IFormStudent } from 'types/class-management/student.type';
 import Card from "components/card/Card";
-import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query/teacher/use-get-teachers';
+import { useCreateStudent, useEditStudent, useGetDetailStudent } from 'hook/query/student/use-student';
 import { useHistory, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
 import SelectComp from 'components/fields/SelectField';
-import { optionsGender } from 'variables/option';
+import { optionsGender, optionsGradeLevel } from 'variables/option';
 
 
-export default function CreateEditTeacher() {
-    const { handleSubmit, control, getValues, reset } = useForm<IFormTeacher>({
+export default function CreateEditStudent() {
+    const { handleSubmit, control, getValues, reset } = useForm<IFormStudent>({
         defaultValues: {
             name: undefined,
             gender: undefined,
-            level: undefined,
-            institution: undefined,
+            gradeLevel: undefined,
+            phoneNumber: undefined,
             address: undefined,
+            parentPhone: undefined,
+            parentName: undefined,
         },
         // resolver: yupResolver(schema),
     });
 
     const { id }: { id: string } = useParams();
-    const { mutate: createTeacher, isLoading: loadingCreate } = useCreateTeacher();
-    const { mutate: editTeacher, isLoading: loadingEdit } = useEditTeacher(id);
-    const { data: detailTeacher, isFetching: isLoadingDetail } = useGetDetailTeacher(id, !!id)
+    const { mutate: createStudent, isLoading: loadingCreate } = useCreateStudent();
+    const { mutate: editStudent, isLoading: loadingEdit } = useEditStudent(id);
+    const { data: detailStudent, isFetching: isLoadingDetail } = useGetDetailStudent(id, !!id)
     console.log(loadingCreate, loadingEdit, isLoadingDetail)
     useEffect(() => {
-        if (detailTeacher) {
-            const { createdAt, createdBy, status, updatedAt, updatedBy, userId, version, ...restData } = detailTeacher.data
+        if (detailStudent) {
+            const { createdAt, createdBy, status, updatedAt, updatedBy, version, ...restData } = detailStudent.data
             reset({ ...restData })
         }
-    }, [detailTeacher])
+    }, [detailStudent])
 
-    const onSubmit = async (values: IFormTeacher) => {
+    const onSubmit = async (values: IFormStudent) => {
         if (id) {
-            await editTeacher(values)
+            await editStudent(values)
             return
         }
-        await createTeacher(values)
+        await createStudent(values)
     };
     return (
         <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -47,7 +49,7 @@ export default function CreateEditTeacher() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card variant="elevated" className="p-4 ">
                     <Heading size="md" mb={6} color={useColorModeValue('navy.700', 'white')}>
-                        Thông tin giảng viên
+                        Thông tin học sinh
                     </Heading>
                     <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
                         <Controller
@@ -55,7 +57,7 @@ export default function CreateEditTeacher() {
                             name="name"
                             render={({ field: { ref, ...restField }, fieldState }) => (
                                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                                    <FormLabel>Tên giáo viên</FormLabel>
+                                    <FormLabel>Tên học sinh</FormLabel>
                                     <Input {...restField} placeholder="Nhập tên ..." />
                                     <FormErrorMessage>
                                         {fieldState?.error?.message}
@@ -91,11 +93,11 @@ export default function CreateEditTeacher() {
                         />
                         <Controller
                             control={control}
-                            name="level"
-                            render={({ field: { ref, ...restField }, fieldState }) => (
+                            name="gradeLevel"
+                            render={({ field: { ref, value, onChange }, fieldState }) => (
                                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                                    <FormLabel>Level</FormLabel>
-                                    <Input {...restField} placeholder="Nhập level ..." />
+                                    <FormLabel>Lớp</FormLabel>
+                                    <SelectComp options={optionsGradeLevel} value={value} onChange={onChange} placeholder="Chọn lớp" />
                                     <FormErrorMessage>
                                         {fieldState?.error?.message}
                                     </FormErrorMessage>
@@ -104,11 +106,37 @@ export default function CreateEditTeacher() {
                         />
                         <Controller
                             control={control}
-                            name="institution"
+                            name="phoneNumber"
                             render={({ field: { ref, ...restField }, fieldState }) => (
                                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                                    <FormLabel>Cơ quan</FormLabel>
-                                    <Input {...restField} placeholder="Nhập cơ quan ..." />
+                                    <FormLabel>Số điện thoại</FormLabel>
+                                    <Input {...restField} placeholder="Nhập sđt ..." />
+                                    <FormErrorMessage>
+                                        {fieldState?.error?.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="parentName"
+                            render={({ field: { ref, ...restField }, fieldState }) => (
+                                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                                    <FormLabel>Tên phụ huynh</FormLabel>
+                                    <Input {...restField} placeholder="Nhập tên ..." />
+                                    <FormErrorMessage>
+                                        {fieldState?.error?.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+                            )}
+                        />
+                         <Controller
+                            control={control}
+                            name="parentPhone"
+                            render={({ field: { ref, ...restField }, fieldState }) => (
+                                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                                    <FormLabel>Số điện thoại phụ huynh</FormLabel>
+                                    <Input {...restField} placeholder="Nhập sđt ..." />
                                     <FormErrorMessage>
                                         {fieldState?.error?.message}
                                     </FormErrorMessage>
