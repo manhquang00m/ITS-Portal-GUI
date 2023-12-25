@@ -1,4 +1,4 @@
-import { Button, IconButton, Tooltip } from "@chakra-ui/react";
+import { IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
@@ -20,21 +20,19 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
   return [
     {
       title: "ID",
-      dataIndex: "teacherId",
-      key: "teacherId",
+      dataIndex: "scheduleConfigId",
+      key: "scheduleConfigId",
       width: 60,
     },
     {
-      title: "ID lớp học",
-      dataIndex: "classId",
-      key: "classId",
-      width: 120,
+      title: "Giáo viên",
+      dataIndex: "teacherName",
+      key: "teacherName",
     },
     {
-      title: "ID giáo viên",
-      dataIndex: "teacherId",
-      key: "teacherId",
-      width: 120,
+      title: "Lớp học",
+      dataIndex: "className",
+      key: "className",
     },
     {
       title: "Ngày dạy trong tuần",

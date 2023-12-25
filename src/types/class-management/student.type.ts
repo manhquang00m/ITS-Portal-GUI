@@ -33,18 +33,23 @@ export interface IResponseStudent extends IResponseListCommon {
 }
 
 export interface IFormStudent {
-    studentId?: number;
-    name: string;
-    gradeLevel: string;
-    gender: string;
-    address: string;
-    phoneNumber: string;
-    parentName: string;
-    parentPhone: string;
+  studentId?: number;
+  name: string;
+  gradeLevel: string;
+  gender: string;
+  address: string;
+  phoneNumber: string;
+  parentName: string;
+  parentPhone: string;
 }
 
 export interface IResponseDetailStudent {
   code: number;
   message: string;
   data: IDetailStudent;
+}
+
+export interface IFormStudentEnroll {
+  classId: number;
+  studentId: number;
 }

@@ -1,6 +1,7 @@
 import {
   IFilterStudent,
   IFormStudent,
+  IFormStudentEnroll,
   IResponseDetailStudent,
   IResponseStudent,
 } from "types/class-management/student.type";
@@ -19,3 +20,6 @@ export const editStudent = (payload: IFormStudent, id: string) =>
 
 export const getDetailStudent = (id: string): Promise<IResponseDetailStudent> =>
   http.get(`student/${id}`).then((response) => response?.data);
+
+  export const enrollStudent = (payload: IFormStudentEnroll) =>
+  http.put(`student/enroll?studentId=${payload?.studentId}&classId=${payload?.classId}`, payload);

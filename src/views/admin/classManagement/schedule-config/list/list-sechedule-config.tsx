@@ -16,8 +16,8 @@ export function ListScheduleConfig() {
   const { data, isLoading } = useGetScheduleConfig(filter);
   const history = useHistory();
   const initialValue = {
-    teacherId: "",
-    classId: "",
+    teacherName: "",
+    className: "",
   };
   const addScheduleConfig = () => {
     history.push("/admin/class/schedule-config/create");
@@ -45,7 +45,7 @@ export function ListScheduleConfig() {
         Đặt lịch dạy
       </Button>
     ),
-    []
+    [addScheduleConfig]
   );
 
   return (

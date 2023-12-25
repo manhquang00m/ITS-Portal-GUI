@@ -3,7 +3,6 @@ import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
 import { useGetDetailScheduleConfig } from "hook/query/schedule-config/use-schedule-config";
-import { useGetDetailTeacher } from "hook/query/teacher/use-get-teachers";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";
@@ -17,11 +16,11 @@ export default function ViewDetailScheduleConfig() {
       list: [
         {
           title: "Lớp học",
-          children: detailSchedule?.data?.classId,
+          children: detailSchedule?.data?.className,
         },
         {
           title: "Giáo viên",
-          children: detailSchedule?.data?.teacherId,
+          children: detailSchedule?.data?.teacherName,
         },
         {
           title: "Ngày trong tuần",

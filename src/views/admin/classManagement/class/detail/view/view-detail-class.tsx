@@ -23,12 +23,12 @@ export default function ViewDetailClass() {
                     children: detailClass?.data?.detail,
                 },
                 {
-                    title: "Tên môn học",
+                    title: "Tên khoá học",
                     children: detailClass?.data?.courseName,
                 },
                 {
-                    title: "Mã môn học",
-                    children: detailClass?.data?.courseId,
+                    title: "Mã số khoá học",
+                    children: detailClass?.data?.courseCode,
                 },
 
             ],

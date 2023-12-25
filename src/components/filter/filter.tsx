@@ -13,6 +13,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
+import SelectRemote from "components/fields/SelectRemote";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { IFilter } from "./types";
@@ -22,7 +23,7 @@ export default function Filter({
   searchParams,
   filterItems,
   handleSearch,
-  initialValue
+  initialValue,
 }: IFilter) {
   const { handleSubmit, control, getValues, reset } = useForm({
     defaultValues: searchParams,
@@ -32,9 +33,9 @@ export default function Filter({
   };
 
   const clearFilter = () => {
-    reset(initialValue)
-    handleSearch(getValues())
-  }
+    reset(initialValue);
+    handleSearch(getValues());
+  };
 
   const renderFilterList = useMemo(
     () =>
@@ -49,6 +50,14 @@ export default function Filter({
                 <FormLabel>{item?.label}</FormLabel>
                 {item?.type === "inputText" && (
                   <Input {...restField} placeholder={item?.placeHolder} />
+                )}
+                {item?.type === "selectRemote" && (
+                  <SelectRemote
+                    getOptions={item?.getOptions}
+                    placeholder={item?.placeHolder}
+                    value={restField?.value}
+                    onChange={restField?.onChange}
+                  />
                 )}
                 <FormErrorMessage>
                   {fieldState?.error?.message}
@@ -77,8 +86,12 @@ export default function Filter({
               {renderFilterList}
             </SimpleGrid>
             <Flex mt={"12px"} justifyContent={"end"}>
-              <Button variant={"outline"} onClick={clearFilter} >Xóa lựa chọn</Button>
-              <Button ml={"8px"} variant={"brandOutline"} type="submit">Tìm kiếm</Button>
+              <Button variant={"outline"} onClick={clearFilter}>
+                Xóa lựa chọn
+              </Button>
+              <Button ml={"8px"} variant={"brandOutline"} type="submit">
+                Tìm kiếm
+              </Button>
             </Flex>
           </form>
         </AccordionPanel>

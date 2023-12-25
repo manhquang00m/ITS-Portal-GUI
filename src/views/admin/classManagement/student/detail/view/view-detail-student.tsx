@@ -23,7 +23,7 @@ export default function ViewDetailStudent() {
           children: detailStudent?.data?.gender,
         },
         {
-          title: "Lớp",
+          title: "Trình độ",
           children: detailStudent?.data?.gradeLevel,
         },
         {

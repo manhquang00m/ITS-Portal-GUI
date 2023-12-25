@@ -1,5 +1,5 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import dayjs from "dayjs";
@@ -10,6 +10,7 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 import { IDetailScheduleInstance } from "types/class-management/schedule-instance.type";
+import { fetchStatusScheduleInstance } from "utils/fetchOptions";
 
 export const columns = (
   history: any,
@@ -23,16 +24,29 @@ export const columns = (
       width: 60,
     },
     {
-      title: "ID lớp học",
-      dataIndex: "classId",
-      key: "classId",
+      title: "Lớp học",
+      dataIndex: "className",
+      key: "className",
       width: 120,
     },
     {
-      title: "ID giáo viên",
-      dataIndex: "teacherId",
-      key: "teacherId",
+      title: "Giáo viên",
+      dataIndex: "teacherName",
+      key: "teacherName",
       width: 120,
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      render: (text) =>
+        text === "Nam" || text === "Nữ" ? (
+          <Tag color={text === "Nam" ? "blue" : "magenta"} key={text}>
+            {text}
+          </Tag>
+        ) : (
+          text
+        ),
     },
     {
       title: "Thời gian dạy",
@@ -117,5 +131,12 @@ export const filterItems: IFilterInput[] = [
     label: "Lớp học",
     controlName: "className",
     placeHolder: "Nhập tên lớp học",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusScheduleInstance,
   },
 ];

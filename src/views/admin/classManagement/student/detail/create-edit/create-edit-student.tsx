@@ -28,7 +28,6 @@ export default function CreateEditStudent() {
     const { mutate: createStudent, isLoading: loadingCreate } = useCreateStudent();
     const { mutate: editStudent, isLoading: loadingEdit } = useEditStudent(id);
     const { data: detailStudent, isFetching: isLoadingDetail } = useGetDetailStudent(id, !!id)
-    console.log(loadingCreate, loadingEdit, isLoadingDetail)
     useEffect(() => {
         if (detailStudent) {
             const { createdAt, createdBy, status, updatedAt, updatedBy, version, ...restData } = detailStudent.data
@@ -96,7 +95,7 @@ export default function CreateEditStudent() {
                             name="gradeLevel"
                             render={({ field: { ref, value, onChange }, fieldState }) => (
                                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                                    <FormLabel>Lớp</FormLabel>
+                                    <FormLabel>Trình độ</FormLabel>
                                     <SelectComp options={optionsGradeLevel} value={value} onChange={onChange} placeholder="Chọn lớp" />
                                     <FormErrorMessage>
                                         {fieldState?.error?.message}

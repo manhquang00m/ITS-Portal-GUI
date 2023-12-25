@@ -1,3 +1,4 @@
+import { IResponseOptions } from "types/base/base-api.type";
 import {
   IResponseAfterClass,
   IResponseStudentProgressInstance,
@@ -37,6 +38,9 @@ export const getAfterClass = (
   http
     .get(`schedule-instance/${scheduleInstanceId}/generate-after-class`)
     .then((response) => response?.data);
+
+export const getStatusScheduleInstance = (): Promise<IResponseOptions[]> =>
+  http.get(`schedule-instance/statuses`).then((response) => response?.data);
 
 export const getStudentProgress = (
   id: string

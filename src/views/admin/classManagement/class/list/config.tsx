@@ -22,10 +22,15 @@ export const columns = (history: any): ColumnsType<IDetailClass> => {
       width: 60,
     },
     {
-      title: "ID khóa học",
-      dataIndex: "courseId",
-      key: "courseId",
-      width: 120,
+      title: "Mã số khóa học",
+      dataIndex: "courseCode",
+      key: "courseCode",
+      width: 140,
+    },
+    {
+      title: "Tên khóa học",
+      dataIndex: "courseName",
+      key: "courseName",
     },
     {
       title: "Tên lớp",
@@ -37,16 +42,13 @@ export const columns = (history: any): ColumnsType<IDetailClass> => {
       dataIndex: "detail",
       key: "detail",
     },
+
     {
       title: "Tổng bài học",
       dataIndex: "totalLesson",
       key: "totalLesson",
     },
-    {
-      title: "Tên khóa học",
-      dataIndex: "courseName",
-      key: "courseName",
-    },
+
     {
       title: "Tác vụ",
       key: "action",

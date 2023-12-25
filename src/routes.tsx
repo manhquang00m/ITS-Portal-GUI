@@ -24,7 +24,7 @@ import CreateEditClass from "views/admin/classManagement/class/detail/create-edi
 import ViewDetailClass from "views/admin/classManagement/class/detail/view/view-detail-class";
 import { ListScheduleConfig } from "views/admin/classManagement/schedule-config/list/list-sechedule-config";
 import CreateEditScheduleConfig from "views/admin/classManagement/schedule-config/detail/create-edit/create-edit-schedule-config";
-import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-teacher";
+import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-schedule-config";
 import ViewDetailScheduleInstance from "views/admin/scheduleInstance/detail/view/view-detail-schedule-instance";
 import CreateEditScheduleInstance from "views/admin/scheduleInstance/detail/create-edit/create-edit-schedule-instance";
 import { ListScheduleInstance } from "views/admin/scheduleInstance/list/list-sechedule-instance";

@@ -55,8 +55,9 @@ export function ListScheduleInstance() {
 
   const history = useHistory();
   const initialValue = {
-    teacherId: "",
-    classId: "",
+    teacherName: "",
+    className: "",
+    status: "",
   };
   const onChangePagination = (page: number, pageSize: number) => {
     setFilter({
@@ -89,10 +90,7 @@ export function ListScheduleInstance() {
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
-      <Spin
-        spinning={loadingAfterClass}
-        fullscreen
-      />
+      <Spin spinning={loadingAfterClass} fullscreen />
 
       <Filter
         filterItems={filterItems}
@@ -102,7 +100,7 @@ export function ListScheduleInstance() {
       />
       <Table
         scroll={{ x: 1000, y: 450 }}
-        loading={isLoading }
+        loading={isLoading}
         className="mt-2"
         columns={columns(history, changeIdSchedule)}
         dataSource={data?.data?.list}
@@ -116,12 +114,17 @@ export function ListScheduleInstance() {
           pageSize: filter?.limit,
         }}
       />
-      <Modal isOpen={isOpen} onClose={onClose} >
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay p={4} />
-        <ModalContent mt={"30px"} mx={"10px"} p={{ base: "0", md: "2", xl: "4" }} minWidth={"90%"}>
+        <ModalContent
+          mt={"30px"}
+          mx={"10px"}
+          p={{ base: "0", md: "2", xl: "4" }}
+          minWidth={"90%"}
+        >
           <ModalHeader paddingBottom={0}>Preview</ModalHeader>
           <ModalCloseButton />
-          <ModalBody >
+          <ModalBody>
             <AfterClassCanvas
               data={dataAfterClass?.data}
               onClose={onClose}

@@ -2,11 +2,14 @@ import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilter, IFilterInput } from "components/filter/types";
-import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { MdAssignmentAdd, MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailStudent } from "types/class-management/student.type";
 
-export const columns = (history: any): ColumnsType<IDetailStudent> => {
+export const columns = (
+  history: any,
+  setIdStudent: React.Dispatch<React.SetStateAction<number>>,
+  onOpen: () => void
+): ColumnsType<IDetailStudent> => {
   return [
     {
       title: "ID",
@@ -33,7 +36,7 @@ export const columns = (history: any): ColumnsType<IDetailStudent> => {
         ),
     },
     {
-      title: "Lớp",
+      title: "Trình độ",
       dataIndex: "gradeLevel",
       key: "gradeLevel",
     },
@@ -61,7 +64,7 @@ export const columns = (history: any): ColumnsType<IDetailStudent> => {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 120,
+      width: 180,
       render: (_, record: IDetailStudent) => (
         <Space size="middle">
           <Tooltip label="Chỉnh sửa">
@@ -86,6 +89,19 @@ export const columns = (history: any): ColumnsType<IDetailStudent> => {
                   `/admin/class/student/detail/${record?.studentId}`
                 )
               }
+            />
+          </Tooltip>
+          <Tooltip label="Gán vào lớp">
+          {/* <MdOutlineMonetizationOn /> */}
+            <IconButton
+              variant="outline"
+              aria-label="Call Sage"
+              fontSize="20px"
+              icon={<MdAssignmentAdd />}
+              onClick={() => {
+                setIdStudent(record?.studentId)
+                onOpen()
+              }}
             />
           </Tooltip>
         </Space>
