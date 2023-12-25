@@ -1,20 +1,22 @@
 import { IFilterCommon, IResponseListCommon } from "types/base/base-api.type";
 
-export interface IFilterStudent extends IFilterCommon {
-  name?: string;
-  gradeLevel?: string;
+export interface IFilterCost extends IFilterCommon {
+  nampaymentDateEnde?: string;
+  paymentDateStart?: string;
+  username?: string;
+  userFullName?: string;
+  costAmountStart?: number;
+  costAmountEnd?: number;
   status?: string;
 }
 
-export interface IDetailStudent {
-  studentId: number;
-  name: string;
-  gradeLevel: string;
-  gender: string;
-  address: string;
-  phoneNumber: string;
-  parentName: string;
-  parentPhone: string;
+export interface IDetailCost {
+  costId: number;
+  paymentDate: string;
+  userId: number;
+  userName: string;
+  userFullName: string;
+  costAmount: number;
   createdAt: string;
   createdBy: string;
   updatedAt: string;
@@ -23,33 +25,27 @@ export interface IDetailStudent {
   status: string;
 }
 
-export interface IListStudent {
-  list: IDetailStudent[];
+export interface IListCost {
+  list: IDetailCost[];
   totalElements: number;
 }
 
-export interface IResponseStudent extends IResponseListCommon {
-  data: IListStudent;
+export interface IResponseCost extends IResponseListCommon {
+  data: IListCost;
 }
 
-export interface IFormStudent {
-  studentId?: number;
-  name: string;
-  gradeLevel: string;
-  gender: string;
-  address: string;
-  phoneNumber: string;
-  parentName: string;
-  parentPhone: string;
+export interface IFormCost {
+  costId: number;
+  paymentDate: string;
+  userId: number;
+  costAmount: number;
+  status: string;
 }
 
-export interface IResponseDetailStudent {
+export interface IResponseDetailCost {
   code: number;
   message: string;
-  data: IDetailStudent;
+  data: IDetailCost;
 }
 
-export interface IFormStudentEnroll {
-  classId: number;
-  studentId: number;
-}
+

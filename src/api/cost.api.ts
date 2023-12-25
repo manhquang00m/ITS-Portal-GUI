@@ -1,21 +1,18 @@
 import {
-  IFilterTeacher,
-  IFormTeacher,
-  IResponseDetailTeacher,
-  IResponseTeacher,
-} from "types/class-management/teacher.type";
+  IFilterCost,
+  IFormCost,
+  IResponseDetailCost,
+  IResponseCost,
+} from "types/finance/cost.type";
 import http from "utils/http";
 
-export const getTeachers = (
-  params: IFilterTeacher
-): Promise<IResponseTeacher> =>
-  http.get("teacher", { params: params }).then((response) => response?.data);
+export const getCosts = (params: IFilterCost): Promise<IResponseCost> =>
+  http.get("cost", { params: params }).then((response) => response?.data);
 
-export const createTeacher = (payload: IFormTeacher) =>
-  http.post("teacher", payload);
+export const createCost = (payload: IFormCost) => http.post("cost", payload);
 
-export const editTeacher = (payload: IFormTeacher, id: string) =>
-  http.put(`teacher/${id}`, payload);
+export const editCost = (payload: IFormCost, id: string) =>
+  http.put(`cost/${id}`, payload);
 
-export const getDetailTeacher = (id: string): Promise<IResponseDetailTeacher> =>
-  http.get(`teacher/${id}`).then((response) => response?.data);
+export const getDetailCost = (id: string): Promise<IResponseDetailCost> =>
+  http.get(`cost/${id}`).then((response) => response?.data);

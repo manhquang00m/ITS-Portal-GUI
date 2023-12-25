@@ -92,7 +92,6 @@ export const columns = (
             />
           </Tooltip>
           <Tooltip label="Gán vào lớp">
-          {/* <MdOutlineMonetizationOn /> */}
             <IconButton
               variant="outline"
               aria-label="Call Sage"

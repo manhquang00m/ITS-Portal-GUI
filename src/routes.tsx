@@ -4,13 +4,12 @@ import {
   MdSchool,
   MdLock,
   MdOutlineCalendarMonth,
+  MdOutlineMonetizationOn,
 } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
-import AfterClass from "views/admin/classManagement/afterClass";
-import DataTables from "views/admin/dataTables";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import { ListTeacher } from "views/admin/classManagement/teacher/list/list-teacher";
@@ -25,7 +24,6 @@ import ViewDetailClass from "views/admin/classManagement/class/detail/view/view-
 import { ListScheduleConfig } from "views/admin/classManagement/schedule-config/list/list-sechedule-config";
 import CreateEditScheduleConfig from "views/admin/classManagement/schedule-config/detail/create-edit/create-edit-schedule-config";
 import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-schedule-config";
-import ViewDetailScheduleInstance from "views/admin/scheduleInstance/detail/view/view-detail-schedule-instance";
 import CreateEditScheduleInstance from "views/admin/scheduleInstance/detail/create-edit/create-edit-schedule-instance";
 import { ListScheduleInstance } from "views/admin/scheduleInstance/list/list-sechedule-instance";
 import TeacherReview from "views/admin/classManagement/schedule-config/detail/review/teacher-review";
@@ -73,7 +71,6 @@ const routes: RoutesType[] = [
     layout: "/admin",
     path: "/class",
     icon: <Icon as={MdSchool} width="20px" height="20px" color="inherit" />,
-    component: NFTMarketplace,
     children: [
       // {
       // 	path: "/after-class",
@@ -199,36 +196,12 @@ const routes: RoutesType[] = [
       },
     ],
   },
-  // {
-  // 	name: 'NFT Marketplace',
-  // 	layout: '/admin',
-  // 	path: '/nft',
-  // 	icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
-  // 	component: NFTMarketplace,
-  // 	secondary: true
-  // },
-  // {
-  // 	name: 'Data Tables',
-  // 	layout: '/admin',
-  // 	icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  // 	path: '/data-tables',
-  // 	component: DataTables
-  // },
-  // {
-  // 	name: 'Quản lý lớp học',
-  // 	layout: '/admin',
-  // 	path: '/profile/detail',
-  // 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  // 	component: Profile
-  // },
-  // {
-  // 	name: 'Profile',
-  // 	layout: '/admin',
-  // 	path: '/profile/detail',
-  // 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  // 	hidden: true,
-  // 	component: Profile
-  // },
+  {
+    name: "Quản lý tài chính",
+    layout: "/admin",
+    path: "/finance",
+    icon: <Icon as={MdOutlineMonetizationOn} width="20px" height="20px" color="inherit" />,
+  },
   {
     name: "Sign In",
     layout: "/auth",
@@ -237,13 +210,6 @@ const routes: RoutesType[] = [
     hidden: true,
     component: SignInCentered,
   },
-  // {
-  // 	name: 'RTL Admin',
-  // 	layout: '/rtl',
-  // 	path: '/rtl-default',
-  // 	icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  // 	component: RTL
-  // }
 ];
 
 export default routes;
