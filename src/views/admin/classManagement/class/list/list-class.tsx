@@ -1,7 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetClass } from "hook/query/class/use-query-class";
+import { useGetClass } from "hook/query-class/class/use-query-class";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterClass } from "types/class-management/class.type";

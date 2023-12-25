@@ -1,7 +1,7 @@
-import { useGetClass } from "hook/query/class/use-query-class";
-import { useGetCourse } from "hook/query/course/use-query-course";
-import { useGetScheduleConfig } from "hook/query/schedule-config/use-schedule-config";
-import { useGetTeachers } from "hook/query/teacher/use-get-teachers";
+import { useGetClass } from "hook/query-class/class/use-query-class";
+import { useGetCourse } from "hook/query-class/course/use-query-course";
+import { useGetScheduleConfig } from "hook/query-class/schedule-config/use-schedule-config";
+import { useGetTeachers } from "hook/query-class/teacher/use-get-teachers";
 import { useMemo } from "react";
 
 export const useGetOptionsCourse = () => {

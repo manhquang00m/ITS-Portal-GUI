@@ -2,7 +2,7 @@ import { Box, Divider } from "@chakra-ui/react";
 import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
-import { useGetDetailScheduleConfig } from "hook/query/schedule-config/use-schedule-config";
+import { useGetDetailScheduleConfig } from "hook/query-class/schedule-config/use-schedule-config";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";

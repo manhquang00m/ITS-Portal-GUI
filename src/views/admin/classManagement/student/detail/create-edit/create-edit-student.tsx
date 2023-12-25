@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { IFormStudent } from 'types/class-management/student.type';
 import Card from "components/card/Card";
-import { useCreateStudent, useEditStudent, useGetDetailStudent } from 'hook/query/student/use-student';
+import { useCreateStudent, useEditStudent, useGetDetailStudent } from 'hook/query-class/student/use-student';
 import { useHistory, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
 import SelectComp from 'components/fields/SelectField';

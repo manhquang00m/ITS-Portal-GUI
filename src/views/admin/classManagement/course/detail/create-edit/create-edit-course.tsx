@@ -18,7 +18,7 @@ import {
   useCreateCourse,
   useEditCourse,
   useGetDetailCourse,
-} from "hook/query/course/use-query-course";
+} from "hook/query-class/course/use-query-course";
 import { IFormCourse } from "types/class-management/course.type";
 import { useEffect } from "react";
 

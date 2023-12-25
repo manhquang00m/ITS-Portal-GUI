@@ -1,7 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetScheduleConfig } from "hook/query/schedule-config/use-schedule-config";
+import { useGetScheduleConfig } from "hook/query-class/schedule-config/use-schedule-config";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterScheduleConfig } from "types/class-management/schedule-config.type";

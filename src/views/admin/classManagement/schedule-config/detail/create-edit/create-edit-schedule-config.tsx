@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Spin } from 'antd';
 import { optionRole, optionWeekDay } from './config';
 import SelectComp from 'components/fields/SelectField';
-import { useCreateScheduleConfig, useEditScheduleConfig, useGetDetailScheduleConfig } from 'hook/query/schedule-config/use-schedule-config';
+import { useCreateScheduleConfig, useEditScheduleConfig, useGetDetailScheduleConfig } from 'hook/query-class/schedule-config/use-schedule-config';
 import { IFormScheduleConfig } from 'types/class-management/schedule-config.type';
 import { useGetOptionsClass, useGetOptionsCourse, useGetOptionsTeacher } from 'hook/data-list/use-get-options';
 import { useEffect } from 'react';

@@ -2,7 +2,7 @@ import { Box, Divider } from "@chakra-ui/react";
 import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
-import { useGetDetailClass } from "hook/query/class/use-query-class";
+import { useGetDetailClass } from "hook/query-class/class/use-query-class";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";

@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import SelectRemote from "components/fields/SelectRemote";
-import { useEnrollStudent } from "hook/query/student/use-student";
+import { useEnrollStudent } from "hook/query-class/student/use-student";
 import { useState } from "react";
 import { fetchClass } from "utils/fetchOptions";
 

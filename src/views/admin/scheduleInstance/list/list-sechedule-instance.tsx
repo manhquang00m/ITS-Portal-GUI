@@ -15,7 +15,7 @@ import Filter from "components/filter/filter";
 import {
   useGetAfterClass,
   useGetScheduleInstance,
-} from "hook/query/schedule-instance/use-schedule-instance";
+} from "hook/query-class/schedule-instance/use-schedule-instance";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterScheduleConfig } from "types/class-management/schedule-config.type";

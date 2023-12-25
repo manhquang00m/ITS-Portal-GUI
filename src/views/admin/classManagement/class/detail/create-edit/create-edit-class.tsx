@@ -19,7 +19,7 @@ import {
   useCreateClass,
   useEditClass,
   useGetDetailClass,
-} from "hook/query/class/use-query-class";
+} from "hook/query-class/class/use-query-class";
 import { useGetOptionsCourse } from "hook/data-list/use-get-options";
 import { useEffect } from "react";
 

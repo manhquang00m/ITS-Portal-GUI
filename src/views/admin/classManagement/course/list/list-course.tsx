@@ -1,8 +1,8 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetClass } from "hook/query/class/use-query-class";
-import { useGetCourse } from "hook/query/course/use-query-course";
+import { useGetClass } from "hook/query-class/class/use-query-class";
+import { useGetCourse } from "hook/query-class/course/use-query-course";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterClass } from "types/class-management/class.type";

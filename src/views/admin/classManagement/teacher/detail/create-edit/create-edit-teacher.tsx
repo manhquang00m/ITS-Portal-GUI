@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { IFormTeacher } from 'types/class-management/teacher.type';
 import Card from "components/card/Card";
-import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query/teacher/use-get-teachers';
+import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query-class/teacher/use-get-teachers';
 import { useHistory, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
 import SelectComp from 'components/fields/SelectField';

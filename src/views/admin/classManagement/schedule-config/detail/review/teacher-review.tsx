@@ -16,7 +16,7 @@ import SelectComp from "components/fields/SelectField";
 import {
   useGetStudentProgress,
   useTeacherReview,
-} from "hook/query/schedule-instance/use-schedule-instance";
+} from "hook/query-class/schedule-instance/use-schedule-instance";
 import { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
