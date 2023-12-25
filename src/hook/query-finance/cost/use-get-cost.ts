@@ -10,7 +10,7 @@ export const useGetCosts = (params: IFilterCost) => {
     queryFn: async () => {
       try {
         return await getCosts(params);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     retry: 2,
@@ -24,7 +24,7 @@ export const useCreateCost = () => {
       return await createCost(payload);
     },
     onSuccess() {
-      history?.push(`/admin/class/cost`);
+      history?.push(`/admin/finance/cost`);
       toast.success("Dữ liệu của bạn đã được lưu");
     },
     onError() {
@@ -40,7 +40,7 @@ export const useEditCost = (id: string) => {
       return await editCost(payload, id);
     },
     onSuccess() {
-      history?.push(`/admin/class/cost`);
+      history?.push(`/admin/finance/cost`);
       toast.success("Dữ liệu của bạn đã được cập nhật");
     },
     onError() {
@@ -55,7 +55,7 @@ export const useGetDetailCost = (id: string, enabled?: boolean) => {
     queryFn: async () => {
       try {
         return await getDetailCost(id);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     enabled: enabled,

@@ -30,6 +30,8 @@ import TeacherReview from "views/admin/classManagement/schedule-config/detail/re
 import { ListStudent } from "views/admin/classManagement/student/list/list-student";
 import ViewDetailStudent from "views/admin/classManagement/student/detail/view/view-detail-student";
 import CreateEditStudent from "views/admin/classManagement/student/detail/create-edit/create-edit-student";
+import { ListCost } from "views/admin/finance/cost/list/list-cost";
+import CreateEditCost from "views/admin/finance/cost/detail/create-edit/create-edit-student";
 
 const routes: RoutesType[] = [
   {
@@ -201,6 +203,31 @@ const routes: RoutesType[] = [
     layout: "/admin",
     path: "/finance",
     icon: <Icon as={MdOutlineMonetizationOn} width="20px" height="20px" color="inherit" />,
+    children: [
+      {
+        path: "/cost",
+        component: ListCost,
+        name: "Chi phí",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailClass,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditCost,
+            name: "Tạo chi phí",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditCost,
+            name: "Chỉnh sửa chi phí",
+          },
+        ],
+      },
+    ]
+
   },
   {
     name: "Sign In",
