@@ -1,5 +1,5 @@
 import { getClass } from "api/manage-class.api";
-import { getStatusScheduleInstance } from "api/schedule-instance.api";
+import { getScheduleInstances, getStatusScheduleInstance } from "api/schedule-instance.api";
 import { getTeachers } from "api/teacher.api";
 import { IOptionSelectComp } from "components/fields/SelectField";
 
@@ -26,5 +26,13 @@ export const fetchTeacher = async (): Promise<IOptionSelectComp[]> => {
   return response?.data?.list.map((item) => ({
     value: item?.teacherId,
     name: item?.name,
+  }));
+};
+
+export const fetchScheduleInstance = async (): Promise<IOptionSelectComp[]> => {
+  const response = await getScheduleInstances({ limit: 1000, page: 1 });
+  return response?.data?.list.map((item) => ({
+    value: item?.scheduleInstanceId,
+    name: `${item?.scheduleInstanceId}`,
   }));
 };

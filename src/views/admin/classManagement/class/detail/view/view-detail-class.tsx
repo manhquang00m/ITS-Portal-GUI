@@ -4,6 +4,7 @@ import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadin
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
 import { useGetDetailClass } from "hook/query-class/class/use-query-class";
 import { useMemo } from "react";
+import { FaUserGraduate } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";
 
@@ -29,6 +30,12 @@ export default function ViewDetailClass() {
                 {
                     title: "Mã số khoá học",
                     children: detailClass?.data?.courseCode,
+                },
+                {
+                    title: "Danh sách học sinh",
+                    children: detailClass?.data?.studentName && detailClass?.data?.studentName !== 'null' ? detailClass.data.studentName.split(",").map(item => (<div className="flex items-center">
+                        <i><FaUserGraduate /></i> <span className="ml-1">{item}</span>
+                    </div>)) : null
                 },
 
             ],

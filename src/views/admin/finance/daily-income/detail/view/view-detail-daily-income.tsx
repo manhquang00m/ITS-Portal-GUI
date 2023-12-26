@@ -2,66 +2,64 @@ import { Box, Divider } from "@chakra-ui/react";
 import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
-import { useGetDetailCost } from "hook/query-finance/cost/use-get-cost";
+import { useGetDetailDailyIncome } from "hook/query-finance/daily-income/use-get-daily-income";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";
 
-export default function ViewDetailCost() {
+export default function ViewDetailDailyIncome() {
   const { id }: { id: string } = useParams();
-  const { data: detailCost } = useGetDetailCost(id, !!id);
-  const inforCost: IListItem = useMemo(() => {
+  const { data: detailDailyIncome } = useGetDetailDailyIncome(id, !!id);
+  const inforDailyIncome: IListItem = useMemo(() => {
     return {
-      heading: "Thông tin chi phí",
+      heading: "Thông tin doanh thu theo ngày",
       list: [
         {
-          title: "Tên người dùng",
-          children: detailCost?.data?.userFullName,
+          title: "ID người nhận",
+          children: detailDailyIncome?.data?.recipientId,
         },
         {
-          title: "ID người dùng",
-          children: detailCost?.data?.userId,
+          title: "ID lịch trình",
+          children: detailDailyIncome?.data?.scheduleInstanceId,
         },
         {
-          title: "Ngày thanh toán",
-          children: detailCost?.data?.paymentDate,
-        },
-        {
-          title: "Tổng chi phí",
-          children: detailCost?.data?.costAmount,
+          title: "Lương cơ bản",
+          children: detailDailyIncome?.data?.baseSalary,
         },
       ],
     };
-  }, [detailCost]);
+  }, [detailDailyIncome]);
   const inforCommon: IListItem = useMemo(() => {
     return {
       heading: "Thông tin chung",
       list: [
         {
           title: "Ngày tạo",
-          children: detailCost?.data?.createdAt,
+          children: detailDailyIncome?.data?.createdAt,
         },
         {
           title: "Người tạo",
-          children: detailCost?.data?.createdBy,
+          children: detailDailyIncome?.data?.createdBy,
         },
         {
           title: "Người cập nhật",
-          children: detailCost?.data?.updatedBy,
+          children: detailDailyIncome?.data?.updatedBy,
         },
       ],
     };
-  }, [detailCost]);
+  }, [detailDailyIncome]);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Card variant="elevated" className="p-4 pb-6">
         <DisplayHeadingDetail
-          url_edit={`/admin/finance/cost/edit/${id}`}
-          heading={`Mã chi phí #${detailCost?.data?.costId}`}
-          updated_at={detailCost?.data?.updatedAt}
+          url_edit={`/admin/finance/daily/edit/${id}`}
+          heading={`Mã doanh thu theo ngày #${detailDailyIncome?.data?.dailyIncomeId}`}
+          updated_at={detailDailyIncome?.data?.updatedAt}
         />
-        <DisplayListItemDetail data={inforCost}></DisplayListItemDetail>
+        <DisplayListItemDetail
+          data={inforDailyIncome}
+        ></DisplayListItemDetail>
         <Divider className="my-4" />
         <DisplayListItemDetail data={inforCommon}></DisplayListItemDetail>
       </Card>

@@ -1,23 +1,26 @@
 import { Box, Button } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetCosts } from "hook/query-finance/cost/use-get-cost";
+import { useGetDailyIncomes } from "hook/query-finance/daily-income/use-get-daily-income";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { IFilterCost } from "types/finance/cost.type";
+import { IFilterDailyIncome } from "types/finance/daily-income.type";
 import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
-export function ListCost() {
-  const [filter, setFilter] = useState<IFilterCost>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetCosts(filter);
+export function ListDailyIncome() {
+  const [filter, setFilter] = useState<IFilterDailyIncome>({
+    page: 1,
+    limit: 10,
+  });
+  const { data, isLoading } = useGetDailyIncomes(filter);
   const history = useHistory();
   const initialValue = {
     name: "",
     level: "",
   };
-  const addCost = () => {
-    history.push("/admin/finance/cost/create");
+  const addDailyIncome = () => {
+    history.push("/admin/finance/daily/create");
   };
 
   const onChangePagination = (page: number, pageSize: number) => {
@@ -28,7 +31,7 @@ export function ListCost() {
     });
   };
 
-  const handleSearch = (values: IFilterCost) => {
+  const handleSearch = (values: IFilterDailyIncome) => {
     const clearValues = clearParamsObject(values);
     setFilter({
       page: 1,
@@ -38,11 +41,11 @@ export function ListCost() {
   };
   const rightButton = useMemo(
     () => (
-      <Button onClick={addCost} float={"right"} variant="brand">
-        Tạo chi phí
+      <Button onClick={addDailyIncome} float={"right"} variant="brand">
+        Tạo doanh thu
       </Button>
     ),
-    [addCost]
+    [addDailyIncome]
   );
 
   return (

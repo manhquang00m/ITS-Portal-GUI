@@ -33,6 +33,12 @@ import CreateEditStudent from "views/admin/classManagement/student/detail/create
 import { ListCost } from "views/admin/finance/cost/list/list-cost";
 import CreateEditCost from "views/admin/finance/cost/detail/create-edit/create-edit-cost";
 import ViewDetailCost from "views/admin/finance/cost/detail/view/view-detail-cost";
+import { ListMonthlyIncome } from "views/admin/finance/monthly-income/list/list-monthly-income";
+import ViewDetailMonthlyIncome from "views/admin/finance/monthly-income/detail/view/view-detail-monthly-income";
+import CreateEditMonthlyIncome from "views/admin/finance/monthly-income/detail/create-edit/create-edit-monthly-income";
+import { ListDailyIncome } from "views/admin/finance/daily-income/list/list-daily-income";
+import ViewDetailDailyIncome from "views/admin/finance/daily-income/detail/view/view-detail-daily-income";
+import CreateEditDailyIncome from "views/admin/finance/daily-income/detail/create-edit/create-edit-daily-income";
 
 const routes: RoutesType[] = [
   {
@@ -224,6 +230,50 @@ const routes: RoutesType[] = [
             path: "/edit/:id",
             component: CreateEditCost,
             name: "Chỉnh sửa chi phí",
+          },
+        ],
+      },
+      {
+        path: "/daily",
+        component: ListDailyIncome,
+        name: "Doanh thu theo ngày",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailDailyIncome,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditDailyIncome,
+            name: "Tạo doanh thu theo ngày",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditDailyIncome,
+            name: "Chỉnh sửa doanh thu theo ngày",
+          },
+        ],
+      },
+      {
+        path: "/monthly",
+        component: ListMonthlyIncome,
+        name: "Doanh thu theo tháng",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailMonthlyIncome,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditMonthlyIncome,
+            name: "Tạo doanh thu theo tháng",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditMonthlyIncome,
+            name: "Chỉnh sửa doanh thu theo tháng",
           },
         ],
       },

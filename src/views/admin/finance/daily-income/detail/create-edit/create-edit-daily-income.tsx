@@ -11,37 +11,38 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { IFormCost } from "types/finance/cost.type";
+import { IFormDailyIncome } from "types/finance/daily-income.type";
 import Card from "components/card/Card";
 import {
-  useCreateCost,
-  useEditCost,
-  useGetDetailCost,
-} from "hook/query-finance/cost/use-get-cost";
+  useCreateDailyIncome,
+  useEditDailyIncome,
+  useGetDetailDailyIncome,
+} from "hook/query-finance/daily-income/use-get-daily-income";
 import { useParams } from "react-router-dom";
 import { Spin } from "antd";
 import SelectRemote from "components/fields/SelectRemote";
-import { fetchTeacher } from "utils/fetchOptions";
-import dayjs from "dayjs";
-export default function CreateEditCost() {
-  const { handleSubmit, control, getValues, reset } = useForm<IFormCost>({
+import { fetchScheduleInstance, fetchTeacher } from "utils/fetchOptions";
+
+export default function CreateEditDailyIncome() {
+  const { handleSubmit, control, reset } = useForm<IFormDailyIncome>({
     defaultValues: {
-      paymentDate: undefined,
-      userId: undefined,
-      costAmount: undefined,
+      dailyIncomeId: undefined,
+      recipientId: undefined,
+      baseSalary: undefined,
+      scheduleInstanceId: undefined,
     },
     // resolver: yupResolver(schema),
   });
 
   const { id }: { id: string } = useParams();
-  const { mutate: createCost, isLoading: loadingCreate } = useCreateCost();
-  const { mutate: editCost, isLoading: loadingEdit } = useEditCost(id);
-  const { data: detailCost, isFetching: isLoadingDetail } = useGetDetailCost(
-    id,
-    !!id
-  );
+  const { mutate: createDailyIncome, isLoading: loadingCreate } =
+    useCreateDailyIncome();
+  const { mutate: editDailyIncome, isLoading: loadingEdit } =
+    useEditDailyIncome(id);
+  const { data: detailDailyIncome, isFetching: isLoadingDetail } =
+    useGetDetailDailyIncome(id, !!id);
   useEffect(() => {
-    if (detailCost) {
+    if (detailDailyIncome) {
       const {
         createdAt,
         createdBy,
@@ -49,23 +50,20 @@ export default function CreateEditCost() {
         updatedAt,
         updatedBy,
         version,
-        paymentDate,
         ...restData
-      } = detailCost.data;
-      reset({ ...restData ,
-        paymentDateString: dayjs(new Date(paymentDate)).format("YYYY-MM-DD")
+      } = detailDailyIncome.data;
+      reset({
+        ...restData,
       });
     }
-  }, [detailCost]);
+  }, [detailDailyIncome]);
 
-  const onSubmit = async (values: IFormCost) => {
-    values.paymentDate = new Date(values.paymentDateString);
-    delete values.paymentDateString;
+  const onSubmit = async (values: IFormDailyIncome) => {
     if (id) {
-      await editCost(values);
+      await editDailyIncome(values);
       return;
     }
-    await createCost(values);
+    await createDailyIncome(values);
   };
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -80,51 +78,52 @@ export default function CreateEditCost() {
             mb={6}
             color={useColorModeValue("navy.700", "white")}
           >
-            Thông tin chi phí
+            Thông tin doanh thu theo ngày
           </Heading>
           <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
             <Controller
               control={control}
-              name="userId"
+              name="scheduleInstanceId"
               render={({ field, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Tên nguời dùng</FormLabel>
+                  <FormLabel>Lịch trình</FormLabel>
+                  <SelectRemote
+                    placeholder="Chọn giá trị"
+                    value={field.value}
+                    onChange={field.onChange}
+                    getOptions={fetchScheduleInstance}
+                  />
+                  <FormErrorMessage>
+                    {fieldState?.error?.message}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            />
+            <Controller
+              control={control}
+              name="baseSalary"
+              render={({ field: { ref, ...restField }, fieldState }) => (
+                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                  <FormLabel>Lương cơ bản</FormLabel>
+                  <Input type={"number"} {...restField} placeholder="Nhập lương..." />
+                  <FormErrorMessage>
+                    {fieldState?.error?.message}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            />
+            <Controller
+              control={control}
+              name="recipientId"
+              render={({ field, fieldState }) => (
+                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                  <FormLabel>Người nhận</FormLabel>
                   <SelectRemote
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
                     getOptions={fetchTeacher}
                   />
-                  <FormErrorMessage>
-                    {fieldState?.error?.message}
-                  </FormErrorMessage>
-                </FormControl>
-              )}
-            />
-            <Controller
-              control={control}
-              name="paymentDateString"
-              render={({ field: { ref, ...restField }, fieldState }) => (
-                <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Ngày thanh toán</FormLabel>
-                  <Input
-                    type={"date"}
-                    {...restField}
-                    placeholder="Chọn ngày ..."
-                  />
-                  <FormErrorMessage>
-                    {fieldState?.error?.message}
-                  </FormErrorMessage>
-                </FormControl>
-              )}
-            />
-            <Controller
-              control={control}
-              name="costAmount"
-              render={({ field: { ref, ...restField }, fieldState }) => (
-                <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Tổng chi phí</FormLabel>
-                  <Input {...restField} placeholder="Nhập chi phí..." />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

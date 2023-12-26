@@ -12,6 +12,7 @@ export interface IDetailClass {
     courseId: number;
     name: string;
     detail: string;
+    studentName: string;
     totalLesson: number;
     courseName: string;
     courseCode: string;

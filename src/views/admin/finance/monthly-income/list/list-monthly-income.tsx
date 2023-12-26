@@ -42,7 +42,7 @@ export function ListMonthlyIncome() {
   const rightButton = useMemo(
     () => (
       <Button onClick={addMonthlyIncome} float={"right"} variant="brand">
-        Tạo chi phí
+        Tạo doanh thu
       </Button>
     ),
     [addMonthlyIncome]
