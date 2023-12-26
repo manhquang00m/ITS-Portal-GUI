@@ -66,7 +66,7 @@ export default function ViewDetailTeacher() {
       <Card variant="elevated" className="p-4 pb-6">
         <DisplayHeadingDetail
           url_edit={`/admin/class/teacher/edit/${id}`}
-          heading={`Mã giảng viên #${detailTeacher?.data?.teacherId}`}
+          heading={`Mã học sinh #${detailTeacher?.data?.teacherId}`}
           updated_at={detailTeacher?.data?.updatedAt}
         />
         <DisplayListItemDetail data={inforTeacher}></DisplayListItemDetail>

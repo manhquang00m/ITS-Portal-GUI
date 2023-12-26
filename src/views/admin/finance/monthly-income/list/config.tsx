@@ -3,39 +3,32 @@ import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
-import { IDetailCost } from "types/finance/cost.type";
+import { IDetailMonthlyIncome } from "types/finance/monthly-income.type";
 
-export const columns = (
-  history: any,
-): ColumnsType<IDetailCost> => {
+export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
   return [
     {
       title: "ID",
-      dataIndex: "costId",
-      key: "costId",
+      dataIndex: "monthlyId",
+      key: "monthlyId",
       width: 60,
     },
     {
-      title: "Tên người dùng",
-      dataIndex: "userFullName",
-      key: "userFullName",
+      title: "ID người dùng",
+      dataIndex: "userId",
+      key: "userId",
     },
     {
-      title: "Tổng chi phí",
-      dataIndex: "costAmount",
-      key: "costAmount",
-    },
-    {
-      title: "Ngày thanh toán",
-      dataIndex: "paymentDate",
-      key: "paymentDate",
+      title: "Lương cơ bản",
+      dataIndex: "baseSalary",
+      key: "baseSalary",
     },
     {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
       width: 180,
-      render: (_, record: IDetailCost) => (
+      render: (_, record: IDetailMonthlyIncome) => (
         <Space size="middle">
           <Tooltip label="Chỉnh sửa">
             <IconButton
@@ -44,7 +37,7 @@ export const columns = (
               fontSize="20px"
               icon={<MdEdit />}
               onClick={() =>
-                history?.push(`/admin/finance/cost/edit/${record?.costId}`)
+                history?.push(`/admin/finance/cost/edit/${record?.monthlyId}`)
               }
             />
           </Tooltip>
@@ -55,9 +48,7 @@ export const columns = (
               fontSize="20px"
               icon={<MdRemoveRedEye />}
               onClick={() =>
-                history?.push(
-                  `/admin/finance/cost/detail/${record?.costId}`
-                )
+                history?.push(`/admin/finance/cost/detail/${record?.monthlyId}`)
               }
             />
           </Tooltip>

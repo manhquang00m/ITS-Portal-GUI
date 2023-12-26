@@ -36,7 +36,8 @@ export interface IResponseCost extends IResponseListCommon {
 
 export interface IFormCost {
   costId: number;
-  paymentDate: string;
+  paymentDateString: string ;
+  paymentDate:  Date;
   userId: number;
   costAmount: number;
   status: string;

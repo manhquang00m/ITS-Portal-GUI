@@ -31,7 +31,8 @@ import { ListStudent } from "views/admin/classManagement/student/list/list-stude
 import ViewDetailStudent from "views/admin/classManagement/student/detail/view/view-detail-student";
 import CreateEditStudent from "views/admin/classManagement/student/detail/create-edit/create-edit-student";
 import { ListCost } from "views/admin/finance/cost/list/list-cost";
-import CreateEditCost from "views/admin/finance/cost/detail/create-edit/create-edit-student";
+import CreateEditCost from "views/admin/finance/cost/detail/create-edit/create-edit-cost";
+import ViewDetailCost from "views/admin/finance/cost/detail/view/view-detail-cost";
 
 const routes: RoutesType[] = [
   {
@@ -211,7 +212,7 @@ const routes: RoutesType[] = [
         children: [
           {
             path: "/detail/:id",
-            component: ViewDetailClass,
+            component: ViewDetailCost,
             name: "Xem chi tiết",
           },
           {
