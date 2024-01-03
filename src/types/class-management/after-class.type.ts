@@ -21,6 +21,7 @@ export interface IStudentProgress {
   checkOut: string;
   status: string;
   result: string;
+  processPercent: number;                
 }
 
 export interface IAfterClass {

@@ -39,6 +39,9 @@ import CreateEditMonthlyIncome from "views/admin/finance/monthly-income/detail/c
 import { ListDailyIncome } from "views/admin/finance/daily-income/list/list-daily-income";
 import ViewDetailDailyIncome from "views/admin/finance/daily-income/detail/view/view-detail-daily-income";
 import CreateEditDailyIncome from "views/admin/finance/daily-income/detail/create-edit/create-edit-daily-income";
+import { ListLesson } from "views/admin/classManagement/lesson/list/list-lesson";
+import ViewDetailLesson from "views/admin/classManagement/lesson/detail/view/view-detail-lesson";
+import CreateEditLesson from "views/admin/classManagement/lesson/detail/create-edit/create-edit-lesson";
 
 const routes: RoutesType[] = [
   {
@@ -178,6 +181,28 @@ const routes: RoutesType[] = [
             path: "/edit/:id",
             component: CreateEditCourse,
             name: "Chỉnh sửa khoá học",
+          },
+        ],
+      },
+      {
+        path: "/lesson",
+        component: ListLesson,
+        name: "Bài giảng",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailLesson,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditLesson,
+            name: "Tạo bài giảng",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditLesson,
+            name: "Chỉnh sửa bài giảng",
           },
         ],
       },

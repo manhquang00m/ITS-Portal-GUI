@@ -1,39 +1,45 @@
-import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+import { Button, IconButton, Tooltip } from "@chakra-ui/react";
+import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { IFilterInput } from "components/filter/types";
-import { MdEdit, MdRemoveRedEye } from "react-icons/md";
-import { IDetailMonthlyIncome } from "types/finance/monthly-income.type";
+import { IFilter, IFilterInput } from "components/filter/types";
+import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { IDetailLesson } from "types/class-management/lesson.type";
 
-export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
+export const columns = (history: any): ColumnsType<IDetailLesson> => {
   return [
     {
       title: "ID",
-      dataIndex: "monthlyId",
-      key: "monthlyId",
+      dataIndex: "lessonId",
+      key: "lessonId",
       width: 60,
     },
     {
-      title: "ID người dùng",
-      dataIndex: "userId",
-      key: "userId",
+      title: "STT bài giảng",
+      dataIndex: "lessonNumber",
+      key: "lessonNumber",
     },
     {
-      title: "Tên người dùng",
-      dataIndex: "userName",
-      key: "userName",
+      title: "Tên khoá học",
+      dataIndex: "courseName",
+      key: "courseName",
     },
     {
-      title: "Lương cơ bản",
-      dataIndex: "baseSalary",
-      key: "baseSalary",
+      title: "Mã khoá học",
+      dataIndex: "courseCode",
+      key: "courseCode",
+    },
+    {
+      title: "Giá",
+      dataIndex: "price",
+      key: "price",
     },
     {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 180,
-      render: (_, record: IDetailMonthlyIncome) => (
+      width: 120,
+      render: (_, record: IDetailLesson) => (
         <Space size="middle">
           <Tooltip label="Chỉnh sửa">
             <IconButton
@@ -42,7 +48,7 @@ export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
               fontSize="20px"
               icon={<MdEdit />}
               onClick={() =>
-                history?.push(`/admin/finance/cost/edit/${record?.monthlyId}`)
+                history?.push(`/admin/class/lesson/edit/${record?.lessonId}`)
               }
             />
           </Tooltip>
@@ -53,7 +59,9 @@ export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
               fontSize="20px"
               icon={<MdRemoveRedEye />}
               onClick={() =>
-                history?.push(`/admin/finance/cost/detail/${record?.monthlyId}`)
+                history?.push(
+                  `/admin/class/lesson/detail/${record?.lessonId}`
+                )
               }
             />
           </Tooltip>

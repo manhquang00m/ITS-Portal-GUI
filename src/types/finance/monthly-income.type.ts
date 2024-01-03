@@ -11,6 +11,7 @@ export interface IFilterMonthlyIncome extends IFilterCommon {
 export interface IDetailMonthlyIncome {
   monthlyId: number;
   userId: number;
+  userName:string;
   baseSalary: number;
   createdAt: string;
   createdBy: string;

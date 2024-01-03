@@ -119,7 +119,7 @@ export const AfterClassCanvas = forwardRef<
             </Text>
           </Box>
         </Flex>
-        <Grid mt={4} templateColumns="repeat(5, 1fr)" gap={4}>
+        <Grid mt={4} templateColumns="repeat(4, 1fr)" gap={4}>
           <GridItem colSpan={4} w="100%">
             <Grid templateColumns="repeat(2, 1fr)" gap={4}>
               <GridItem w="100%">
@@ -172,7 +172,7 @@ export const AfterClassCanvas = forwardRef<
                   </Th>
                   <Th
                     color={"white"}
-                    width={"40%"}
+                    width={"25%"}
                     textAlign="center"
                     backgroundColor={"green.400"}
                   >
@@ -180,11 +180,19 @@ export const AfterClassCanvas = forwardRef<
                   </Th>
                   <Th
                     color={"white"}
-                    width={"40%"}
+                    width={"25%"}
                     textAlign="center"
                     backgroundColor={"green.900"}
                   >
                     Kết quả học tập
+                  </Th>
+                  <Th
+                    color={"white"}
+                    width={"30%"}
+                    textAlign="center"
+                    backgroundColor={"orange.400"}
+                  >
+                    Tiến độ hoàn thành
                   </Th>
                 </Tr>
               </Thead>
@@ -196,10 +204,30 @@ export const AfterClassCanvas = forwardRef<
                         <p>{studentProgress.studentName}</p>
                       </Td>
                       <Td>
-                        <p>{studentProgress.status==='disable' ? <span className="text-red-400">Nghỉ học</span> : studentProgress.teacherReview}</p>
+                        <p>
+                          {studentProgress.status === "disable" ? (
+                            <span className="text-red-400">Nghỉ học</span>
+                          ) : (
+                            studentProgress.teacherReview
+                          )}
+                        </p>
                       </Td>
                       <Td>
-                        <p>{studentProgress.status !=='disable' && studentProgress.result}</p>
+                        <p>
+                          {studentProgress.status !== "disable" &&
+                            studentProgress.result}
+                        </p>
+                      </Td>
+                      <Td>
+                        {/* <Text
+                          fontWeight={"bold"}
+                        >{`${studentProgress.processPercent} %`}</Text> */}
+                        <div className="w-full p-1 bg-[#efe6da] rounded-full flex flex-col-reverse shadow-2xl border border-dotted border-[#eacea9]">
+                          <Box
+                            height={`80%`}
+                            className="bg-[#f59010] w-full rounded-full"
+                          ></Box>
+                        </div>
                       </Td>
                     </Tr>
                   );
@@ -207,7 +235,7 @@ export const AfterClassCanvas = forwardRef<
               </Tbody>
             </Table>
           </GridItem>
-          <GridItem
+          {/* <GridItem
             w="100%"
             minHeight={"300px"}
             className="flex items-center flex-col "
@@ -222,7 +250,7 @@ export const AfterClassCanvas = forwardRef<
             <Text color={"#f59010"} fontWeight={"bold"}>
               Tiến độ hoàn thành lộ trình
             </Text>
-          </GridItem>
+          </GridItem> */}
         </Grid>
         {/* Footer */}
         <Grid mt={7} templateColumns="repeat(3, 1fr)">
