@@ -9,14 +9,14 @@ export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
   return [
     {
       title: "ID",
-      dataIndex: "monthlyId",
-      key: "monthlyId",
+      dataIndex: "dailyIncomeId",
+      key: "dailyIncomeId",
       width: 60,
     },
     {
-      title: "ID người dùng",
-      dataIndex: "userId",
-      key: "userId",
+      title: "Tên người dùng",
+      dataIndex: "userName",
+      key: "userName",
     },
     {
       title: "Lương cơ bản",

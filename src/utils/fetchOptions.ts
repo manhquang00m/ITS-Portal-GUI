@@ -34,7 +34,7 @@ export const fetchScheduleInstance = async (): Promise<IOptionSelectComp[]> => {
   const response = await getScheduleInstances({ limit: 1000, page: 1 });
   return response?.data?.list.map((item) => ({
     value: item?.scheduleInstanceId,
-    name: `${item?.scheduleInstanceId}`,
+    name: `${item?.date}`,
   }));
 };
 

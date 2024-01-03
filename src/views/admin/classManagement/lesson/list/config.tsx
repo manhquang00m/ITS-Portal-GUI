@@ -15,6 +15,11 @@ export const columns = (history: any): ColumnsType<IDetailLesson> => {
       width: 60,
     },
     {
+      title: "Tên bài giảng",
+      dataIndex: "lessonName",
+      key: "lessonName",
+    },
+    {
       title: "STT bài giảng",
       dataIndex: "lessonNumber",
       key: "lessonNumber",

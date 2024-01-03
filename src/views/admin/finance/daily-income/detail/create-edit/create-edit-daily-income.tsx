@@ -86,7 +86,7 @@ export default function CreateEditDailyIncome() {
               name="scheduleInstanceId"
               render={({ field, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Lịch trình</FormLabel>
+                  <FormLabel>Ngày dạy</FormLabel>
                   <SelectRemote
                     placeholder="Chọn giá trị"
                     value={field.value}

@@ -77,7 +77,7 @@ export default function CreateEditMonthlyIncome() {
             mb={6}
             color={useColorModeValue("navy.700", "white")}
           >
-            Thông tin chi phí
+            Thông tin doanh thu theo tháng
           </Heading>
           <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
             <Controller

@@ -19,6 +19,7 @@ export interface IDetailDailyIncome {
   updatedBy: string;
   version: number;
   status: string;
+  userName: string;
 }
 
 export interface IListDailyIncome {
