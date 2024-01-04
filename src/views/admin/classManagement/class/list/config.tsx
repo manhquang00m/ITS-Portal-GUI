@@ -4,14 +4,8 @@ import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailClass } from "types/class-management/class.type";
+import { fetchStatusClass } from "utils/fetchOptions";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
 
 export const columns = (history: any): ColumnsType<IDetailClass> => {
   return [
@@ -42,13 +36,26 @@ export const columns = (history: any): ColumnsType<IDetailClass> => {
       dataIndex: "detail",
       key: "detail",
     },
-
+    {
+      title: "Level",
+      dataIndex: "level",
+      key: "level",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
+    },
+    {
+      title: "Danh sách học sinh",
+      dataIndex: "studentName",
+      key: "studentName",
+    },
     {
       title: "Tổng bài học",
       dataIndex: "totalLesson",
       key: "totalLesson",
     },
-
     {
       title: "Tác vụ",
       key: "action",
@@ -96,5 +103,12 @@ export const filterItems: IFilterInput[] = [
     label: "Tên lớp",
     controlName: "className",
     placeHolder: "Nhập tên lớp",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusClass,
   },
 ];

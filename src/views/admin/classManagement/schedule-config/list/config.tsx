@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailScheduleConfig } from "types/class-management/schedule-config.type";
+import { fetchStatusScheduleConfig } from "utils/fetchOptions";
 
 const weekDayName: Record<string, string> = {
   '1': "Thứ hai",
@@ -54,6 +55,11 @@ export const columns = (history: any): ColumnsType<IDetailScheduleConfig> => {
         ) : (
           text
         ),
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
     },
     {
       title: "Thời gian dạy",
@@ -111,5 +117,12 @@ export const filterItems: IFilterInput[] = [
     label: "Lớp học",
     controlName: "className",
     placeHolder: "Nhập tên lớp học",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusScheduleConfig,
   },
 ];

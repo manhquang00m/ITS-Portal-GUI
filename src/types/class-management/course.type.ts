@@ -17,6 +17,7 @@ export interface IDetailCourse {
   updatedBy: string;
   version: number;
   status: string;
+  statusName: string;
 }
 
 export interface IListCourse {

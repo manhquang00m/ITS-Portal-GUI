@@ -1,3 +1,4 @@
+import { IResponseOptions } from "types/base/base-api.type";
 import {
   IFilterStudent,
   IFormStudent,
@@ -21,5 +22,11 @@ export const editStudent = (payload: IFormStudent, id: string) =>
 export const getDetailStudent = (id: string): Promise<IResponseDetailStudent> =>
   http.get(`student/${id}`).then((response) => response?.data);
 
-  export const enrollStudent = (payload: IFormStudentEnroll) =>
+export const enrollStudent = (payload: IFormStudentEnroll) =>
   http.put(`student/enroll?studentId=${payload?.studentId}&classId=${payload?.classId}`, payload);
+
+export const getStatusStudent = (): Promise<IResponseOptions[]> =>
+  http.get(`student/statuses`).then((response) => response?.data);
+
+export const deleteStudent = (id: string): Promise<IResponseDetailStudent> =>
+  http.delete(`student/${id}`);

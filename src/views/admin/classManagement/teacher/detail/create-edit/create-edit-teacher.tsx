@@ -26,7 +26,6 @@ export default function CreateEditTeacher() {
     const { mutate: createTeacher, isLoading: loadingCreate } = useCreateTeacher();
     const { mutate: editTeacher, isLoading: loadingEdit } = useEditTeacher(id);
     const { data: detailTeacher, isFetching: isLoadingDetail } = useGetDetailTeacher(id, !!id)
-    console.log(loadingCreate, loadingEdit, isLoadingDetail)
     useEffect(() => {
         if (detailTeacher) {
             const { createdAt, createdBy, status, updatedAt, updatedBy, userId, version, ...restData } = detailTeacher.data

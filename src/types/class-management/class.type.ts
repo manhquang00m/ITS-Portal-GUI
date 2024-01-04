@@ -22,6 +22,9 @@ export interface IDetailClass {
     updatedBy: string;
     version: number;
     status: string;
+    statusName: string;
+    level?: string;
+
 }
 
 export interface IListClass {
@@ -42,6 +45,7 @@ export interface IFormClass {
     courseName?: string;
     courseCode?: string;
     status?: string;
+    level?: string;
 }
 
 export interface IResponseDetailClass {

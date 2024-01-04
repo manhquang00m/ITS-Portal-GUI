@@ -58,10 +58,10 @@ export function ListStudent() {
         initialValue={initialValue}
       />
       <Table
-        scroll={{ x: 800, y: 450 }}
+        scroll={{ x: 1400, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history, setIdStudent,onOpen)}
+        columns={columns(history, setIdStudent, onOpen)}
         dataSource={data?.data?.list}
         rowKey="teacherId"
         pagination={{

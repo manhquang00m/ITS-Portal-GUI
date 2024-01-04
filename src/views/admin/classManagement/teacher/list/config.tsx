@@ -5,6 +5,7 @@ import { IFilter, IFilterInput } from "components/filter/types";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailTeacher } from "types/class-management/teacher.type";
+import { fetchStatusTeacher } from "utils/fetchOptions";
 
 export const columns = (history: any): ColumnsType<IDetailTeacher> => {
   return [
@@ -36,6 +37,11 @@ export const columns = (history: any): ColumnsType<IDetailTeacher> => {
       title: "Level",
       dataIndex: "level",
       key: "level",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
     },
     {
       title: "Địa chỉ",
@@ -96,5 +102,12 @@ export const filterItems: IFilterInput[] = [
     label: "Level",
     controlName: "level",
     placeHolder: "Nhập level",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusTeacher,
   },
 ];

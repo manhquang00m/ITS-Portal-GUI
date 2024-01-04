@@ -23,6 +23,7 @@ export interface IDetailLesson {
   status: string;
   courseCode: string;
   courseName: string;
+  statusName: string;
 }
 
 export interface IListLesson {
@@ -35,10 +36,10 @@ export interface IResponseLesson extends IResponseListCommon {
 }
 
 export interface IFormLesson {
-    lessonNumber: number;
-    lessonName: string;
-    courseId: number;
-    price: number;
+  lessonNumber: number;
+  lessonName: string;
+  courseId: number;
+  price: number;
 }
 
 export interface IResponseDetailLesson {

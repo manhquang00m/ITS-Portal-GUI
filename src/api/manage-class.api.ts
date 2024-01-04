@@ -1,3 +1,4 @@
+import { IResponseOptions } from "types/base/base-api.type";
 import {
   IFilterClass,
   IFormClass,
@@ -16,3 +17,9 @@ export const editClass = (payload: IFormClass, id: string) =>
 
 export const getDetailClass = (id: string): Promise<IResponseDetailClass> =>
   http.get(`class/${id}`).then((response) => response?.data);
+
+export const getStatusClass = (): Promise<IResponseOptions[]> =>
+  http.get(`class/statuses`).then((response) => response?.data);
+
+export const deleteClass = (id: string): Promise<IResponseDetailClass> =>
+  http.delete(`class/${id}`);

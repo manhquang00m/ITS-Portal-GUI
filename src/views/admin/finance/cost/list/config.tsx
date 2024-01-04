@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailCost } from "types/finance/cost.type";
+import { fetchStatusCost } from "utils/fetchOptions";
 
 export const columns = (
   history: any,
@@ -29,6 +30,11 @@ export const columns = (
       title: "Ngày thanh toán",
       dataIndex: "paymentDate",
       key: "paymentDate",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
     },
     {
       title: "Tác vụ",
@@ -79,5 +85,12 @@ export const filterItems: IFilterInput[] = [
     label: "Level",
     controlName: "level",
     placeHolder: "Nhập level",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusCost,
   },
 ];

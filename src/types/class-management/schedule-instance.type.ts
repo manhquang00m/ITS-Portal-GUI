@@ -5,6 +5,8 @@ export interface IFilterScheduleInstance extends IFilterCommon {
     classId?: string;
     className?: string;
     teacherName?: string;
+    status?: string;
+
 }
 
 export interface IDetailScheduleInstance {
@@ -24,6 +26,7 @@ export interface IDetailScheduleInstance {
     status: string;
     className: string;
     teacherName: string;
+    statusName: string;
 }
 
 export interface IListScheduleInstance {

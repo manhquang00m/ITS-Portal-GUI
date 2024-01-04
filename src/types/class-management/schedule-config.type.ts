@@ -3,6 +3,7 @@ import { IFilterCommon, IResponseListCommon } from "types/base/base-api.type";
 export interface IFilterScheduleConfig extends IFilterCommon {
     teacherId?: string;
     classId?: string;
+    status?: string;
 }
 
 export interface IDetailScheduleConfig {
@@ -20,6 +21,7 @@ export interface IDetailScheduleConfig {
     status: string;
     className: string;
     teacherName: string;
+    statusName: string;
 }
 
 export interface IListScheduleConfig {

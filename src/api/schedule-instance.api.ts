@@ -53,3 +53,7 @@ export const teacherReview = (
   payload: IStudentProgressInstance[],
   id: string
 ) => http.put(`/student/student-progress/${id}`, payload);
+
+
+export const deleteScheduleInstance = (id: string): Promise<IResponseDetailScheduleInstance> =>
+  http.delete(`schedule-instance/${id}`);

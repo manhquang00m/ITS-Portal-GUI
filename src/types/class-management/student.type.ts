@@ -22,6 +22,7 @@ export interface IDetailStudent {
   version: number;
   status: string;
   className: string;
+  statusName: string;
 }
 
 export interface IListStudent {

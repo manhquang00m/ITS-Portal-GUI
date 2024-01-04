@@ -1,3 +1,4 @@
+import { IResponseOptions } from "types/base/base-api.type";
 import {
   IFilterCost,
   IFormCost,
@@ -16,3 +17,10 @@ export const editCost = (payload: IFormCost, id: string) =>
 
 export const getDetailCost = (id: string): Promise<IResponseDetailCost> =>
   http.get(`cost/${id}`).then((response) => response?.data);
+
+export const getStatusCost = (): Promise<IResponseOptions[]> =>
+  http.get(`cost/statuses`).then((response) => response?.data);
+
+export const deleteCost = (id: string): Promise<IResponseDetailCost> =>
+  http.delete(`cost/${id}`);
+

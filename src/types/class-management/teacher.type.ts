@@ -20,6 +20,7 @@ export interface IDetailTeacher {
     updatedBy: string;
     version: number;
     status: string;
+    statusName: string;
 }
 
 

@@ -32,12 +32,15 @@ export default function ViewDetailClass() {
                     children: detailClass?.data?.courseCode,
                 },
                 {
+                    title: "Level",
+                    children: detailClass?.data?.level,
+                },
+                {
                     title: "Danh sách học sinh",
                     children: detailClass?.data?.studentName && detailClass?.data?.studentName !== 'null' ? detailClass.data.studentName.split(",").map(item => (<div className="flex items-center">
                         <i><FaUserGraduate /></i> <span className="ml-1">{item}</span>
                     </div>)) : null
                 },
-
             ],
         };
     }, [detailClass]);

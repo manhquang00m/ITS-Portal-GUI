@@ -5,6 +5,7 @@ import { IFilterInput } from "components/filter/types";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailClass } from "types/class-management/class.type";
 import { IDetailCourse } from "types/class-management/course.type";
+import { fetchStatusCourse } from "utils/fetchOptions";
 
 interface DataType {
   key: string;
@@ -36,6 +37,11 @@ export const columns = (history: any): ColumnsType<IDetailCourse> => {
       title: "Mô tả",
       dataIndex: "description",
       key: "description",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
     },
     {
       title: "Tác vụ",
@@ -84,5 +90,12 @@ export const filterItems: IFilterInput[] = [
     label: "Mã số khoá học",
     controlName: "courseCode",
     placeHolder: "Nhập mã khoá học",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusCourse,
   },
 ];

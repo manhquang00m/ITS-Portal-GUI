@@ -1,10 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getClass,createClass,editClass,getDetailClass } from "api/manage-class.api";
+import { getClass, createClass, editClass, getDetailClass } from "api/manage-class.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterClass, IFormClass } from "types/class-management/class.type";
-import { IFilterTeacher, IFormTeacher } from "types/class-management/teacher.type";
-
 
 export const useGetClass = (params: IFilterClass) => {
     return useQuery({

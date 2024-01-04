@@ -5,6 +5,7 @@ import { IFilterInput } from "components/filter/types";
 import dayjs from "dayjs";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailDailyIncome } from "types/finance/daily-income.type";
+import { fetchStatusDailyIncome } from "utils/fetchOptions";
 
 export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
   return [
@@ -23,6 +24,11 @@ export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
       title: "Lương cơ bản",
       dataIndex: "baseSalary",
       key: "baseSalary",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
     },
     {
       title: "Ngày tạo",
@@ -79,5 +85,12 @@ export const filterItems: IFilterInput[] = [
     label: "Level",
     controlName: "level",
     placeHolder: "Nhập level",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusDailyIncome,
   },
 ];

@@ -1,3 +1,4 @@
+import { IResponseOptions } from "types/base/base-api.type";
 import {
   IFilterDailyIncome,
   IFormDailyIncome,
@@ -26,4 +27,10 @@ export const getDetailDailyIncome = (
 
 export const deleteDailyIncome = (
   id: number
-): Promise<IResponseDetailDailyIncome> => http.put(`daily-income/${id}`);
+): Promise<IResponseDetailDailyIncome> => http.delete(`daily-income/${id}`);
+
+
+export const getStatusDailyIncome = (): Promise<IResponseOptions[]> =>
+  http.get(`daily-income/statuses`).then((response) => response?.data);
+
+

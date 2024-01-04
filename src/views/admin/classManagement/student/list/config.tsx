@@ -1,9 +1,16 @@
-import { Button, IconButton, Tooltip } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import {
+  Box, IconButton, Tooltip, Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilter, IFilterInput } from "components/filter/types";
-import { MdAssignmentAdd, MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
+import { MdAssignmentAdd, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailStudent } from "types/class-management/student.type";
+import { fetchStatusStudent } from "utils/fetchOptions";
 
 export const columns = (
   history: any,
@@ -46,9 +53,15 @@ export const columns = (
       key: "className",
     },
     {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
+    },
+    {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
+      width: 200,
     },
     {
       title: "Số điện thoại",
@@ -69,47 +82,72 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 180,
-      render: (_, record: IDetailStudent) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/class/student/edit/${record?.studentId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(
-                  `/admin/class/student/detail/${record?.studentId}`
-                )
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Gán vào lớp">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdAssignmentAdd />}
-              onClick={() => {
-                setIdStudent(record?.studentId)
-                onOpen()
-              }}
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailStudent) => {
+
+        return (<>
+          <Box display={{ base: "none", xl: "block" }}>
+            <Space size="small">
+              <Tooltip label="Chỉnh sửa">
+                <IconButton
+                  variant="outline"
+                  aria-label="Call Sage"
+                  fontSize="20px"
+                  icon={<MdEdit />}
+                  onClick={() =>
+                    history?.push(`/admin/class/student/edit/${record?.studentId}`)
+                  }
+                />
+              </Tooltip>
+              <Tooltip label="Xem chi tiết">
+                <IconButton
+                  variant="outline"
+                  aria-label="Call Sage"
+                  fontSize="20px"
+                  icon={<MdRemoveRedEye />}
+                  onClick={() =>
+                    history?.push(
+                      `/admin/class/student/detail/${record?.studentId}`
+                    )
+                  }
+                />
+              </Tooltip>
+              <Tooltip label="Gán vào lớp">
+                <IconButton
+                  variant="outline"
+                  aria-label="Call Sage"
+                  fontSize="20px"
+                  icon={<MdAssignmentAdd />}
+                  onClick={() => {
+                    setIdStudent(record?.studentId)
+                    onOpen()
+                  }}
+                />
+              </Tooltip>
+            </Space>
+          </Box>
+          <Box display={{ base: "block", xl: "none" }}>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label='Options'
+                icon={<HamburgerIcon />}
+                variant='outline'
+              />
+              <MenuList>
+                <MenuItem icon={<MdEdit />} command='⌘T'>
+                  Chỉnh sửa
+                </MenuItem>
+                <MenuItem icon={<MdRemoveRedEye />} command='⌘N'>
+                  Xem chi tiết
+                </MenuItem>
+                <MenuItem icon={<MdAssignmentAdd />} command='⌘⇧N'>
+                  Gán vào lớp
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+        </>)
+      },
     },
   ];
 };
@@ -126,5 +164,12 @@ export const filterItems: IFilterInput[] = [
     label: "Level",
     controlName: "level",
     placeHolder: "Nhập level",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusStudent,
   },
 ];
