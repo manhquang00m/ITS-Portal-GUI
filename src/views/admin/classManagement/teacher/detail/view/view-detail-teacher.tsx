@@ -12,10 +12,10 @@ export default function ViewDetailTeacher() {
   const { data: detailTeacher } = useGetDetailTeacher(id, !!id);
   const inforTeacher: IListItem = useMemo(() => {
     return {
-      heading: "Thông tin giảng viên",
+      heading: "Thông tin giáo viên",
       list: [
         {
-          title: "Tên giảng viên",
+          title: "Tên giáo viên",
           children: detailTeacher?.data?.name,
         },
         {

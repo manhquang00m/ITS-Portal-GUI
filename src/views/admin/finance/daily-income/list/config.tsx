@@ -2,6 +2,7 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import dayjs from "dayjs";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailDailyIncome } from "types/finance/daily-income.type";
 
@@ -22,6 +23,14 @@ export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
       title: "Lương cơ bản",
       dataIndex: "baseSalary",
       key: "baseSalary",
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text: string) => {
+        return dayjs(text).format("DD/MM/YYYY HH:mm:ss");
+      },
     },
     {
       title: "Tác vụ",

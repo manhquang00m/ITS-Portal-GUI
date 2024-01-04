@@ -4,6 +4,7 @@ import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadin
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
 import { useGetDetailStudent } from "hook/query-class/student/use-student";
 import { useMemo } from "react";
+import { MdHome } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";
 
@@ -45,6 +46,21 @@ export default function ViewDetailStudent() {
         {
           title: "Số điện thoại phụ huynh",
           children: detailStudent?.data?.parentPhone,
+        },
+        {
+          title: "Danh sách lớp học",
+          children:
+            detailStudent?.data?.className &&
+            detailStudent?.data?.className !== "null"
+              ? detailStudent.data?.className.split(",").map((item) => (
+                  <div className="flex items-center">
+                    <i>
+                      <MdHome />
+                    </i>{" "}
+                    <span className="ml-1">{item}</span>
+                  </div>
+                ))
+              : null,
         },
       ],
     };

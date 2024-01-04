@@ -43,7 +43,7 @@ export function ListTeacher() {
         float={"right"}
         variant="brand"
       >
-        Thêm giảng viên
+        Thêm giáo viên
       </Button>
     ),
     []

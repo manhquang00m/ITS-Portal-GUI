@@ -219,15 +219,19 @@ export const AfterClassCanvas = forwardRef<
                         </p>
                       </Td>
                       <Td>
-                        {/* <Text
-                          fontWeight={"bold"}
-                        >{`${studentProgress.processPercent} %`}</Text> */}
-                        <div className="w-full p-1 bg-[#efe6da] rounded-full flex flex-col-reverse shadow-2xl border border-dotted border-[#eacea9]">
-                          <Box
-                            height={`80%`}
-                            className="bg-[#f59010] w-full rounded-full"
-                          ></Box>
-                        </div>
+                        <Flex>
+                          <Text
+                            fontWeight={"bold"}
+                            mr="4px"
+                          >{`${studentProgress.processPercent}%`}</Text>
+                          <div className="w-full p-1 bg-[#efe6da] rounded-full flex flex-col-reverse shadow-2xl border border-dotted border-[#eacea9]">
+                            <Box
+                              width={`${studentProgress.processPercent}%`}
+                              height="8px"
+                              className="bg-[#f59010] rounded-full"
+                            ></Box>
+                          </div>
+                        </Flex>
                       </Td>
                     </Tr>
                   );

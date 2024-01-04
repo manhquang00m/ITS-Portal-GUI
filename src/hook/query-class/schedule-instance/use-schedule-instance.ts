@@ -66,13 +66,13 @@ export const useEditScheduleInstance = (id: string) => {
     mutationFn: async (payload: IFormScheduleInstance) => {
       return await editScheduleInstance(payload, id);
     },
-    onSuccess() {
-      history?.push(`/admin/schedule-instance`);
-      toast.success("Dữ liệu của bạn đã được cập nhật");
-    },
-    onError() {
-      toast.error("Lỗi hệ thống");
-    },
+    // onSuccess() {
+    //   history?.push(`/admin/schedule-instance`);
+    //   toast.success("Dữ liệu của bạn đã được cập nhật");
+    // },
+    // onError() {
+    //   toast.error("Lỗi hệ thống");
+    // },
   });
 };
 

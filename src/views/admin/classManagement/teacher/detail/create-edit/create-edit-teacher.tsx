@@ -47,7 +47,7 @@ export default function CreateEditTeacher() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card variant="elevated" className="p-4 ">
                     <Heading size="md" mb={6} color={useColorModeValue('navy.700', 'white')}>
-                        Thông tin giảng viên
+                        Thông tin giáo viên
                     </Heading>
                     <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
                         <Controller

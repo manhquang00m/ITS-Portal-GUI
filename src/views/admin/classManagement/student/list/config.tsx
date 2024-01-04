@@ -41,6 +41,11 @@ export const columns = (
       key: "gradeLevel",
     },
     {
+      title: "Lớp học",
+      dataIndex: "className",
+      key: "className",
+    },
+    {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
