@@ -21,7 +21,7 @@ export const useGetStudents = (params: IFilterStudent) => {
     queryFn: async () => {
       try {
         return await getStudents(params);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     retry: 2,
@@ -35,7 +35,7 @@ export const useCreateStudent = () => {
       return await createStudent(payload);
     },
     onSuccess() {
-      history?.push(`/admin/class/teacher`);
+      history?.push(`/admin/class/student`);
       toast.success("Dữ liệu của bạn đã được lưu");
     },
     onError() {
@@ -66,7 +66,7 @@ export const useGetDetailStudent = (id: string, enabled?: boolean) => {
     queryFn: async () => {
       try {
         return await getDetailStudent(id);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     enabled: enabled,

@@ -38,7 +38,8 @@ export default function StudentEnrollModal(props: IStudentEnroll) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay p={4} />
-      <ModalContent p={4}>
+      <ModalContent p={{ base: 0, md: 2, xl: 4 }} width={{ base: '90%', lg: "inherit" }}
+      >
         <ModalHeader paddingBottom={0}>Chọn lớp cho học sinh</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -49,7 +50,7 @@ export default function StudentEnrollModal(props: IStudentEnroll) {
             placeholder={"Chọn lớp học"}
           />
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter px={{ base: 5, md: 2, lg: 0 }}>
           <Button
             isLoading={isLoading}
             disabled={!classId && classId !== 0}
