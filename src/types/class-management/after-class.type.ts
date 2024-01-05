@@ -21,6 +21,7 @@ export interface IStudentProgress {
   checkOut: string;
   status: string;
   result: string;
+  processPercent: number;                
 }
 
 export interface IAfterClass {
@@ -42,4 +43,5 @@ export interface IStudentProgressInstance extends IStudentProgress {
 
 export interface IResponseStudentProgressInstance {
   data: IStudentProgressInstance[];
+  currentLesson?: string;
 }

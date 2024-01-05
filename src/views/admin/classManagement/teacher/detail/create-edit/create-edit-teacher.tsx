@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { IFormTeacher } from 'types/class-management/teacher.type';
 import Card from "components/card/Card";
-import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query/teacher/use-get-teachers';
+import { useCreateTeacher, useEditTeacher, useGetDetailTeacher } from 'hook/query-class/teacher/use-get-teachers';
 import { useHistory, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
-import { optionsGender } from './config';
 import SelectComp from 'components/fields/SelectField';
+import { optionsGender } from 'variables/option';
 
 
 export default function CreateEditTeacher() {
@@ -26,7 +26,6 @@ export default function CreateEditTeacher() {
     const { mutate: createTeacher, isLoading: loadingCreate } = useCreateTeacher();
     const { mutate: editTeacher, isLoading: loadingEdit } = useEditTeacher(id);
     const { data: detailTeacher, isFetching: isLoadingDetail } = useGetDetailTeacher(id, !!id)
-    console.log(loadingCreate, loadingEdit, isLoadingDetail)
     useEffect(() => {
         if (detailTeacher) {
             const { createdAt, createdBy, status, updatedAt, updatedBy, userId, version, ...restData } = detailTeacher.data
@@ -47,7 +46,7 @@ export default function CreateEditTeacher() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card variant="elevated" className="p-4 ">
                     <Heading size="md" mb={6} color={useColorModeValue('navy.700', 'white')}>
-                        Thông tin giảng viên
+                        Thông tin giáo viên
                     </Heading>
                     <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
                         <Controller

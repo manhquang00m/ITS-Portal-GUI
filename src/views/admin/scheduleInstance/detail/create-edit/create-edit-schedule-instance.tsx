@@ -8,7 +8,7 @@ import SelectComp from 'components/fields/SelectField';
 import { useGetOptionsClass, useGetOptionsCourse, useGetOptionsScheduleConfig, useGetOptionsTeacher } from 'hook/data-list/use-get-options';
 import { useEffect } from 'react';
 import { IFormScheduleInstance } from 'types/class-management/schedule-instance.type';
-import { useCreateScheduleInstance, useEditScheduleInstance, useGetDetailScheduleInstance } from 'hook/query/schedule-instance/use-schedule-instance';
+import { useCreateScheduleInstance, useEditScheduleInstance, useGetDetailScheduleInstance } from 'hook/query-class/schedule-instance/use-schedule-instance';
 
 
 export default function CreateEditScheduleInstance() {

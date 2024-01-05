@@ -1,12 +1,20 @@
 import { Button, IconButton, Tooltip } from "@chakra-ui/react";
-import { Space, Tag } from "antd";
+import { Badge, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilter, IFilterInput } from "components/filter/types";
+import PopoverMore, {
+  IPopoverMoreProps,
+} from "components/popoverMore/PopoverMore";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailTeacher } from "types/class-management/teacher.type";
+import { fetchStatusTeacher } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
-export const columns = (history: any): ColumnsType<IDetailTeacher> => {
+export const columns = (
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
+): ColumnsType<IDetailTeacher> => {
   return [
     {
       title: "ID",
@@ -38,6 +46,14 @@ export const columns = (history: any): ColumnsType<IDetailTeacher> => {
       key: "level",
     },
     {
+      title: "Trạng thái",
+      dataIndex: "statusName",
+      key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
+    },
+    {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
@@ -51,35 +67,27 @@ export const columns = (history: any): ColumnsType<IDetailTeacher> => {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 120,
-      render: (_, record: IDetailTeacher) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/class/teacher/edit/${record?.teacherId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(
-                  `/admin/class/teacher/detail/${record?.teacherId}`
-                )
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      width: 80,
+      render: (_, record: IDetailTeacher) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/class/teacher/edit/${record?.teacherId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/class/teacher/detail/${record?.teacherId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.teacherId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };
@@ -96,5 +104,12 @@ export const filterItems: IFilterInput[] = [
     label: "Level",
     controlName: "level",
     placeHolder: "Nhập level",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusTeacher,
   },
 ];

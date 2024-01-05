@@ -19,7 +19,7 @@ import {
   useCreateClass,
   useEditClass,
   useGetDetailClass,
-} from "hook/query/class/use-query-class";
+} from "hook/query-class/class/use-query-class";
 import { useGetOptionsCourse } from "hook/data-list/use-get-options";
 import { useEffect } from "react";
 
@@ -41,8 +41,8 @@ export default function CreateEditClass() {
 
   useEffect(() => {
     if (detailClass) {
-      const { name, detail,totalLesson,courseId } = detailClass.data;
-      reset({ name, detail,totalLesson,courseId });
+      const { name, detail, level, courseId } = detailClass.data;
+      reset({ name, detail, level, courseId });
     }
   }, [detailClass]);
 
@@ -100,11 +100,11 @@ export default function CreateEditClass() {
             />
             <Controller
               control={control}
-              name="totalLesson"
+              name="level"
               render={({ field: { ref, ...restField }, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Tổng bài học </FormLabel>
-                  <Input {...restField} placeholder="Nhập tổng bài học" />
+                  <FormLabel>Level </FormLabel>
+                  <Input {...restField} placeholder="Nhập level" />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

@@ -1,15 +1,19 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import dayjs from "dayjs";
-import {
-  MdAddPhotoAlternate,
-  MdComment,
-  MdEdit,
-  MdRemoveRedEye,
-} from "react-icons/md";
+import { MdAddPhotoAlternate, MdComment } from "react-icons/md";
 import { IDetailScheduleInstance } from "types/class-management/schedule-instance.type";
+import { fetchStatusScheduleInstance } from "utils/fetchOptions";
+import { toast } from "react-toastify";
+
+const colorStatusScheduleInstance: Record<string, string> = {
+  "Đã nhận xét": "green",
+  "Vô hiêu hoá": "red",
+  "Khởi tạo": "blue",
+
+};
 
 export const columns = (
   history: any,
@@ -23,24 +27,34 @@ export const columns = (
       width: 60,
     },
     {
-      title: "ID lớp học",
-      dataIndex: "classId",
-      key: "classId",
+      title: "Lớp học",
+      dataIndex: "className",
+      key: "className",
       width: 120,
     },
     {
-      title: "ID giáo viên",
-      dataIndex: "teacherId",
-      key: "teacherId",
+      title: "Giáo viên",
+      dataIndex: "teacherName",
+      key: "teacherName",
       width: 120,
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => (
+        <Tag color={colorStatusScheduleInstance[text]} key={text}>
+          {text}
+        </Tag>
+      ),
     },
     {
       title: "Thời gian dạy",
       dataIndex: "date",
       key: "date",
       render: (text: string) => {
-        return dayjs(text).format("DD/MM/YYYY h:mm A")
-      }
+        return dayjs(text).format("DD/MM/YYYY h:mm A");
+      },
     },
     {
       title: "Vai trò giáo viên",
@@ -96,7 +110,13 @@ export const columns = (
               aria-label="Call Sage"
               fontSize="20px"
               icon={<MdAddPhotoAlternate />}
-              onClick={() => changeIdSchedule(record?.scheduleInstanceId)}
+              onClick={() => {
+                if (record?.status === "Đã nhận xét") {
+                  changeIdSchedule(record?.scheduleInstanceId);
+                } else {
+                  toast.warning("Vui lòng nhận xét trước khi tạo after class");
+                }
+              }}
             />
           </Tooltip>
         </Space>
@@ -108,14 +128,21 @@ export const columns = (
 export const filterItems: IFilterInput[] = [
   {
     type: "inputText",
-    label: "ID giáo viên",
-    controlName: "teacherId",
-    placeHolder: "Nhập id",
+    label: "Giáo viên",
+    controlName: "teacherName",
+    placeHolder: "Nhập tên giáo viên",
   },
   {
     type: "inputText",
-    label: "ID lớp học",
-    controlName: "classId",
-    placeHolder: "Nhập id",
+    label: "Lớp học",
+    controlName: "className",
+    placeHolder: "Nhập tên lớp học",
+  },
+  {
+    type: "selectRemote",
+    label: "Trạng thái",
+    controlName: "status",
+    placeHolder: "Chọn giá trị",
+    getOptions: fetchStatusScheduleInstance,
   },
 ];

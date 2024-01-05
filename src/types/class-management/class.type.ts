@@ -12,6 +12,7 @@ export interface IDetailClass {
     courseId: number;
     name: string;
     detail: string;
+    studentName: string;
     totalLesson: number;
     courseName: string;
     courseCode: string;
@@ -21,6 +22,9 @@ export interface IDetailClass {
     updatedBy: string;
     version: number;
     status: string;
+    statusName: string;
+    level?: string;
+
 }
 
 export interface IListClass {
@@ -41,6 +45,7 @@ export interface IFormClass {
     courseName?: string;
     courseCode?: string;
     status?: string;
+    level?: string;
 }
 
 export interface IResponseDetailClass {

@@ -18,11 +18,10 @@ export const SliderThumbWithTooltip = forwardRef<any, ISliderComp>(
   (props: ISliderComp, ref) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const { value, onChange } = props;
-
     return (
       <Slider
         id="slider"
-        defaultValue={1}
+        defaultValue={value}
         min={1}
         max={100}
         onChange={onChange}

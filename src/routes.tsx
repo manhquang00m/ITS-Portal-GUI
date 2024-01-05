@@ -4,13 +4,12 @@ import {
   MdSchool,
   MdLock,
   MdOutlineCalendarMonth,
+  MdOutlineMonetizationOn,
 } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
-import AfterClass from "views/admin/classManagement/afterClass";
-import DataTables from "views/admin/dataTables";
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import { ListTeacher } from "views/admin/classManagement/teacher/list/list-teacher";
@@ -24,11 +23,25 @@ import CreateEditClass from "views/admin/classManagement/class/detail/create-edi
 import ViewDetailClass from "views/admin/classManagement/class/detail/view/view-detail-class";
 import { ListScheduleConfig } from "views/admin/classManagement/schedule-config/list/list-sechedule-config";
 import CreateEditScheduleConfig from "views/admin/classManagement/schedule-config/detail/create-edit/create-edit-schedule-config";
-import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-teacher";
-import ViewDetailScheduleInstance from "views/admin/scheduleInstance/detail/view/view-detail-schedule-instance";
+import ViewDetailScheduleConfig from "views/admin/classManagement/schedule-config/detail/view/view-detail-schedule-config";
 import CreateEditScheduleInstance from "views/admin/scheduleInstance/detail/create-edit/create-edit-schedule-instance";
 import { ListScheduleInstance } from "views/admin/scheduleInstance/list/list-sechedule-instance";
-import TeacherReview from "views/admin/classManagement/schedule-config/detail/review/teacher-review";
+import TeacherReview from "views/admin/scheduleInstance/detail/review/teacher-review";
+import { ListStudent } from "views/admin/classManagement/student/list/list-student";
+import ViewDetailStudent from "views/admin/classManagement/student/detail/view/view-detail-student";
+import CreateEditStudent from "views/admin/classManagement/student/detail/create-edit/create-edit-student";
+import { ListCost } from "views/admin/finance/cost/list/list-cost";
+import CreateEditCost from "views/admin/finance/cost/detail/create-edit/create-edit-cost";
+import ViewDetailCost from "views/admin/finance/cost/detail/view/view-detail-cost";
+import { ListMonthlyIncome } from "views/admin/finance/monthly-income/list/list-monthly-income";
+import ViewDetailMonthlyIncome from "views/admin/finance/monthly-income/detail/view/view-detail-monthly-income";
+import CreateEditMonthlyIncome from "views/admin/finance/monthly-income/detail/create-edit/create-edit-monthly-income";
+import { ListDailyIncome } from "views/admin/finance/daily-income/list/list-daily-income";
+import ViewDetailDailyIncome from "views/admin/finance/daily-income/detail/view/view-detail-daily-income";
+import CreateEditDailyIncome from "views/admin/finance/daily-income/detail/create-edit/create-edit-daily-income";
+import { ListLesson } from "views/admin/classManagement/lesson/list/list-lesson";
+import ViewDetailLesson from "views/admin/classManagement/lesson/detail/view/view-detail-lesson";
+import CreateEditLesson from "views/admin/classManagement/lesson/detail/create-edit/create-edit-lesson";
 
 const routes: RoutesType[] = [
   {
@@ -70,7 +83,6 @@ const routes: RoutesType[] = [
     layout: "/admin",
     path: "/class",
     icon: <Icon as={MdSchool} width="20px" height="20px" color="inherit" />,
-    component: NFTMarketplace,
     children: [
       // {
       // 	path: "/after-class",
@@ -97,12 +109,34 @@ const routes: RoutesType[] = [
           {
             path: "/create",
             component: CreateEditTeacher,
-            name: "Tạo giảng viên",
+            name: "Thêm giáo viên",
           },
           {
             path: "/edit/:id",
             component: CreateEditTeacher,
-            name: "Chỉnh sửa giảng viên",
+            name: "Chỉnh sửa giáo viên",
+          },
+        ],
+      },
+      {
+        path: "/student",
+        component: ListStudent,
+        name: "Học sinh",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailStudent,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditStudent,
+            name: "Thêm học sinh",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditStudent,
+            name: "Chỉnh sửa học sinh",
           },
         ],
       },
@@ -151,6 +185,28 @@ const routes: RoutesType[] = [
         ],
       },
       {
+        path: "/lesson",
+        component: ListLesson,
+        name: "Bài giảng",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailLesson,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditLesson,
+            name: "Tạo bài giảng",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditLesson,
+            name: "Chỉnh sửa bài giảng",
+          },
+        ],
+      },
+      {
         path: "/schedule-config",
         component: ListScheduleConfig,
         name: "Cài đặt lịch dạy",
@@ -174,36 +230,81 @@ const routes: RoutesType[] = [
       },
     ],
   },
-  // {
-  // 	name: 'NFT Marketplace',
-  // 	layout: '/admin',
-  // 	path: '/nft',
-  // 	icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
-  // 	component: NFTMarketplace,
-  // 	secondary: true
-  // },
-  // {
-  // 	name: 'Data Tables',
-  // 	layout: '/admin',
-  // 	icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  // 	path: '/data-tables',
-  // 	component: DataTables
-  // },
-  // {
-  // 	name: 'Quản lý lớp học',
-  // 	layout: '/admin',
-  // 	path: '/profile/detail',
-  // 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  // 	component: Profile
-  // },
-  // {
-  // 	name: 'Profile',
-  // 	layout: '/admin',
-  // 	path: '/profile/detail',
-  // 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  // 	hidden: true,
-  // 	component: Profile
-  // },
+  {
+    name: "Quản lý tài chính",
+    layout: "/admin",
+    path: "/finance",
+    icon: <Icon as={MdOutlineMonetizationOn} width="20px" height="20px" color="inherit" />,
+    children: [
+      {
+        path: "/cost",
+        component: ListCost,
+        name: "Chi phí",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailCost,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditCost,
+            name: "Tạo chi phí",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditCost,
+            name: "Chỉnh sửa chi phí",
+          },
+        ],
+      },
+      {
+        path: "/daily",
+        component: ListDailyIncome,
+        name: "Doanh thu theo ngày",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailDailyIncome,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditDailyIncome,
+            name: "Tạo doanh thu theo ngày",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditDailyIncome,
+            name: "Chỉnh sửa doanh thu theo ngày",
+          },
+        ],
+      },
+      {
+        path: "/monthly",
+        component: ListMonthlyIncome,
+        name: "Doanh thu theo tháng",
+        children: [
+          {
+            path: "/detail/:id",
+            component: ViewDetailMonthlyIncome,
+            name: "Xem chi tiết",
+          },
+          {
+            path: "/create",
+            component: CreateEditMonthlyIncome,
+            name: "Tạo doanh thu theo tháng",
+          },
+          {
+            path: "/edit/:id",
+            component: CreateEditMonthlyIncome,
+            name: "Chỉnh sửa doanh thu theo tháng",
+          },
+        ],
+      },
+    ]
+
+  },
   {
     name: "Sign In",
     layout: "/auth",
@@ -212,13 +313,6 @@ const routes: RoutesType[] = [
     hidden: true,
     component: SignInCentered,
   },
-  // {
-  // 	name: 'RTL Admin',
-  // 	layout: '/rtl',
-  // 	path: '/rtl-default',
-  // 	icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  // 	component: RTL
-  // }
 ];
 
 export default routes;
