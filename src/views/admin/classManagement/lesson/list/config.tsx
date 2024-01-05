@@ -1,5 +1,5 @@
 import { Button, IconButton, Tooltip } from "@chakra-ui/react";
-import { Space, Tag } from "antd";
+import { Badge, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilter, IFilterInput } from "components/filter/types";
 import PopoverMore, { IPopoverMoreProps } from "components/popoverMore/PopoverMore";
@@ -7,6 +7,7 @@ import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailLesson } from "types/class-management/lesson.type";
 import { fetchStatusLesson } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdDelete: React.Dispatch<React.SetStateAction<number>>,
@@ -48,12 +49,15 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 120,
+      width: 80,
       render: (_, record: IDetailLesson) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -62,7 +66,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/class/lesson/view/${record?.lessonId}`,
+            urlNavigate: `/admin/class/lesson/detail/${record?.lessonId}`,
           },
           {
             type: "delete",

@@ -1,4 +1,5 @@
 
+import { Badge } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, {
@@ -8,6 +9,7 @@ import dayjs from "dayjs";
 
 import { IDetailDailyIncome } from "types/finance/daily-income.type";
 import { fetchStatusDailyIncome } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdDelete: React.Dispatch<React.SetStateAction<number>>,
@@ -34,6 +36,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Ngày tạo",
@@ -47,7 +52,7 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 180,
+      width: 80,
       render: (_, record: IDetailDailyIncome) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -56,7 +61,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/finance/daily/view/${record?.dailyIncomeId}`,
+            urlNavigate: `/admin/finance/daily/detail/${record?.dailyIncomeId}`,
           },
           {
             type: "delete",

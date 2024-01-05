@@ -33,7 +33,7 @@ export default function DeleteModal(props: IDeleteModalProps) {
           Bạn có đồng ý xoá dữ liệu có id là{" "}
           <span className="font-bold">{id}</span> không ?
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter px={0}>
           <Button onClick={handleEnroll} variant="brand">
             Xác nhận
           </Button>

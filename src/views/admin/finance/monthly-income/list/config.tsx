@@ -1,5 +1,5 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+import { Badge, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, { IPopoverMoreProps } from "components/popoverMore/PopoverMore";
@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailMonthlyIncome } from "types/finance/monthly-income.type";
 import { fetchStatusMonthlyIncome } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdDelete: React.Dispatch<React.SetStateAction<number>>,
@@ -38,6 +39,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Ngày tạo",
@@ -51,7 +55,7 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 180,
+      width: 80,
       render: (_, record: IDetailMonthlyIncome) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -60,7 +64,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/finance/monthly/view/${record?.monthlyId}`,
+            urlNavigate: `/admin/finance/monthly/detail/${record?.monthlyId}`,
           },
           {
             type: "delete",

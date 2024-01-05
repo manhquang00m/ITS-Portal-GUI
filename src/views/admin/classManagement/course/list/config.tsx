@@ -53,7 +53,7 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 120,
+      width: 80,
       render: (_, record: IDetailCourse) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -62,7 +62,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/class/course/view/${record?.courseId}`,
+            urlNavigate: `/admin/class/course/detail/${record?.courseId}`,
           },
           {
             type: "delete",

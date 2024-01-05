@@ -1,4 +1,5 @@
 import { Box, Divider } from "@chakra-ui/react";
+import { Badge } from "antd";
 import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
@@ -6,6 +7,7 @@ import { useGetDetailTeacher } from "hook/query-class/teacher/use-get-teachers";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { IListItem } from "types/base/base-api.type";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export default function ViewDetailTeacher() {
   const { id }: { id: string } = useParams();

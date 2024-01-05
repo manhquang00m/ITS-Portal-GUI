@@ -1,3 +1,4 @@
+import { Badge } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, {
@@ -5,6 +6,7 @@ import PopoverMore, {
 } from "components/popoverMore/PopoverMore";
 import { IDetailClass } from "types/class-management/class.type";
 import { fetchStatusClass } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdDelete: React.Dispatch<React.SetStateAction<number>>,
@@ -47,6 +49,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Danh sách học sinh",
@@ -71,7 +76,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/class/zoom/view/${record?.classId}`,
+            urlNavigate: `/admin/class/zoom/detail/${record?.classId}`,
           },
           {
             type: "delete",

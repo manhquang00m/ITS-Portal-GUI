@@ -1,11 +1,12 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space, Tag } from "antd";
+import { Badge, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, { IPopoverMoreProps } from "components/popoverMore/PopoverMore";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailScheduleConfig } from "types/class-management/schedule-config.type";
 import { fetchStatusScheduleConfig } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 const weekDayName: Record<string, string> = {
   "1": "Thứ hai",
@@ -63,6 +64,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Thời gian dạy",
@@ -73,7 +77,7 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 120,
+      width: 80,
       render: (_, record: IDetailScheduleConfig) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -82,7 +86,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/class/schedule-config/view/${record?.scheduleConfigId}`,
+            urlNavigate: `/admin/class/schedule-config/detail/${record?.scheduleConfigId}`,
           },
           {
             type: "delete",

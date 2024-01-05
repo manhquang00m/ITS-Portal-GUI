@@ -1,5 +1,5 @@
 import { IconButton, Button, VStack } from "@chakra-ui/react";
-import { Tag } from "antd";
+import { Badge, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, {
@@ -7,10 +7,11 @@ import PopoverMore, {
 } from "components/popoverMore/PopoverMore";
 import {
   MdAssignmentAdd,
-  
+
 } from "react-icons/md";
 import { IDetailStudent } from "types/class-management/student.type";
 import { fetchStatusStudent } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdStudent: React.Dispatch<React.SetStateAction<number>>,
@@ -57,6 +58,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Địa chỉ",
@@ -92,7 +96,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/class/student/view/${record?.studentId}`,
+            urlNavigate: `/admin/class/student/detail/${record?.studentId}`,
           },
           {
             type: "delete",

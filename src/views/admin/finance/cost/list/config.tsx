@@ -1,5 +1,5 @@
 import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+import { Badge, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, {
@@ -8,6 +8,7 @@ import PopoverMore, {
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailCost } from "types/finance/cost.type";
 import { fetchStatusCost } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 export const columns = (
   setIdDelete: React.Dispatch<React.SetStateAction<number>>,
@@ -39,12 +40,15 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Tác vụ",
       key: "action",
       fixed: "right",
-      width: 180,
+      width: 80,
       render: (_, record: IDetailCost) => {
         const listButton: IPopoverMoreProps[] = [
           {
@@ -53,7 +57,7 @@ export const columns = (
           },
           {
             type: "view",
-            urlNavigate: `/admin/finance/cost/view/${record?.costId}`,
+            urlNavigate: `/admin/finance/cost/detail/${record?.costId}`,
           },
           {
             type: "delete",
