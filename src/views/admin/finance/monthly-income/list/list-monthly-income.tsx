@@ -1,7 +1,11 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetMonthlyIncomes } from "hook/query-finance/monthly-income/use-get-monthly-income";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
+import {
+  useDeleteMonthlyIncome,
+  useGetMonthlyIncomes,
+} from "hook/query-finance/monthly-income/use-get-monthly-income";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterMonthlyIncome } from "types/finance/monthly-income.type";
@@ -13,7 +17,17 @@ export function ListMonthlyIncome() {
     page: 1,
     limit: 10,
   });
-  const { data, isLoading } = useGetMonthlyIncomes(filter);
+  const { data, isLoading, refetch } = useGetMonthlyIncomes(filter);
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const { mutateAsync: mutateDelete } = useDeleteMonthlyIncome();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
   const history = useHistory();
   const initialValue = {
     name: "",
@@ -61,7 +75,7 @@ export function ListMonthlyIncome() {
         scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history)}
+        columns={columns(setIdDelete, onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="teacherId"
         pagination={{
@@ -72,6 +86,12 @@ export function ListMonthlyIncome() {
           current: filter?.page,
           pageSize: filter?.limit,
         }}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

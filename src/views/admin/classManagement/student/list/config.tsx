@@ -1,21 +1,22 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Box, IconButton, Tooltip, Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
-import { Space, Tag } from "antd";
+import { IconButton, Button, VStack } from "@chakra-ui/react";
+import { Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { IFilter, IFilterInput } from "components/filter/types";
-import { MdAssignmentAdd, MdEdit, MdRemoveRedEye } from "react-icons/md";
+import { IFilterInput } from "components/filter/types";
+import PopoverMore, {
+  IPopoverMoreProps,
+} from "components/popoverMore/PopoverMore";
+import {
+  MdAssignmentAdd,
+  
+} from "react-icons/md";
 import { IDetailStudent } from "types/class-management/student.type";
 import { fetchStatusStudent } from "utils/fetchOptions";
 
 export const columns = (
-  history: any,
   setIdStudent: React.Dispatch<React.SetStateAction<number>>,
-  onOpen: () => void
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpen: () => void,
+  onOpenDelete: () => void
 ): ColumnsType<IDetailStudent> => {
   return [
     {
@@ -82,71 +83,35 @@ export const columns = (
       title: "Tác vụ",
       key: "action",
       fixed: "right",
+      width: 80,
       render: (_, record: IDetailStudent) => {
-
-        return (<>
-          <Box display={{ base: "none", xl: "block" }}>
-            <Space size="small">
-              <Tooltip label="Chỉnh sửa">
-                <IconButton
-                  variant="outline"
-                  aria-label="Call Sage"
-                  fontSize="20px"
-                  icon={<MdEdit />}
-                  onClick={() =>
-                    history?.push(`/admin/class/student/edit/${record?.studentId}`)
-                  }
-                />
-              </Tooltip>
-              <Tooltip label="Xem chi tiết">
-                <IconButton
-                  variant="outline"
-                  aria-label="Call Sage"
-                  fontSize="20px"
-                  icon={<MdRemoveRedEye />}
-                  onClick={() =>
-                    history?.push(
-                      `/admin/class/student/detail/${record?.studentId}`
-                    )
-                  }
-                />
-              </Tooltip>
-              <Tooltip label="Gán vào lớp">
-                <IconButton
-                  variant="outline"
-                  aria-label="Call Sage"
-                  fontSize="20px"
-                  icon={<MdAssignmentAdd />}
-                  onClick={() => {
-                    setIdStudent(record?.studentId)
-                    onOpen()
-                  }}
-                />
-              </Tooltip>
-            </Space>
-          </Box>
-          <Box display={{ base: "block", xl: "none" }}>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label='Options'
-                icon={<HamburgerIcon />}
-                variant='outline'
-              />
-              <MenuList>
-                <MenuItem icon={<MdEdit />} command='⌘T'>
-                  Chỉnh sửa
-                </MenuItem>
-                <MenuItem icon={<MdRemoveRedEye />} command='⌘N'>
-                  Xem chi tiết
-                </MenuItem>
-                <MenuItem icon={<MdAssignmentAdd />} command='⌘⇧N'>
-                  Gán vào lớp
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Box>
-        </>)
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/class/student/edit/${record?.studentId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/class/student/view/${record?.studentId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.studentId);
+              onOpenDelete();
+            },
+          },
+          {
+            type: "custom",
+            name: "Gán vào lớp",
+            icon: <MdAssignmentAdd />,
+            handleCustom: () => {
+              setIdStudent(record?.studentId);
+              onOpen();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
       },
     },
   ];

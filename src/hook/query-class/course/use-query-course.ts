@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createCourse, editCourse, getCourses, getDetailCourse } from "api/course.api";
+import { createCourse, deleteCourse, editCourse, getCourses, getDetailCourse } from "api/course.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterCourse, IFormCourse } from "types/class-management/course.type";
@@ -61,3 +61,17 @@ export const useGetDetailCourse= (id: string, enabled?: boolean) => {
         enabled: enabled
     });
 }
+
+export const useDeleteCourse = () => {
+    return useMutation({
+      mutationFn: async (id: string) => {
+        return await deleteCourse(id);
+      },
+      onSuccess() {
+        toast.success("Dữ liệu của bạn đã được xoá");
+      },
+      onError() {
+        toast.error("Lỗi hệ thống");
+      },
+    });
+  };

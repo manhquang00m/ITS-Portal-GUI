@@ -2,6 +2,9 @@ import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import PopoverMore, {
+  IPopoverMoreProps,
+} from "components/popoverMore/PopoverMore";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailClass } from "types/class-management/class.type";
 import { IDetailCourse } from "types/class-management/course.type";
@@ -15,7 +18,10 @@ interface DataType {
   tags: string[];
 }
 
-export const columns = (history: any): ColumnsType<IDetailCourse> => {
+export const columns = (
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
+): ColumnsType<IDetailCourse> => {
   return [
     {
       title: "ID",
@@ -48,32 +54,26 @@ export const columns = (history: any): ColumnsType<IDetailCourse> => {
       key: "action",
       fixed: "right",
       width: 120,
-      render: (_, record: IDetailCourse) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/class/course/edit/${record?.courseId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(`/admin/class/course/detail/${record?.courseId}`)
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailCourse) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/class/course/edit/${record?.courseId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/class/course/view/${record?.courseId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.courseId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };

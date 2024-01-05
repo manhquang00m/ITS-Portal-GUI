@@ -1,13 +1,18 @@
-import { IconButton, Tooltip } from "@chakra-ui/react";
-import { Space } from "antd";
+
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import PopoverMore, {
+  IPopoverMoreProps,
+} from "components/popoverMore/PopoverMore";
 import dayjs from "dayjs";
-import { MdEdit, MdRemoveRedEye } from "react-icons/md";
+
 import { IDetailDailyIncome } from "types/finance/daily-income.type";
 import { fetchStatusDailyIncome } from "utils/fetchOptions";
 
-export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
+export const columns = (
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
+): ColumnsType<IDetailDailyIncome> => {
   return [
     {
       title: "ID",
@@ -43,32 +48,26 @@ export const columns = (history: any): ColumnsType<IDetailDailyIncome> => {
       key: "action",
       fixed: "right",
       width: 180,
-      render: (_, record: IDetailDailyIncome) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/finance/daily/edit/${record?.dailyIncomeId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(`/admin/finance/daily/detail/${record?.dailyIncomeId}`)
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailDailyIncome) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/finance/daily/edit/${record?.dailyIncomeId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/finance/daily/view/${record?.dailyIncomeId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.dailyIncomeId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };

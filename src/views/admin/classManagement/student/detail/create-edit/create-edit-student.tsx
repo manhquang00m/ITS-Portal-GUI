@@ -144,7 +144,7 @@ export default function CreateEditStudent() {
                         />
                     </SimpleGrid>
                 </Card>
-                <Button width={{ base: "100%", lg: "max-content" }} float={"right"} mt={4} variant="brand" type="submit">
+                <Button width={{ base: "100%", lg: "max-content" }} float={"right"} my={4} variant="brand" type="submit">
                     Lưu dữ liệu
                 </Button>
             </form>

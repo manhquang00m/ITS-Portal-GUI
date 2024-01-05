@@ -1,7 +1,11 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetCosts } from "hook/query-finance/cost/use-get-cost";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
+import {
+  useDeleteCost,
+  useGetCosts,
+} from "hook/query-finance/cost/use-get-cost";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterCost } from "types/finance/cost.type";
@@ -10,8 +14,18 @@ import { columns, filterItems } from "./config";
 
 export function ListCost() {
   const [filter, setFilter] = useState<IFilterCost>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetCosts(filter);
+  const { data, isLoading, refetch } = useGetCosts(filter);
   const history = useHistory();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const { mutateAsync: mutateDelete } = useDeleteCost();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
   const initialValue = {
     name: "",
     level: "",
@@ -58,7 +72,7 @@ export function ListCost() {
         scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history)}
+        columns={columns(setIdDelete,onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="teacherId"
         pagination={{
@@ -69,6 +83,12 @@ export function ListCost() {
           current: filter?.page,
           pageSize: filter?.limit,
         }}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

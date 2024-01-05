@@ -72,13 +72,11 @@ export const useGetDetailMonthlyIncome = (id: string, enabled?: boolean) => {
 };
 
 export const useDeleteMonthlyIncome = () => {
-  const history = useHistory();
   return useMutation({
     mutationFn: async (id: number) => {
       return await deleteMonthlyIncome(id);
     },
     onSuccess() {
-      history?.push(`/admin/finance/monthly`);
       toast.success("Dữ liệu của bạn đã được xoá");
     },
     onError() {

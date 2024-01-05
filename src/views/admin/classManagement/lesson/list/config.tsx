@@ -2,12 +2,16 @@ import { Button, IconButton, Tooltip } from "@chakra-ui/react";
 import { Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilter, IFilterInput } from "components/filter/types";
+import PopoverMore, { IPopoverMoreProps } from "components/popoverMore/PopoverMore";
 import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { IDetailLesson } from "types/class-management/lesson.type";
 import { fetchStatusLesson } from "utils/fetchOptions";
 
-export const columns = (history: any): ColumnsType<IDetailLesson> => {
+export const columns = (
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
+): ColumnsType<IDetailLesson> => {
   return [
     {
       title: "ID",
@@ -50,34 +54,26 @@ export const columns = (history: any): ColumnsType<IDetailLesson> => {
       key: "action",
       fixed: "right",
       width: 120,
-      render: (_, record: IDetailLesson) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/class/lesson/edit/${record?.lessonId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(
-                  `/admin/class/lesson/detail/${record?.lessonId}`
-                )
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailLesson) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/class/lesson/edit/${record?.lessonId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/class/lesson/view/${record?.lessonId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.lessonId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };

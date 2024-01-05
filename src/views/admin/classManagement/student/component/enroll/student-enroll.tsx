@@ -10,27 +10,31 @@ import {
 } from "@chakra-ui/react";
 import SelectRemote from "components/fields/SelectRemote";
 import { useEnrollStudent } from "hook/query-class/student/use-student";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchClass } from "utils/fetchOptions";
 
 interface IStudentEnroll {
   isOpen: boolean;
   onClose: () => void;
   idStudent: number;
+  refetch: () => void;
 }
 
 export default function StudentEnrollModal(props: IStudentEnroll) {
-  const { isOpen, onClose, idStudent } = props;
+  const { isOpen, onClose, idStudent, refetch } = props;
   const [classId, setClassId] = useState(undefined);
-  const { mutate, isLoading } = useEnrollStudent();
+  const { mutate, isLoading, isSuccess } = useEnrollStudent();
   const handleEnroll = async () => {
     await mutate({
       studentId: idStudent,
       classId: parseInt(classId),
     });
-    setClassId(undefined)
+    setClassId(undefined);
     onClose();
   };
+  useEffect(() => {
+    if (isSuccess) refetch();
+  }, [isSuccess]);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay p={4} />

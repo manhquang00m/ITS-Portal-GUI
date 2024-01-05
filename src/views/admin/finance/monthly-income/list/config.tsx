@@ -2,12 +2,16 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import PopoverMore, { IPopoverMoreProps } from "components/popoverMore/PopoverMore";
 import dayjs from "dayjs";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailMonthlyIncome } from "types/finance/monthly-income.type";
 import { fetchStatusMonthlyIncome } from "utils/fetchOptions";
 
-export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
+export const columns = (
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
+): ColumnsType<IDetailMonthlyIncome> => {
   return [
     {
       title: "ID",
@@ -48,32 +52,26 @@ export const columns = (history: any): ColumnsType<IDetailMonthlyIncome> => {
       key: "action",
       fixed: "right",
       width: 180,
-      render: (_, record: IDetailMonthlyIncome) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/finance/cost/edit/${record?.monthlyId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(`/admin/finance/cost/detail/${record?.monthlyId}`)
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailMonthlyIncome) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/finance/monthly/edit/${record?.monthlyId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/finance/monthly/view/${record?.monthlyId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.monthlyId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };

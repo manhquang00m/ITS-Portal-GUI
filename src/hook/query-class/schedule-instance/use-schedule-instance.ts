@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createScheduleInstance,
+  deleteScheduleInstance,
   editScheduleInstance,
   getAfterClass,
   getDetailScheduleInstance,
@@ -111,6 +112,20 @@ export const useTeacherReview = (id: string) => {
     onSuccess() {
       history?.push(`/admin/schedule-instance`);
       toast.success("Nhận xét của bạn đã được lưu");
+    },
+    onError() {
+      toast.error("Lỗi hệ thống");
+    },
+  });
+};
+
+export const useDeleteScheduleInstance = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await deleteScheduleInstance(id);
+    },
+    onSuccess() {
+      toast.success("Dữ liệu của bạn đã được xoá");
     },
     onError() {
       toast.error("Lỗi hệ thống");

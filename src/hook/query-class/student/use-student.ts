@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createStudent,
+  deleteStudent,
   editStudent,
   enrollStudent,
   getDetailStudent,
@@ -79,6 +80,20 @@ export const useEnrollStudent = () => {
     },
     onSuccess() {
       toast.success("Gán lớp cho học sinh thành công");
+    },
+    onError() {
+      toast.error("Lỗi hệ thống");
+    },
+  });
+};
+
+export const useDeleteStudent = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await deleteStudent(id);
+    },
+    onSuccess() {
+      toast.success("Dữ liệu của bạn đã được xoá");
     },
     onError() {
       toast.error("Lỗi hệ thống");

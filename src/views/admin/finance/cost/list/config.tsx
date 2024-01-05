@@ -2,12 +2,16 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
+import PopoverMore, {
+  IPopoverMoreProps,
+} from "components/popoverMore/PopoverMore";
 import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { IDetailCost } from "types/finance/cost.type";
 import { fetchStatusCost } from "utils/fetchOptions";
 
 export const columns = (
-  history: any,
+  setIdDelete: React.Dispatch<React.SetStateAction<number>>,
+  onOpenDelete: () => void
 ): ColumnsType<IDetailCost> => {
   return [
     {
@@ -41,34 +45,26 @@ export const columns = (
       key: "action",
       fixed: "right",
       width: 180,
-      render: (_, record: IDetailCost) => (
-        <Space size="middle">
-          <Tooltip label="Chỉnh sửa">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdEdit />}
-              onClick={() =>
-                history?.push(`/admin/finance/cost/edit/${record?.costId}`)
-              }
-            />
-          </Tooltip>
-          <Tooltip label="Xem chi tiết">
-            <IconButton
-              variant="outline"
-              aria-label="Call Sage"
-              fontSize="20px"
-              icon={<MdRemoveRedEye />}
-              onClick={() =>
-                history?.push(
-                  `/admin/finance/cost/detail/${record?.costId}`
-                )
-              }
-            />
-          </Tooltip>
-        </Space>
-      ),
+      render: (_, record: IDetailCost) => {
+        const listButton: IPopoverMoreProps[] = [
+          {
+            type: "edit",
+            urlNavigate: `/admin/finance/cost/edit/${record?.costId}`,
+          },
+          {
+            type: "view",
+            urlNavigate: `/admin/finance/cost/view/${record?.costId}`,
+          },
+          {
+            type: "delete",
+            handleCustom: () => {
+              setIdDelete(record?.costId);
+              onOpenDelete();
+            },
+          },
+        ];
+        return <PopoverMore listButton={listButton} />;
+      },
     },
   ];
 };

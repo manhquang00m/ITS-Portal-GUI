@@ -1,8 +1,9 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
 import { useGetClass } from "hook/query-class/class/use-query-class";
-import { useGetCourse } from "hook/query-class/course/use-query-course";
+import { useDeleteCourse, useGetCourse } from "hook/query-class/course/use-query-course";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterClass } from "types/class-management/class.type";
@@ -16,8 +17,18 @@ export function ListCourse() {
     courseCode: "",
   };
   const [filter, setFilter] = useState<IFilterCourse>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetCourse(filter);
+  const { data, isLoading,refetch } = useGetCourse(filter);
   const history = useHistory();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const { mutateAsync: mutateDelete } = useDeleteCourse();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
   const addCourse = () => {
     history.push("/admin/class/course/create");
   };
@@ -58,7 +69,7 @@ export function ListCourse() {
         scroll={{ x: 600, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history)}
+        columns={columns(setIdDelete,onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="courseId"
         pagination={{
@@ -69,6 +80,12 @@ export function ListCourse() {
           current: filter?.page,
           pageSize: filter?.limit,
         }}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

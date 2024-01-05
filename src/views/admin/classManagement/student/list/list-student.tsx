@@ -1,8 +1,12 @@
 import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetStudents } from "hook/query-class/student/use-student";
-import { useMemo, useState } from "react";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
+import {
+  useDeleteStudent,
+  useGetStudents,
+} from "hook/query-class/student/use-student";
+import { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterStudent } from "types/class-management/student.type";
 import { clearParamsObject } from "utils/helper";
@@ -11,9 +15,22 @@ import { columns, filterItems } from "./config";
 
 export function ListStudent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+
   const [filter, setFilter] = useState<IFilterStudent>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetStudents(filter);
+  const { data, isLoading, refetch } = useGetStudents(filter);
+
   const [idStudent, setIdStudent] = useState(undefined);
+  const { mutateAsync: mutateDelete } = useDeleteStudent();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
+
   const history = useHistory();
   const initialValue = {
     name: "",
@@ -61,7 +78,7 @@ export function ListStudent() {
         scroll={{ x: 1400, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history, setIdStudent, onOpen)}
+        columns={columns(setIdStudent, setIdDelete, onOpen, onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="teacherId"
         pagination={{
@@ -74,9 +91,16 @@ export function ListStudent() {
         }}
       />
       <StudentEnrollModal
+        refetch={refetch}
         isOpen={isOpen}
         onClose={onClose}
         idStudent={idStudent}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

@@ -1,7 +1,11 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetLessons } from "hook/query-class/lesson/use-get-lesson";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
+import {
+  useDeleteLesson,
+  useGetLessons,
+} from "hook/query-class/lesson/use-get-lesson";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterLesson } from "types/class-management/lesson.type";
@@ -10,12 +14,22 @@ import { columns, filterItems } from "./config";
 
 export function ListLesson() {
   const [filter, setFilter] = useState<IFilterLesson>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetLessons(filter);
+  const { data, isLoading, refetch } = useGetLessons(filter);
   const history = useHistory();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const { mutateAsync: mutateDelete } = useDeleteLesson();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
   const initialValue = {
     name: "",
     level: "",
-  }
+  };
   const addLesson = () => {
     history.push("/admin/class/lesson/create");
   };
@@ -29,20 +43,16 @@ export function ListLesson() {
   };
 
   const handleSearch = (values: IFilterLesson) => {
-    const clearValues = clearParamsObject(values)
+    const clearValues = clearParamsObject(values);
     setFilter({
       page: 1,
       limit: 10,
-      ...clearValues
-    })
+      ...clearValues,
+    });
   };
   const rightButton = useMemo(
     () => (
-      <Button
-        onClick={addLesson}
-        float={"right"}
-        variant="brand"
-      >
+      <Button onClick={addLesson} float={"right"} variant="brand">
         Thêm bài giảng
       </Button>
     ),
@@ -62,7 +72,7 @@ export function ListLesson() {
         scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history)}
+        columns={columns(setIdDelete, onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="lessonId"
         pagination={{
@@ -73,6 +83,12 @@ export function ListLesson() {
           current: filter?.page,
           pageSize: filter?.limit,
         }}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

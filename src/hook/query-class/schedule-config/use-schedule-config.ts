@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createScheduleConfig, editScheduleConfig, getDetailScheduleConfig, getScheduleConfigs } from "api/schedule-config.api";
+import { createScheduleConfig, deleteScheduleConfig, editScheduleConfig, getDetailScheduleConfig, getScheduleConfigs } from "api/schedule-config.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterScheduleConfig, IFormScheduleConfig } from "types/class-management/schedule-config.type";
@@ -61,3 +61,17 @@ export const useGetDetailScheduleConfig = (id: string, enabled?: boolean) => {
         enabled: enabled
     });
 }
+
+export const useDeleteScheduleConfig = () => {
+    return useMutation({
+      mutationFn: async (id: string) => {
+        return await deleteScheduleConfig(id);
+      },
+      onSuccess() {
+        toast.success("Dữ liệu của bạn đã được xoá");
+      },
+      onError() {
+        toast.error("Lỗi hệ thống");
+      },
+    });
+  };

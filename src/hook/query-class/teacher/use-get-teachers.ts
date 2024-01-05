@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createTeacher, editTeacher, getDetailTeacher, getTeachers } from "api/teacher.api";
+import { createTeacher, deleteTeacher, editTeacher, getDetailTeacher, getTeachers } from "api/teacher.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterTeacher, IFormTeacher } from "types/class-management/teacher.type";
@@ -62,3 +62,17 @@ export const useGetDetailTeacher = (id: string, enabled?: boolean) => {
         enabled: enabled
     });
 }
+
+export const useDeleteTeacher = () => {
+    return useMutation({
+      mutationFn: async (id: string) => {
+        return await deleteTeacher(id);
+      },
+      onSuccess() {
+        toast.success("Dữ liệu của bạn đã được xoá");
+      },
+      onError() {
+        toast.error("Lỗi hệ thống");
+      },
+    });
+  };

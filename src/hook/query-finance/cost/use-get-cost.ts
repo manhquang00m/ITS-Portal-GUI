@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createCost, editCost, getDetailCost, getCosts } from "api/cost.api";
+import { createCost, editCost, getDetailCost, getCosts, deleteCost } from "api/cost.api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IFilterCost, IFormCost } from "types/finance/cost.type";
@@ -59,5 +59,19 @@ export const useGetDetailCost = (id: string, enabled?: boolean) => {
     },
     refetchOnWindowFocus: false,
     enabled: enabled,
+  });
+};
+
+export const useDeleteCost = () => {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await deleteCost(id);
+    },
+    onSuccess() {
+      toast.success("Dữ liệu của bạn đã được xoá");
+    },
+    onError() {
+      toast.error("Lỗi hệ thống");
+    },
   });
 };

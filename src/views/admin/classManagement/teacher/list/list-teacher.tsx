@@ -1,7 +1,11 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, useDisclosure } from "@chakra-ui/react";
 import { Table } from "antd";
 import Filter from "components/filter/filter";
-import { useGetTeachers } from "hook/query-class/teacher/use-get-teachers";
+import DeleteModal from "components/modal/modalDelete/modalDelete";
+import {
+  useDeleteTeacher,
+  useGetTeachers,
+} from "hook/query-class/teacher/use-get-teachers";
 import { useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IFilterTeacher } from "types/class-management/teacher.type";
@@ -10,12 +14,22 @@ import { columns, filterItems } from "./config";
 
 export function ListTeacher() {
   const [filter, setFilter] = useState<IFilterTeacher>({ page: 1, limit: 10 });
-  const { data, isLoading } = useGetTeachers(filter);
+  const { data, isLoading, refetch } = useGetTeachers(filter);
   const history = useHistory();
+  const {
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure();
+  const { mutateAsync: mutateDelete } = useDeleteTeacher();
+  const [idDelete, setIdDelete] = useState(undefined);
+  const handleDelete = async () => {
+    await mutateDelete(idDelete, { onSuccess: () => refetch() });
+  };
   const initialValue = {
     name: "",
     level: "",
-  }
+  };
   const addTeacher = () => {
     history.push("/admin/class/teacher/create");
   };
@@ -29,20 +43,16 @@ export function ListTeacher() {
   };
 
   const handleSearch = (values: IFilterTeacher) => {
-    const clearValues = clearParamsObject(values)
+    const clearValues = clearParamsObject(values);
     setFilter({
       page: 1,
       limit: 10,
-      ...clearValues
-    })
+      ...clearValues,
+    });
   };
   const rightButton = useMemo(
     () => (
-      <Button
-        onClick={addTeacher}
-        float={"right"}
-        variant="brand"
-      >
+      <Button onClick={addTeacher} float={"right"} variant="brand">
         Thêm giáo viên
       </Button>
     ),
@@ -62,7 +72,7 @@ export function ListTeacher() {
         scroll={{ x: 800, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns(history)}
+        columns={columns(setIdDelete,onOpenDelete)}
         dataSource={data?.data?.list}
         rowKey="teacherId"
         pagination={{
@@ -73,6 +83,12 @@ export function ListTeacher() {
           current: filter?.page,
           pageSize: filter?.limit,
         }}
+      />
+      <DeleteModal
+        callback={handleDelete}
+        id={idDelete}
+        isOpen={isOpenDelete}
+        onClose={onCloseDelete}
       />
     </Box>
   );

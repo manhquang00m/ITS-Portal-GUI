@@ -72,13 +72,11 @@ export const useGetDetailDailyIncome = (id: string, enabled?: boolean) => {
 };
 
 export const useDeleteDailyIncome = () => {
-  const history = useHistory();
   return useMutation({
     mutationFn: async (id: number) => {
       return await deleteDailyIncome(id);
     },
     onSuccess() {
-      history?.push(`/admin/finance/daily`);
       toast.success("Dữ liệu của bạn đã được xoá");
     },
     onError() {
