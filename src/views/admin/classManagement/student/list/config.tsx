@@ -124,7 +124,7 @@ export const columns = (
 export const filterItems: IFilterInput[] = [
   {
     type: "inputText",
-    label: "Tên giáo viên",
+    label: "Tên học sinh",
     controlName: "name",
     placeHolder: "Nhập tên",
   },
@@ -139,6 +139,7 @@ export const filterItems: IFilterInput[] = [
     label: "Trạng thái",
     controlName: "status",
     placeHolder: "Chọn giá trị",
+    defaultValue: "active",
     getOptions: fetchStatusStudent,
   },
 ];

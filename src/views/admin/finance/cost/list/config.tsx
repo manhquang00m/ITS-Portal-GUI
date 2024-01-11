@@ -92,5 +92,6 @@ export const filterItems: IFilterInput[] = [
     controlName: "status",
     placeHolder: "Chọn giá trị",
     getOptions: fetchStatusCost,
+    defaultValue: "active"
   },
 ];

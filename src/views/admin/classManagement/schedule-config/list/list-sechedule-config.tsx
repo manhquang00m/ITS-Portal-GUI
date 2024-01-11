@@ -16,6 +16,7 @@ export function ListScheduleConfig() {
   const [filter, setFilter] = useState<IFilterScheduleConfig>({
     page: 1,
     limit: 10,
+    status: "active"
   });
   const { data, isLoading, refetch } = useGetScheduleConfig(filter);
   const history = useHistory();
@@ -32,6 +33,7 @@ export function ListScheduleConfig() {
   const initialValue = {
     teacherName: "",
     className: "",
+    status: "",
   };
   const addScheduleConfig = () => {
     history.push("/admin/class/schedule-config/create");

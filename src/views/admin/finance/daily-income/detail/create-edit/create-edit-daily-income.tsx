@@ -91,7 +91,7 @@ export default function CreateEditDailyIncome() {
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
-                    getOptions={fetchScheduleInstance}
+                    getOptions={() => fetchScheduleInstance(true)}
                   />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
@@ -122,7 +122,8 @@ export default function CreateEditDailyIncome() {
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
-                    getOptions={fetchTeacher}
+                    getOptions={() => fetchTeacher(true)}
+
                   />
                   <FormErrorMessage>
                     {fieldState?.error?.message}

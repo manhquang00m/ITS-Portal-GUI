@@ -16,8 +16,9 @@ export function ListClass() {
   const initialValue = {
     courseName: "",
     className: "",
+    status: "",
   };
-  const [filter, setFilter] = useState<IFilterClass>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterClass>({ page: 1, limit: 10, status:"active" });
   const { data, isLoading, refetch } = useGetClass(filter);
   const history = useHistory();
   const {

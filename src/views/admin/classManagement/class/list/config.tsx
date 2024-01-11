@@ -110,6 +110,7 @@ export const filterItems: IFilterInput[] = [
     label: "Trạng thái",
     controlName: "status",
     placeHolder: "Chọn giá trị",
+    defaultValue: "active",
     getOptions: fetchStatusClass,
   },
 ];

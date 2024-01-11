@@ -121,5 +121,6 @@ export const filterItems: IFilterInput[] = [
     controlName: "status",
     placeHolder: "Chọn giá trị",
     getOptions: fetchStatusScheduleConfig,
+    defaultValue:"active"
   },
 ];

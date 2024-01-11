@@ -26,5 +26,6 @@ declare global {
 	interface BreadcrumbType {
 		path: string;
 		name: string;
+		secondary?: boolean;
 	}
 }

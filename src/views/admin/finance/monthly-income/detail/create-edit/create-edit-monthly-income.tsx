@@ -90,7 +90,7 @@ export default function CreateEditMonthlyIncome() {
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
-                    getOptions={fetchTeacher}
+                    getOptions={() => fetchTeacher(true)}
                   />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
@@ -104,7 +104,11 @@ export default function CreateEditMonthlyIncome() {
               render={({ field: { ref, ...restField }, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
                   <FormLabel>Lương cơ bản</FormLabel>
-                  <Input type={"number"} {...restField} placeholder="Nhập lương..." />
+                  <Input
+                    type={"number"}
+                    {...restField}
+                    placeholder="Nhập lương..."
+                  />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

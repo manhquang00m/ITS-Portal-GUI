@@ -15,8 +15,10 @@ export function ListCourse() {
   const initialValue = {
     courseName: "",
     courseCode: "",
+    status: "",
+
   };
-  const [filter, setFilter] = useState<IFilterCourse>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterCourse>({ page: 1, limit: 10, status: "active" });
   const { data, isLoading,refetch } = useGetCourse(filter);
   const history = useHistory();
   const {

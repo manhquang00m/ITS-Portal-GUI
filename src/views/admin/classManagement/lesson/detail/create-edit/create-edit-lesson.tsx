@@ -134,7 +134,7 @@ export default function CreateEditLesson() {
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
-                    getOptions={fetchCourse}
+                    getOptions={() => fetchCourse(true)}
                   />
                   <FormErrorMessage>
                     {fieldState?.error?.message}

@@ -8,10 +8,11 @@ interface ISelectRemote {
   onChange?: (value: string | number) => void;
   getOptions?: () => Promise<IOptionSelectComp[]>;
   className?: string;
+  defaultValue?: string | number;
 }
 
 export default function SelectRemote(props: ISelectRemote) {
-  const { value, onChange, placeholder, getOptions, className } = props;
+  const { value, onChange, placeholder, getOptions, className,defaultValue } = props;
   const [options, setOptions] = useState<IOptionSelectComp[]>([]);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function SelectRemote(props: ISelectRemote) {
 
   return (
     <Select
+     defaultValue={defaultValue}
       className={className}
       placeholder={placeholder}
       value={value}
