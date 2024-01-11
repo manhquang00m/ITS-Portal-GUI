@@ -43,6 +43,7 @@ export default function Dashboard(props: { [x: string]: any }) {
           listbreadcrumb.push({
             path: route.path,
             name: route.name,
+            secondary: route.secondary,
           });
           if (route.children) {
             findBreadcrumb(route.children);
@@ -60,11 +61,8 @@ export default function Dashboard(props: { [x: string]: any }) {
   const getActiveRoute = (routes: RoutesType[]): string => {
     const defaultRoute = "Default Brand Text";
     const url = window.location.href;
-    console.log(url);
     for (const route of routes) {
       const routePath = route.layout + route.path;
-      console.log("path", routePath);
-
       if (url.includes(routePath)) {
         if (route.children || route.secondary) {
           for (const childRoute of route.children) {
@@ -82,6 +80,15 @@ export default function Dashboard(props: { [x: string]: any }) {
       }
     }
     return defaultRoute;
+  };
+  const getBackLink = (routes: RoutesType[]): boolean => {
+    let activeNavbar = false;
+    for (const route of routes) {
+      if (urlPath.includes(route.path)) {
+        return route.secondary;
+      }
+    }
+    return activeNavbar;
   };
 
   const getActiveNavbar = (routes: RoutesType[]): boolean => {

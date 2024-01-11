@@ -93,7 +93,7 @@ export default function CreateEditCost() {
                     placeholder="Chọn giá trị"
                     value={field.value}
                     onChange={field.onChange}
-                    getOptions={fetchTeacher}
+                    getOptions={() => fetchTeacher(true)}
                   />
                   <FormErrorMessage>
                     {fieldState?.error?.message}

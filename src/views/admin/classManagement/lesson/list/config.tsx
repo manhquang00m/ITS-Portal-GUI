@@ -101,5 +101,6 @@ export const filterItems: IFilterInput[] = [
     controlName: "status",
     placeHolder: "Chọn giá trị",
     getOptions: fetchStatusLesson,
+    defaultValue: "active",
   },
 ];

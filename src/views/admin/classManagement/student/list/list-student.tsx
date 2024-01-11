@@ -21,7 +21,7 @@ export function ListStudent() {
     onClose: onCloseDelete,
   } = useDisclosure();
 
-  const [filter, setFilter] = useState<IFilterStudent>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterStudent>({ page: 1, limit: 10 , status:'active'});
   const { data, isLoading, refetch } = useGetStudents(filter);
 
   const [idStudent, setIdStudent] = useState(undefined);
@@ -35,6 +35,7 @@ export function ListStudent() {
   const initialValue = {
     name: "",
     level: "",
+    status: "",
   };
   const addStudent = () => {
     history.push("/admin/class/student/create");

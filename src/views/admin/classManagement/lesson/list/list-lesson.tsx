@@ -13,7 +13,7 @@ import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
 export function ListLesson() {
-  const [filter, setFilter] = useState<IFilterLesson>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterLesson>({ page: 1, limit: 10 , status: "active"});
   const { data, isLoading, refetch } = useGetLessons(filter);
   const history = useHistory();
   const {
@@ -29,6 +29,7 @@ export function ListLesson() {
   const initialValue = {
     name: "",
     level: "",
+    status: "",
   };
   const addLesson = () => {
     history.push("/admin/class/lesson/create");

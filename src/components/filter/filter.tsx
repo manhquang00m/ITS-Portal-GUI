@@ -53,6 +53,7 @@ export default function Filter({
                 )}
                 {item?.type === "selectRemote" && (
                   <SelectRemote
+                    defaultValue={item?.defaultValue}
                     getOptions={item?.getOptions}
                     placeholder={item?.placeHolder}
                     value={restField?.value}

@@ -13,7 +13,7 @@ import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
 export function ListCost() {
-  const [filter, setFilter] = useState<IFilterCost>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterCost>({ page: 1, limit: 10, status: "active" });
   const { data, isLoading, refetch } = useGetCosts(filter);
   const history = useHistory();
   const {
@@ -29,6 +29,7 @@ export function ListCost() {
   const initialValue = {
     name: "",
     level: "",
+    status: ""
   };
   const addCost = () => {
     history.push("/admin/finance/cost/create");

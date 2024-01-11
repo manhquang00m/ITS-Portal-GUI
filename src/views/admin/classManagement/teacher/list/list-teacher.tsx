@@ -13,7 +13,7 @@ import { clearParamsObject } from "utils/helper";
 import { columns, filterItems } from "./config";
 
 export function ListTeacher() {
-  const [filter, setFilter] = useState<IFilterTeacher>({ page: 1, limit: 10 });
+  const [filter, setFilter] = useState<IFilterTeacher>({ page: 1, limit: 10, status: 'active' });
   const { data, isLoading, refetch } = useGetTeachers(filter);
   const history = useHistory();
   const {
@@ -29,6 +29,7 @@ export function ListTeacher() {
   const initialValue = {
     name: "",
     level: "",
+    status: ""
   };
   const addTeacher = () => {
     history.push("/admin/class/teacher/create");

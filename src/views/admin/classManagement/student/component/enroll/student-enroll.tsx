@@ -38,7 +38,9 @@ export default function StudentEnrollModal(props: IStudentEnroll) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay p={4} />
-      <ModalContent p={{ base: 0, md: 2, xl: 4 }} width={{ base: '90%', lg: "inherit" }}
+      <ModalContent
+        p={{ base: 0, md: 2, xl: 4 }}
+        width={{ base: "90%", lg: "inherit" }}
       >
         <ModalHeader paddingBottom={0}>Chọn lớp cho học sinh</ModalHeader>
         <ModalCloseButton />
@@ -46,7 +48,7 @@ export default function StudentEnrollModal(props: IStudentEnroll) {
           <SelectRemote
             value={classId}
             onChange={(value) => setClassId(value)}
-            getOptions={fetchClass}
+            getOptions={() => fetchClass(true)}
             placeholder={"Chọn lớp học"}
           />
         </ModalBody>
