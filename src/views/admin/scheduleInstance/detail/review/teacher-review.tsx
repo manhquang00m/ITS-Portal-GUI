@@ -16,6 +16,7 @@ import {
 import { Spin } from "antd";
 import Card from "components/card/Card";
 import SelectComp from "components/fields/SelectField";
+import SelectRemote from "components/fields/SelectRemote";
 import { SliderThumbWithTooltip } from "components/slider/SliderThumbWithTooltip";
 import {
   useEditScheduleInstance,
@@ -27,6 +28,7 @@ import { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { IResponseStudentProgressInstance } from "types/class-management/after-class.type";
+import { fetchStatusStudentProgress } from "utils/fetchOptions";
 import { optionsStatusStudent } from "../create-edit/config";
 
 export default function TeacherReview() {
@@ -58,7 +60,7 @@ export default function TeacherReview() {
   } = useGetDetailScheduleInstance(id, !!id);
 
   useEffect(() => {
-    if (detailStudentProgress && detailScheduleInstance?.data?.currentLesson) {
+    if (detailStudentProgress) {
       const { data } = detailStudentProgress;
       reset({
         data,
@@ -154,11 +156,11 @@ export default function TeacherReview() {
                     }) => (
                       <FormControl isRequired isInvalid={!!fieldState?.error}>
                         <FormLabel>Trạng thái</FormLabel>
-                        <SelectComp
-                          options={optionsStatusStudent}
+                        <SelectRemote
+                          placeholder="Chọn trạng thái"
                           value={value}
                           onChange={onChange}
-                          placeholder="Chọn trạng thái"
+                          getOptions={() => fetchStatusStudentProgress()}
                           className={"bg-white"}
                         />
                         <FormErrorMessage>
