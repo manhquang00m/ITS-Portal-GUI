@@ -8,10 +8,21 @@ import { getStatusScheduleConfig } from "api/schedule-config.api";
 import {
   getScheduleInstances,
   getStatusScheduleInstance,
+  getStatusStudentProgress,
 } from "api/schedule-instance.api";
 import { getStatusStudent } from "api/student.api";
 import { getStatusTeacher, getTeachers } from "api/teacher.api";
 import { IOptionSelectComp } from "components/fields/SelectField";
+
+export const fetchStatusStudentProgress = async (): Promise<
+IOptionSelectComp[]
+> => {
+const data = await getStatusStudentProgress();
+return data?.map((item) => ({
+  value: item.value,
+  name: item.description,
+}));
+};
 
 export const fetchStatusScheduleInstance = async (): Promise<
   IOptionSelectComp[]

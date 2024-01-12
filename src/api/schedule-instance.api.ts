@@ -54,6 +54,12 @@ export const teacherReview = (
   id: string
 ) => http.put(`/student/student-progress/${id}`, payload);
 
-
-export const deleteScheduleInstance = (id: string): Promise<IResponseDetailScheduleInstance> =>
+export const deleteScheduleInstance = (
+  id: string
+): Promise<IResponseDetailScheduleInstance> =>
   http.delete(`schedule-instance/${id}`);
+
+export const getStatusStudentProgress = (): Promise<IResponseOptions[]> =>
+  http
+    .get(`student/student-progress/statuses`)
+    .then((response) => response?.data);
