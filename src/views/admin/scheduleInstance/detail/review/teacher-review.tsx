@@ -28,6 +28,7 @@ import { useEffect } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { IResponseStudentProgressInstance } from "types/class-management/after-class.type";
+import { IFormScheduleInstance } from "types/class-management/schedule-instance.type";
 import { fetchStatusStudentProgress } from "utils/fetchOptions";
 import { optionsStatusStudent } from "../create-edit/config";
 
@@ -73,7 +74,6 @@ export default function TeacherReview() {
     if (!id) return;
     if (detailScheduleInstance?.data?.currentLesson !== values?.currentLesson) {
       await editScheduleInstance({
-        ...detailScheduleInstance?.data,
         currentLesson: values?.currentLesson,
       });
     }

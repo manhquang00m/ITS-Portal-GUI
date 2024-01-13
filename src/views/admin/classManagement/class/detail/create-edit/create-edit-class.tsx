@@ -22,6 +22,8 @@ import {
 } from "hook/query-class/class/use-query-class";
 import { useGetOptionsCourse } from "hook/data-list/use-get-options";
 import { useEffect } from "react";
+import SelectRemote from "components/fields/SelectRemote";
+import { fetchLevelClass } from "utils/fetchOptions";
 
 export default function CreateEditClass() {
   const { handleSubmit, control, reset } = useForm<IFormClass>({
@@ -101,10 +103,15 @@ export default function CreateEditClass() {
             <Controller
               control={control}
               name="level"
-              render={({ field: { ref, ...restField }, fieldState }) => (
+              render={({ field: { onChange, value }, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
-                  <FormLabel>Level </FormLabel>
-                  <Input {...restField} placeholder="Nhập level" />
+                  <FormLabel>Level lớp học </FormLabel>
+                  <SelectRemote
+                    placeholder="Chọn giá trị"
+                    value={value}
+                    onChange={onChange}
+                    getOptions={() => fetchLevelClass()}
+                  />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

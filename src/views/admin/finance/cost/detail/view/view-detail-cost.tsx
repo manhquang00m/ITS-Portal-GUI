@@ -30,6 +30,10 @@ export default function ViewDetailCost() {
           title: "Tổng chi phí",
           children: detailCost?.data?.costAmount,
         },
+        {
+          title: "Mô tả",
+          children: detailCost?.data?.description,
+        },
       ],
     };
   }, [detailCost]);

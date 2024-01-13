@@ -2,7 +2,7 @@ import { getStatusCost } from "api/cost.api";
 import { getCourses, getStatusCourse } from "api/course.api";
 import { getStatusDailyIncome } from "api/daily-income.api";
 import { getStatusLesson } from "api/lesson.api";
-import { getClass, getStatusClass } from "api/manage-class.api";
+import { getClass, getLevelClass, getStatusClass } from "api/manage-class.api";
 import { getStatusMonthlyIncome } from "api/monthly-income.api";
 import { getStatusScheduleConfig } from "api/schedule-config.api";
 import {
@@ -11,17 +11,22 @@ import {
   getStatusStudentProgress,
 } from "api/schedule-instance.api";
 import { getStatusStudent } from "api/student.api";
-import { getStatusTeacher, getTeachers } from "api/teacher.api";
+import {
+  getLevelTeacher,
+  getRoleTeacher,
+  getStatusTeacher,
+  getTeachers,
+} from "api/teacher.api";
 import { IOptionSelectComp } from "components/fields/SelectField";
 
 export const fetchStatusStudentProgress = async (): Promise<
-IOptionSelectComp[]
+  IOptionSelectComp[]
 > => {
-const data = await getStatusStudentProgress();
-return data?.map((item) => ({
-  value: item.value,
-  name: item.description,
-}));
+  const data = await getStatusStudentProgress();
+  return data?.map((item) => ({
+    value: item.value,
+    name: item.description,
+  }));
 };
 
 export const fetchStatusScheduleInstance = async (): Promise<
@@ -36,6 +41,22 @@ export const fetchStatusScheduleInstance = async (): Promise<
 
 export const fetchStatusTeacher = async (): Promise<IOptionSelectComp[]> => {
   const data = await getStatusTeacher();
+  return data?.map((item) => ({
+    value: item.value,
+    name: item.description,
+  }));
+};
+
+export const fetchRoleTeacher = async (): Promise<IOptionSelectComp[]> => {
+  const data = await getRoleTeacher();
+  return data?.map((item) => ({
+    value: item.value,
+    name: item.description,
+  }));
+};
+
+export const fetchTeacherLevel = async (): Promise<IOptionSelectComp[]> => {
+  const data = await getLevelTeacher();
   return data?.map((item) => ({
     value: item.value,
     name: item.description,
@@ -112,6 +133,14 @@ export const fetchStatusClass = async (): Promise<IOptionSelectComp[]> => {
   }));
 };
 
+export const fetchLevelClass = async (): Promise<IOptionSelectComp[]> => {
+  const data = await getLevelClass();
+  return data?.map((item) => ({
+    value: item.value,
+    name: item.description,
+  }));
+};
+
 export const fetchClass = async (
   onlyActive: boolean
 ): Promise<IOptionSelectComp[]> => {
@@ -126,8 +155,14 @@ export const fetchClass = async (
   }));
 };
 
-export const fetchTeacher = async (onlyActive: boolean): Promise<IOptionSelectComp[]> => {
-  const response = await getTeachers({ limit: 1000, page: 1,status: onlyActive ? "active" : "", });
+export const fetchTeacher = async (
+  onlyActive: boolean
+): Promise<IOptionSelectComp[]> => {
+  const response = await getTeachers({
+    limit: 1000,
+    page: 1,
+    status: onlyActive ? "active" : "",
+  });
   return response?.data?.list.map((item) => ({
     value: item?.teacherId,
     name: item?.name,
@@ -140,11 +175,11 @@ export const fetchScheduleInstance = async (
   const response = await getScheduleInstances({
     limit: 1000,
     page: 1,
-    status: onlyActive ? "active" : "",
+    status: onlyActive ? "reviewed" : "",
   });
   return response?.data?.list.map((item) => ({
     value: item?.scheduleInstanceId,
-    name: `${item?.date}`,
+    name: `${item?.date} - ${item?.teacherName} - ${item?.className}`,
   }));
 };
 

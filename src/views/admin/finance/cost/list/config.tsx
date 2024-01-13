@@ -45,6 +45,11 @@ export const columns = (
       )
     },
     {
+      title: "Mô tả",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
       title: "Tác vụ",
       key: "action",
       fixed: "right",

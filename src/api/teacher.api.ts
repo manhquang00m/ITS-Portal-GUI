@@ -26,3 +26,11 @@ export const getStatusTeacher = (): Promise<IResponseOptions[]> =>
 
 export const deleteTeacher = (id: string): Promise<IResponseDetailTeacher> =>
   http.delete(`teacher/${id}`);
+
+  export const getRoleTeacher = (): Promise<IResponseOptions[]> =>
+  http.get(`teacher/teacherRole`).then((response) => response?.data);
+
+  export const getLevelTeacher = (): Promise<IResponseOptions[]> =>
+  http.get(`teacher/teacherLevel`).then((response) => response?.data);
+
+  

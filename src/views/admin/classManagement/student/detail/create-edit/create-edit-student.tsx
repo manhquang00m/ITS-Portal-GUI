@@ -50,7 +50,7 @@ export default function CreateEditStudent() {
                     <Heading size="md" mb={6} color={useColorModeValue('navy.700', 'white')}>
                         Thông tin học sinh
                     </Heading>
-                    <SimpleGrid columns={{ base: 1, "2xl": 2 }} spacing={4}>
+                    <SimpleGrid columns={{ base: 1, xl: 2 }} spacing={4}>
                         <Controller
                             control={control}
                             name="name"
@@ -129,7 +129,7 @@ export default function CreateEditStudent() {
                                 </FormControl>
                             )}
                         />
-                         <Controller
+                        <Controller
                             control={control}
                             name="parentPhone"
                             render={({ field: { ref, ...restField }, fieldState }) => (

@@ -25,8 +25,8 @@ export default function ViewDetailTeacher() {
           children: detailTeacher?.data?.gender,
         },
         {
-          title: "Level",
-          children: detailTeacher?.data?.level,
+          title: "Level giáo viên",
+          children: detailTeacher?.data?.teacherLevelName,
         },
         {
           title: "Địa chỉ",

@@ -24,7 +24,7 @@ export interface IDetailClass {
     status: string;
     statusName: string;
     level?: string;
-
+    classLevelName?: string;
 }
 
 export interface IListClass {

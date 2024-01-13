@@ -1,5 +1,5 @@
 import { Button, IconButton, Tooltip } from "@chakra-ui/react";
-import { Space, Tag } from "antd";
+import { Badge, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { IFilterInput } from "components/filter/types";
 import PopoverMore, {
@@ -9,6 +9,7 @@ import { MdEdit, MdPhone, MdRemoveRedEye } from "react-icons/md";
 import { IDetailClass } from "types/class-management/class.type";
 import { IDetailCourse } from "types/class-management/course.type";
 import { fetchStatusCourse } from "utils/fetchOptions";
+import { colorStatusBadge } from "variables/colorStatus";
 
 interface DataType {
   key: string;
@@ -48,6 +49,9 @@ export const columns = (
       title: "Trạng thái",
       dataIndex: "statusName",
       key: "statusName",
+      render: (text, record) => (
+        <Badge color={colorStatusBadge[record.status]} text={text} />
+      )
     },
     {
       title: "Tác vụ",
