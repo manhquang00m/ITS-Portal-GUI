@@ -50,9 +50,13 @@ export default function CreateEditCost() {
         updatedBy,
         version,
         paymentDate,
+        statusName,
+        userName,
+        userFullName,
         ...restData
       } = detailCost.data;
-      reset({ ...restData ,
+      reset({
+        ...restData,
         paymentDateString: dayjs(new Date(paymentDate)).format("YYYY-MM-DD")
       });
     }
@@ -124,7 +128,20 @@ export default function CreateEditCost() {
               render={({ field: { ref, ...restField }, fieldState }) => (
                 <FormControl isRequired isInvalid={!!fieldState?.error}>
                   <FormLabel>Tổng chi phí</FormLabel>
-                  <Input {...restField} placeholder="Nhập chi phí..." />
+                  <Input {...restField} type="number" placeholder="Nhập chi phí..." />
+                  <FormErrorMessage>
+                    {fieldState?.error?.message}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            />
+            <Controller
+              control={control}
+              name="description"
+              render={({ field: { ref, ...restField }, fieldState }) => (
+                <FormControl isRequired isInvalid={!!fieldState?.error}>
+                  <FormLabel>Mô tả</FormLabel>
+                  <Input {...restField} placeholder="Nhập mô tả..." />
                   <FormErrorMessage>
                     {fieldState?.error?.message}
                   </FormErrorMessage>

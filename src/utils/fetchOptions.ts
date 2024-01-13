@@ -175,11 +175,11 @@ export const fetchScheduleInstance = async (
   const response = await getScheduleInstances({
     limit: 1000,
     page: 1,
-    status: onlyActive ? "active" : "",
+    status: onlyActive ? "reviewed" : "",
   });
   return response?.data?.list.map((item) => ({
     value: item?.scheduleInstanceId,
-    name: `${item?.date}`,
+    name: `${item?.date} - ${item?.teacherName} - ${item?.className}`,
   }));
 };
 

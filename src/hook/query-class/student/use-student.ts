@@ -17,7 +17,7 @@ import {
 
 export const useGetStudents = (params: IFilterStudent) => {
   return useQuery({
-    queryKey: ["teacher", params],
+    queryKey: ["students", params],
     queryFn: async () => {
       try {
         return await getStudents(params);
@@ -51,7 +51,7 @@ export const useEditStudent = (id: string) => {
       return await editStudent(payload, id);
     },
     onSuccess() {
-      history?.push(`/admin/class/teacher`);
+      history?.push(`/admin/class/student`);
       toast.success("Dữ liệu của bạn đã được cập nhật");
     },
     onError() {
@@ -62,7 +62,7 @@ export const useEditStudent = (id: string) => {
 
 export const useGetDetailStudent = (id: string, enabled?: boolean) => {
   return useQuery({
-    queryKey: ["detail-teacher", id],
+    queryKey: ["detail-student", id],
     queryFn: async () => {
       try {
         return await getDetailStudent(id);

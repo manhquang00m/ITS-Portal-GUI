@@ -23,6 +23,8 @@ export interface IDetailCost {
   updatedBy: string;
   version: number;
   status: string;
+  statusName: string;
+  description: string;
 }
 
 export interface IListCost {
@@ -36,11 +38,12 @@ export interface IResponseCost extends IResponseListCommon {
 
 export interface IFormCost {
   costId: number;
-  paymentDateString: string ;
-  paymentDate:  Date;
+  paymentDateString: string;
+  paymentDate: Date;
   userId: number;
   costAmount: number;
   status: string;
+  description: string;
 }
 
 export interface IResponseDetailCost {
