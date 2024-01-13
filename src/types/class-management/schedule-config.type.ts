@@ -22,6 +22,7 @@ export interface IDetailScheduleConfig {
     className: string;
     teacherName: string;
     statusName: string;
+    teacherRoleName: string;
 }
 
 export interface IListScheduleConfig {

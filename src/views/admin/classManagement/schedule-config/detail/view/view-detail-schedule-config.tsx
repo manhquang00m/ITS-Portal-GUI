@@ -1,4 +1,5 @@
 import { Box, Divider } from "@chakra-ui/react";
+import { Tag } from "antd";
 import Card from "components/card/Card";
 import DisplayHeadingDetail from "components/displayListItemDetail/displayHeadingDetail";
 import DisplayListItemDetail from "components/displayListItemDetail/displayListItemDetail";
@@ -32,7 +33,17 @@ export default function ViewDetailScheduleConfig() {
         },
         {
           title: "Vai trò",
-          children: detailSchedule?.data?.teacherRole,
+          children: (
+            <Tag
+              color={
+                detailSchedule?.data?.teacherRole === "instructor"
+                  ? "green"
+                  : "gold"
+              }
+            >
+              {detailSchedule?.data?.teacherRoleName}
+            </Tag>
+          ),
         },
       ],
     };

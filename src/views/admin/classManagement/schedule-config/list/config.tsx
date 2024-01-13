@@ -51,10 +51,10 @@ export const columns = (
       title: "Vai trò giáo viên",
       dataIndex: "teacherRole",
       key: "teacherRole",
-      render: (text) =>
-        text === "Chủ nhiệm" || text === "Trợ giảng" ? (
-          <Tag color={text === "Chủ nhiệm" ? "green" : "gold"} key={text}>
-            {text}
+      render: (text, record) =>
+        text === "assistant" || text === "instructor" ? (
+          <Tag color={text === "instructor" ? "green" : "gold"} key={text}>
+            {record?.teacherRoleName}
           </Tag>
         ) : (
           text

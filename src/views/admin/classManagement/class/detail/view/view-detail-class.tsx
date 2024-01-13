@@ -32,8 +32,8 @@ export default function ViewDetailClass() {
                     children: detailClass?.data?.courseCode,
                 },
                 {
-                    title: "Level",
-                    children: detailClass?.data?.level,
+                    title: "Level lớp học",
+                    children: detailClass?.data?.classLevelName,
                 },
                 {
                     title: "Danh sách học sinh",

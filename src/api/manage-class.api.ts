@@ -21,5 +21,8 @@ export const getDetailClass = (id: string): Promise<IResponseDetailClass> =>
 export const getStatusClass = (): Promise<IResponseOptions[]> =>
   http.get(`class/statuses`).then((response) => response?.data);
 
+export const getLevelClass = (): Promise<IResponseOptions[]> =>
+  http.get(`class/class-level`).then((response) => response?.data);
+
 export const deleteClass = (id: string): Promise<IResponseDetailClass> =>
   http.delete(`class/${id}`);

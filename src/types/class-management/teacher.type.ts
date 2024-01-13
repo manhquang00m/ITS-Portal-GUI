@@ -21,6 +21,7 @@ export interface IDetailTeacher {
     version: number;
     status: string;
     statusName: string;
+    teacherLevelName: string;
 }
 
 

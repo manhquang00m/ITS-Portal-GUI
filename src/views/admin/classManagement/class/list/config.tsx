@@ -41,9 +41,9 @@ export const columns = (
       key: "detail",
     },
     {
-      title: "Level",
-      dataIndex: "level",
-      key: "level",
+      title: "Level lớp học",
+      dataIndex: "classLevelName",
+      key: "classLevelName",
     },
     {
       title: "Trạng thái",

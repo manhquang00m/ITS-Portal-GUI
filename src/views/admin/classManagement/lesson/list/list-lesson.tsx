@@ -70,7 +70,7 @@ export function ListLesson() {
         initialValue={initialValue}
       />
       <Table
-        scroll={{ x: 800, y: 450 }}
+        scroll={{ x: 1000, y: 450 }}
         loading={isLoading}
         className="mt-2"
         columns={columns(setIdDelete, onOpenDelete)}
