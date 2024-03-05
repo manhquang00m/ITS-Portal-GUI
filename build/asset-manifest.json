@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.1cbedd22.css",
-    "main.js": "/static/js/main.e58ab44d.js",
+    "main.js": "/static/js/main.579f79f7.js",
     "static/media/Illustration_Auth.png": "/static/media/Illustration_Auth.da74afe1242530cc0d45.png",
     "static/media/logoITS.png": "/static/media/logoITS.a41be1d20178d7dc1cb0.png",
     "static/media/kienthuc.png": "/static/media/kienthuc.731821e2ad656ba36a23.png",
     "static/media/baihoctiep.png": "/static/media/baihoctiep.93547efc94613518c242.png",
     "index.html": "/index.html",
     "main.1cbedd22.css.map": "/static/css/main.1cbedd22.css.map",
-    "main.e58ab44d.js.map": "/static/js/main.e58ab44d.js.map"
+    "main.579f79f7.js.map": "/static/js/main.579f79f7.js.map"
   },
   "entrypoints": [
     "static/css/main.1cbedd22.css",
-    "static/js/main.e58ab44d.js"
+    "static/js/main.579f79f7.js"
   ]
 }
