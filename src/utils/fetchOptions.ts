@@ -4,6 +4,7 @@ import { getStatusDailyIncome } from "api/daily-income.api";
 import { getStatusLesson } from "api/lesson.api";
 import { getClass, getLevelClass, getStatusClass } from "api/manage-class.api";
 import { getStatusMonthlyIncome } from "api/monthly-income.api";
+import { getNetwork } from "api/pools.api";
 import { getStatusScheduleConfig } from "api/schedule-config.api";
 import {
   getScheduleInstances,
@@ -194,5 +195,16 @@ export const fetchCourse = async (
   return response?.data?.list.map((item) => ({
     value: item?.courseId,
     name: item?.name,
+  }));
+};
+
+
+export const fetchNetwork= async (): Promise<
+  IOptionSelectComp[]
+> => {
+  const data = await getNetwork();
+  return data?.map((item) => ({
+    value: item?.id,
+    name: item?.attributes?.name,
   }));
 };

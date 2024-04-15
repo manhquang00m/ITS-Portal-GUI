@@ -10,8 +10,8 @@ export function SidebarBrand() {
 
 	return (
 		<Flex alignItems='center' flexDirection='column'>
-			<Image h='60px' w='125px' src={logo} />
-			<Text mt='10px' mb='10px' color={logoColor} size='xl'><span className='font-semibold'>ITS</span> Learning Management System</Text>
+			<Image h='60px' w='125px' src={"https://static.vecteezy.com/system/resources/previews/006/153/221/original/defi-decentralized-finance-for-exchange-cryptocurrency-defi-text-logo-design-finance-system-block-chain-and-walllet-blue-dark-technology-system-with-alt-coin-icon-vector.jpg"} />
+			<Text mt='10px' mb='10px' color={logoColor} size='xl'><span className='font-semibold'>DEFI</span> Passive Income </Text>
 			<HSeparator mb='20px' />
 		</Flex>
 	);

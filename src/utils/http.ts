@@ -4,7 +4,7 @@ class Http {
     instance: AxiosInstance
     constructor() {
         this.instance = axios.create({
-            baseURL: 'http://42.96.15.129/api',
+            baseURL: 'https://api.geckoterminal.com/api/v2',
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' }
         })

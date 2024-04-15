@@ -104,21 +104,9 @@ export const columns = (
 
 export const filterItems: IFilterInput[] = [
   {
-    type: "inputText",
-    label: "Giáo viên",
-    controlName: "teacherName",
-    placeHolder: "Nhập tên giáo viên",
-  },
-  {
-    type: "inputText",
-    label: "Lớp học",
-    controlName: "className",
-    placeHolder: "Nhập tên lớp học",
-  },
-  {
     type: "selectRemote",
-    label: "Trạng thái",
-    controlName: "status",
+    label: "Mạng",
+    controlName: "network",
     placeHolder: "Chọn giá trị",
     getOptions: fetchStatusScheduleConfig,
     defaultValue:"active"

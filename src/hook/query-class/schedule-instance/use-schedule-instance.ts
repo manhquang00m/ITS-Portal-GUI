@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { getPools } from "api/pools.api";
 import {
   createScheduleInstance,
   deleteScheduleInstance,
@@ -15,6 +16,7 @@ import {
   IResponseStudentProgressInstance,
   IStudentProgressInstance,
 } from "types/class-management/after-class.type";
+import { IFilterPools } from "types/class-management/pool.type";
 import {
   IFilterScheduleInstance,
   IFormScheduleInstance,
@@ -26,6 +28,18 @@ export const useGetScheduleInstance = (params: IFilterScheduleInstance) => {
     queryFn: async () => {
       try {
         return await getScheduleInstances(params);
+      } catch (error) {}
+    },
+    refetchOnWindowFocus: false,
+    retry: 2,
+  });
+};
+export const useGetPools = (params: IFilterPools) => {
+  return useQuery({
+    queryKey: ["pools", params],
+    queryFn: async () => {
+      try {
+        return await getPools(params);
       } catch (error) {}
     },
     refetchOnWindowFocus: false,
