@@ -5,9 +5,15 @@ import { IFilterInput } from "components/filter/types";
 import dayjs from "dayjs";
 import { MdAddPhotoAlternate, MdComment } from "react-icons/md";
 import { IDetailScheduleInstance } from "types/class-management/schedule-instance.type";
-import { fetchNetwork, fetchStatusScheduleInstance } from "utils/fetchOptions";
+import {
+  fetchDex,
+  fetchNetwork,
+  fetchStable,
+  fetchStatusScheduleInstance,
+} from "utils/fetchOptions";
 import { toast } from "react-toastify";
 import {
+  IDataRelationshipsPools,
   IDetailPool,
   IDetailPoolCustom,
 } from "types/class-management/pool.type";
@@ -19,21 +25,24 @@ const colorStatusScheduleInstance: Record<string, string> = {
   "Khởi tạo": "blue",
 };
 
-export const columns = (): ColumnsType<IDetailPoolCustom> => {
+export const columns = (network: string): ColumnsType<IDetailPoolCustom> => {
   return [
-    {
-      title: "Địa chỉ",
-      dataIndex: "address",
-      key: "address",
-      width: 120,
-      render: (text: string) => {
-        return (
-          <Link href={`https://www.geckoterminal.com/vi/base/pools/${text}`} isExternal>
-            {text} <ExternalLinkIcon ml="2px" pb="2px"/>
-          </Link>
-        );
-      },
-    },
+    // {
+    //   title: "Địa chỉ",
+    //   dataIndex: "address",
+    //   key: "address",
+    //   width: 120,
+    //   render: (text: string) => {
+    //     return (
+    //       <Link
+    //         href={`https://www.geckoterminal.com/vi/${network}/pools/${text}`}
+    //         isExternal
+    //       >
+    //         {text} <ExternalLinkIcon ml="2px" pb="2px" />
+    //       </Link>
+    //     );
+    //   },
+    // },
 
     {
       title: "Name",
@@ -45,7 +54,7 @@ export const columns = (): ColumnsType<IDetailPoolCustom> => {
       title: "Tỉ lệ bú",
       dataIndex: "ratio",
       key: "ratio",
-      width: 120,
+      width: 90,
       render: (text: number | null) => {
         if (text === 0 || isNaN(text)) {
           return <Tag color={"error"}>{"Tạch"}</Tag>;
@@ -67,6 +76,43 @@ export const columns = (): ColumnsType<IDetailPoolCustom> => {
       },
     },
     {
+      title: "Sàn",
+      dataIndex: "dex",
+      key: "dex",
+      width: 100,
+      render: (dex: IDataRelationshipsPools) => {
+        return dex?.data?.id || "--";
+      },
+    },
+    {
+      title: "Volumn 24h",
+      dataIndex: "volume",
+      key: "volume",
+      width: 120,
+      render: (text: number | null) => {
+        let USDollar = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+
+        return text === null ? "--" : USDollar.format(text);
+      },
+    },
+    {
+      title: "Liquidity",
+      dataIndex: "reserve_in_usd",
+      key: "reserve_in_usd",
+      width: 120,
+      render: (text: number | null) => {
+        let USDollar = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        });
+
+        return text === null ? "--" : USDollar.format(text);
+      },
+    },
+    {
       title: "Ngày tạo pool",
       dataIndex: "pool_created_at",
       key: "pool_created_at",
@@ -85,49 +131,52 @@ export const columns = (): ColumnsType<IDetailPoolCustom> => {
       },
     },
     {
-      title: "Volumn 24h",
-      dataIndex: "volume",
-      key: "volume",
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
       width: 120,
-      render: (text: number | null) => {
-        let USDollar = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-
-        return text === null ? "--" : USDollar.format(text);
-      },
-    },
-
-    {
-      title: "Liquidity",
-      dataIndex: "reserve_in_usd",
-      key: "reserve_in_usd",
-      width: 120,
-      render: (text: number | null) => {
-        let USDollar = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        });
-
-        return text === null ? "--" : USDollar.format(text);
-      },
     },
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      width: 60,
+      title: "--",
+      key: "action",
+      fixed: "right",
+      width: 40,
+      render: (_, record: IDetailPoolCustom) => (
+        <>
+          <Link
+            href={`https://www.geckoterminal.com/vi/${network}/pools/${record?.address}`}
+            isExternal
+          >
+            <ExternalLinkIcon ml="2px" pb="2px" fontSize={24} />
+          </Link>
+        </>
+      ),
     },
   ];
 };
 
-export const filterItems: IFilterInput[] = [
-  {
-    type: "selectRemote",
-    label: "Mạng",
-    controlName: "network",
-    placeHolder: "Chọn giá trị",
-    getOptions: fetchNetwork,
-  },
-];
+export const filterItems = (network: string): IFilterInput[] => {
+  return [
+    {
+      type: "selectRemote",
+      label: "Mạng",
+      controlName: "network",
+      placeHolder: "Chọn giá trị",
+      getOptions: fetchNetwork,
+    },
+    {
+      type: "selectRemote",
+      label: "Sàn",
+      controlName: "dex",
+      placeHolder: "Chọn giá trị",
+      getOptions: () => fetchDex(network),
+    },
+    {
+      type: "selectRemote",
+      label: "Có 1 đồng Stable",
+      controlName: "isStable",
+      placeHolder: "Chọn giá trị",
+      getOptions: fetchStable,
+    },
+  ];
+};

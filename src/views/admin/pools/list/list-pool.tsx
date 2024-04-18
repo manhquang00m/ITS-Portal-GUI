@@ -24,17 +24,14 @@ export function ListPools() {
     page: 1,
     network: "base",
     sort: "h24_volume_usd_desc",
+    isStable: 0,
   });
   const { data, isLoading } = useGetPools(filter);
-
+  console.log(filter);
   const initialValue = {
     network: "base",
-  };
-  const onChangePagination = (page: number, pageSize: number) => {
-    setFilter({
-      ...filter,
-      page: page,
-    });
+    dex: "",
+    isStable: 0,
   };
 
   const handleSearch = (values: IFilterPools) => {
@@ -54,31 +51,52 @@ export function ListPools() {
     }
     return null;
   };
+
+  const isStable = (token: string) => {
+    return Number(token) > 0.99 && Number(token) < 1.009;
+  };
+
   const pools: IDetailPoolCustom[] = useMemo(() => {
     if (!data?.data) return [];
     const { data: listPool } = data;
-    const newPools = listPool?.map((item) => {
-      const { ...restAttr } = item.attributes;
-      const fee = getFee(restAttr.name);
-      const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
-      const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
-      return {
-        id: item?.id,
-        volume: item?.attributes?.volume_usd?.h24,
-        fee: fee,
-        ratio: isNaN(fee) ? 0 : ratio,
-        ...restAttr,
-      };
-    });
-    return newPools.sort((a, b) => b.ratio - a.ratio);;
-  }, [data]);
+    const newPools = listPool
+      ?.map((item) => {
+        const { ...restAttr } = item.attributes;
+        const { ...restRelation } = item.relationships;
+
+        const fee = getFee(restAttr.name);
+        const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
+        const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
+        return {
+          id: item?.id,
+          volume: item?.attributes?.volume_usd?.h24,
+          fee: fee,
+          ratio: isNaN(fee) ? 0 : ratio,
+          ...restAttr,
+          ...restRelation,
+        };
+      })
+      .filter((pool) => {
+        if (filter.isStable === 1) {
+          return pool.ratio > 1 && Number(pool?.reserve_in_usd) > 10000;
+        } else {
+          return (
+            pool.ratio > 1 &&
+            Number(pool?.reserve_in_usd) > 10000 &&
+            (isStable(pool.base_token_price_usd) ||
+              isStable(pool.quote_token_price_usd))
+          );
+        }
+      });
+    return newPools.sort((a, b) => b.ratio - a.ratio);
+  }, [data, filter.isStable]);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "70px" }}>
       <Spin spinning={false} fullscreen />
 
       <Filter
-        filterItems={filterItems}
+        filterItems={filterItems(filter.network)}
         handleSearch={handleSearch}
         searchParams={filter}
         initialValue={initialValue}
@@ -87,17 +105,18 @@ export function ListPools() {
         scroll={{ x: 1600, y: 450 }}
         loading={isLoading}
         className="mt-2"
-        columns={columns()}
+        columns={columns(filter.network)}
         dataSource={pools || []}
-        rowKey="id"
-        pagination={{
-          // pageSizeOptions: [5, 10, 20, 50],
-          showSizeChanger: false,
-          total: 200,
-          onChange: onChangePagination,
-          current: filter?.page,
-          pageSize: 20,
-        }}
+        rowKey="address"
+        pagination={false}
+        // pagination={{
+        //   // pageSizeOptions: [5, 10, 20, 50],
+        //   showSizeChanger: false,
+        //   total: 200,
+        //   onChange: onChangePagination,
+        //   current: filter?.page,
+        //   pageSize: 20,
+        // }}
       />
     </Box>
   );

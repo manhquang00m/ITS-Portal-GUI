@@ -2,6 +2,9 @@ export interface IFilterPools {
   network?: string;
   page?: number;
   sort?: string;
+  dex?: string;
+  isStable?: number;
+
 }
 export interface IVolumn {
   h24: string;
@@ -22,9 +25,25 @@ export interface IAttributePools {
   reserve_in_usd: string;
 }
 
+export interface ITypeRelationshipsPools {
+  id: string;
+  type: string;
+}
+
+export interface IDataRelationshipsPools {
+  data: ITypeRelationshipsPools;
+}
+
+export interface IRelationshipsPools {
+  base_token: IDataRelationshipsPools;
+  quote_token: IDataRelationshipsPools;
+  dex: IDataRelationshipsPools;
+}
+
 export interface IDetailPool {
   id: string;
   attributes: IAttributePools;
+  relationships: IRelationshipsPools;
 }
 
 export interface IDetailPoolCustom {
@@ -43,6 +62,9 @@ export interface IDetailPoolCustom {
   reserve_in_usd: string;
   fee?: number | null;
   ratio?: number;
+  base_token?: IDataRelationshipsPools;
+  quote_token?: IDataRelationshipsPools;
+  dex?: IDataRelationshipsPools;
 }
 
 export interface IResponsePool {

@@ -4,7 +4,7 @@ import { getStatusDailyIncome } from "api/daily-income.api";
 import { getStatusLesson } from "api/lesson.api";
 import { getClass, getLevelClass, getStatusClass } from "api/manage-class.api";
 import { getStatusMonthlyIncome } from "api/monthly-income.api";
-import { getNetwork } from "api/pools.api";
+import { getDex, getNetwork } from "api/pools.api";
 import { getStatusScheduleConfig } from "api/schedule-config.api";
 import {
   getScheduleInstances,
@@ -198,13 +198,40 @@ export const fetchCourse = async (
   }));
 };
 
-
-export const fetchNetwork= async (): Promise<
-  IOptionSelectComp[]
-> => {
+export const fetchNetwork = async (): Promise<IOptionSelectComp[]> => {
   const data = await getNetwork();
   return data?.map((item) => ({
     value: item?.id,
     name: item?.attributes?.name,
   }));
+};
+
+export const fetchDex = async (
+  network: string
+): Promise<IOptionSelectComp[]> => {
+  const data = await getDex(network);
+  return data?.map((item) => ({
+    value: item?.id,
+    name: item?.attributes?.name,
+  }));
+};
+
+export const fetchStable = async (): Promise<IOptionSelectComp[]> => {
+  const data: Promise<IOptionSelectComp[]> = new Promise((resolve) => {
+    resolve([
+      {
+        value: 0,
+        name: "Không",
+      },
+      {
+        value: 1,
+        name: "Có",
+      },
+    ]);
+  });
+  return data;
+  // return data?.map((item) => ({
+  //   value: item?.id,
+  //   name: item?.attributes?.name,
+  // }));
 };
