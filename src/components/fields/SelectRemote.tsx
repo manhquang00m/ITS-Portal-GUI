@@ -9,10 +9,11 @@ interface ISelectRemote {
   getOptions?: () => Promise<IOptionSelectComp[]>;
   className?: string;
   defaultValue?: string | number;
+  keyRefetch?: string
 }
 
 export default function SelectRemote(props: ISelectRemote) {
-  const { value, onChange, placeholder, getOptions, className,defaultValue } = props;
+  const { value, onChange, placeholder, getOptions, className, defaultValue, keyRefetch } = props;
   const [options, setOptions] = useState<IOptionSelectComp[]>([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function SelectRemote(props: ISelectRemote) {
     };
 
     fetchData();
-  }, [getOptions]);
+  }, [getOptions, keyRefetch]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
@@ -37,7 +38,7 @@ export default function SelectRemote(props: ISelectRemote) {
 
   return (
     <Select
-     defaultValue={defaultValue}
+      defaultValue={defaultValue}
       className={className}
       placeholder={placeholder}
       value={value}

@@ -6,7 +6,8 @@ export interface IFilterInput {
   controlName: string;
   placeHolder?: string;
   selected?: boolean;
-  defaultValue ?: string | number;
+  defaultValue?: string | number;
+  keyRefetch?: string;
   getOptions?: () => Promise<IOptionSelectComp[]>;
 }
 

@@ -19,6 +19,7 @@ import {
   getTeachers,
 } from "api/teacher.api";
 import { IOptionSelectComp } from "components/fields/SelectField";
+import { listChains, listDexs } from "views/admin/pools/list/options";
 
 export const fetchStatusStudentProgress = async (): Promise<
   IOptionSelectComp[]
@@ -199,21 +200,27 @@ export const fetchCourse = async (
 };
 
 export const fetchNetwork = async (): Promise<IOptionSelectComp[]> => {
-  const data = await getNetwork();
-  return data?.map((item) => ({
+  const listNetwork = listChains?.map((item) => ({
     value: item?.id,
     name: item?.attributes?.name,
   }));
+  const data: Promise<IOptionSelectComp[]> = new Promise((resolve) => {
+    resolve(listNetwork);
+  });
+  return data
 };
 
 export const fetchDex = async (
   network: string
 ): Promise<IOptionSelectComp[]> => {
-  const data = await getDex(network);
-  return data?.map((item) => ({
+  const listDex = listDexs?.map((item) => ({
     value: item?.id,
     name: item?.attributes?.name,
   }));
+  const data: Promise<IOptionSelectComp[]> = new Promise((resolve) => {
+    resolve(listDex);
+  });
+  return data
 };
 
 export const fetchStable = async (): Promise<IOptionSelectComp[]> => {
@@ -230,8 +237,4 @@ export const fetchStable = async (): Promise<IOptionSelectComp[]> => {
     ]);
   });
   return data;
-  // return data?.map((item) => ({
-  //   value: item?.id,
-  //   name: item?.attributes?.name,
-  // }));
 };

@@ -3,6 +3,7 @@ import { Spin, Table } from "antd";
 import Filter from "components/filter/filter";
 import {
   useGetAfterClass,
+  useGetDexs,
   useGetPools,
   useGetScheduleInstance,
 } from "hook/query-class/schedule-instance/use-schedule-instance";
@@ -26,6 +27,7 @@ export function ListPools() {
     sort: "h24_volume_usd_desc",
     isStable: 0,
   });
+
   const { data, isLoading } = useGetPools(filter);
   console.log(filter);
   const initialValue = {
@@ -64,7 +66,7 @@ export function ListPools() {
         const { ...restAttr } = item.attributes;
         const { ...restRelation } = item.relationships;
 
-        const fee = getFee(restAttr.name);
+        const fee = restRelation?.dex?.data?.id?.includes('v2') ? 0.3 : getFee(restAttr.name);
         const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
         const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
         return {
@@ -77,7 +79,7 @@ export function ListPools() {
         };
       })
       .filter((pool) => {
-        if (filter.isStable === 1) {
+        if (filter.isStable === 0) {
           return pool.ratio > 1 && Number(pool?.reserve_in_usd) > 10000;
         } else {
           return (
@@ -109,14 +111,14 @@ export function ListPools() {
         dataSource={pools || []}
         rowKey="address"
         pagination={false}
-        // pagination={{
-        //   // pageSizeOptions: [5, 10, 20, 50],
-        //   showSizeChanger: false,
-        //   total: 200,
-        //   onChange: onChangePagination,
-        //   current: filter?.page,
-        //   pageSize: 20,
-        // }}
+      // pagination={{
+      //   // pageSizeOptions: [5, 10, 20, 50],
+      //   showSizeChanger: false,
+      //   total: 200,
+      //   onChange: onChangePagination,
+      //   current: filter?.page,
+      //   pageSize: 20,
+      // }}
       />
     </Box>
   );

@@ -166,10 +166,11 @@ export const filterItems = (network: string): IFilterInput[] => {
     },
     {
       type: "selectRemote",
-      label: "Sàn",
+      label: "Sàn DEX V2",
       controlName: "dex",
       placeHolder: "Chọn giá trị",
       getOptions: () => fetchDex(network),
+      keyRefetch: network
     },
     {
       type: "selectRemote",

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getPools } from "api/pools.api";
+import { getDex, getPools } from "api/pools.api";
 import {
   createScheduleInstance,
   deleteScheduleInstance,
@@ -28,7 +28,7 @@ export const useGetScheduleInstance = (params: IFilterScheduleInstance) => {
     queryFn: async () => {
       try {
         return await getScheduleInstances(params);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     retry: 2,
@@ -40,7 +40,19 @@ export const useGetPools = (params: IFilterPools) => {
     queryFn: async () => {
       try {
         return await getPools(params);
-      } catch (error) {}
+      } catch (error) { }
+    },
+    refetchOnWindowFocus: false,
+    retry: 2,
+  });
+};
+export const useGetDexs = (network: string) => {
+  return useQuery({
+    queryKey: ["dexs", network],
+    queryFn: async () => {
+      try {
+        return await getDex(network);
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     retry: 2,
@@ -52,7 +64,7 @@ export const useGetAfterClass = (id: number, enabled: boolean) => {
     queryFn: async () => {
       try {
         return await getAfterClass(id);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     retry: 2,
@@ -97,7 +109,7 @@ export const useGetDetailScheduleInstance = (id: string, enabled?: boolean) => {
     queryFn: async () => {
       try {
         return await getDetailScheduleInstance(id);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     enabled: enabled,
@@ -110,7 +122,7 @@ export const useGetStudentProgress = (id: string, enabled?: boolean) => {
     queryFn: async () => {
       try {
         return await getStudentProgress(id);
-      } catch (error) {}
+      } catch (error) { }
     },
     refetchOnWindowFocus: false,
     enabled: enabled,

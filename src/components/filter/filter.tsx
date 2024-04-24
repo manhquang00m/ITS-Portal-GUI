@@ -58,6 +58,7 @@ export default function Filter({
                     placeholder={item?.placeHolder}
                     value={restField?.value}
                     onChange={restField?.onChange}
+                    keyRefetch={item?.keyRefetch}
                   />
                 )}
                 <FormErrorMessage>
