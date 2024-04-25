@@ -66,7 +66,7 @@ export function ListPools() {
         const { ...restAttr } = item.attributes;
         const { ...restRelation } = item.relationships;
 
-        const fee = restRelation?.dex?.data?.id?.includes('v2') ? 0.3 : getFee(restAttr.name);
+        const fee = restRelation?.dex?.data?.id?.includes('v2') && !getFee(restAttr.name) ? 0.3 : getFee(restAttr.name);
         const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
         const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
         return {
