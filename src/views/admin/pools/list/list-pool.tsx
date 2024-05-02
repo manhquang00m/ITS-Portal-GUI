@@ -55,7 +55,7 @@ export function ListPools() {
   };
 
   const isStable = (token: string) => {
-    return Number(token) > 0.99 && Number(token) < 1.009;
+    return Number(token) > 0.98 && Number(token) < 1.02;
   };
 
   const pools: IDetailPoolCustom[] = useMemo(() => {
