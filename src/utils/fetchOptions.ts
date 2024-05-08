@@ -228,11 +228,15 @@ export const fetchStable = async (): Promise<IOptionSelectComp[]> => {
     resolve([
       {
         value: 0,
-        name: "Không",
+        name: "Tất cả",
       },
       {
         value: 1,
-        name: "Có",
+        name: "Có 1 stable",
+      },
+      {
+        value: 2,
+        name: "Cả 2 stable",
       },
     ]);
   });

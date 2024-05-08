@@ -81,14 +81,21 @@ export function ListPools() {
       .filter((pool) => {
         if (filter.isStable === 0) {
           return pool.ratio > 1 && Number(pool?.reserve_in_usd) > 10000;
-        } else {
+        } 
+        if (filter.isStable === 1) {
           return (
-            pool.ratio > 1 &&
+            pool.ratio > 0.01 &&
             Number(pool?.reserve_in_usd) > 10000 &&
             (isStable(pool.base_token_price_usd) ||
               isStable(pool.quote_token_price_usd))
           );
-        }
+        } 
+        return (
+          pool.ratio > 0.01 &&
+          Number(pool?.reserve_in_usd) > 10000 &&
+          (isStable(pool.base_token_price_usd) &&
+            isStable(pool.quote_token_price_usd))
+        );
       });
     return newPools.sort((a, b) => b.ratio - a.ratio);
   }, [data, filter.isStable]);

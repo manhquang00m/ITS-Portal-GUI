@@ -174,7 +174,7 @@ export const filterItems = (network: string): IFilterInput[] => {
     },
     {
       type: "selectRemote",
-      label: "Có 1 đồng Stable",
+      label: "Thể loại pool",
       controlName: "isStable",
       placeHolder: "Chọn giá trị",
       getOptions: fetchStable,
