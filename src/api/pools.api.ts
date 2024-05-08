@@ -17,12 +17,12 @@ export const getDex = (network: string): Promise<IResponseNetwork[]> =>
 const fetchPool = (params: IFilterPools): Promise<IResponsePool> => {
   if (!params.dex) {
     return http
-      .get(`networks/${params.network}/pools?page=${params.page}`)
+      .get(`networks/${params.network}/pools?page=${params.page}&sort=h24_volume_usd_desc`)
       .then((response) => response?.data);
   }
   return http
     .get(
-      `networks/${params.network}/dexes/${params.dex}/pools?page=${params.page}`
+      `networks/${params.network}/dexes/${params.dex}/pools?page=${params.page}&sort=h24_volume_usd_desc`
     )
     .then((response) => response?.data);
 };
