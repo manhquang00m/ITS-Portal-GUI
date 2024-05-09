@@ -36,7 +36,7 @@ export const useGetScheduleInstance = (params: IFilterScheduleInstance) => {
 };
 export const useGetPools = (params: IFilterPools) => {
   return useQuery({
-    queryKey: ["pools", params],
+    queryKey: ["pools", params?.network],
     queryFn: async () => {
       try {
         return await getPools(params);

@@ -61,43 +61,51 @@ export function ListPools() {
   const pools: IDetailPoolCustom[] = useMemo(() => {
     if (!data?.data) return [];
     const { data: listPool } = data;
-    const newPools = listPool
-      ?.map((item) => {
-        const { ...restAttr } = item.attributes;
-        const { ...restRelation } = item.relationships;
+    let filterPool;
+    const newPools = listPool?.map((item) => {
+      const { ...restAttr } = item.attributes;
+      const { ...restRelation } = item.relationships;
 
-        const fee = restRelation?.dex?.data?.id?.includes('v2') && !getFee(restAttr.name) ? 0.3 : getFee(restAttr.name);
-        const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
-        const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
-        return {
-          id: item?.id,
-          volume: item?.attributes?.volume_usd?.h24,
-          fee: fee,
-          ratio: isNaN(fee) ? 0 : ratio,
-          ...restAttr,
-          ...restRelation,
-        };
-      })
-      .filter((pool) => {
-        if (filter.isStable === 0) {
-          return pool.ratio > 1 && Number(pool?.reserve_in_usd) > 10000;
-        } 
-        if (filter.isStable === 1) {
-          return (
-            pool.ratio > 0.01 &&
-            Number(pool?.reserve_in_usd) > 10000 &&
-            (isStable(pool.base_token_price_usd) ||
-              isStable(pool.quote_token_price_usd))
-          );
-        } 
-        return (
+      const fee =
+        restRelation?.dex?.data?.id?.includes("v2") && !getFee(restAttr.name)
+          ? 0.3
+          : getFee(restAttr.name);
+      const vv = (0.3 / fee) * Number(restAttr?.reserve_in_usd);
+      const ratio = Number(item?.attributes?.volume_usd?.h24) / vv;
+      return {
+        id: item?.id,
+        volume: item?.attributes?.volume_usd?.h24,
+        fee: fee,
+        ratio: isNaN(fee) ? 0 : ratio,
+        ...restAttr,
+        ...restRelation,
+      };
+    });
+    if (filter?.isStable == 0) {
+      filterPool = newPools?.filter(
+        (pool) => pool.ratio > 0.01 && Number(pool?.reserve_in_usd) > 10000
+      );
+    }
+    if (filter?.isStable == 1) {
+      filterPool = newPools?.filter(
+        (pool) =>
           pool.ratio > 0.01 &&
           Number(pool?.reserve_in_usd) > 10000 &&
-          (isStable(pool.base_token_price_usd) &&
+          (isStable(pool.base_token_price_usd) ||
             isStable(pool.quote_token_price_usd))
-        );
-      });
-    return newPools.sort((a, b) => b.ratio - a.ratio);
+      );
+    }
+    if (filter?.isStable == 2) {
+      filterPool = newPools?.filter(
+        (pool) =>
+          pool.ratio > 0.01 &&
+          Number(pool?.reserve_in_usd) > 10000 &&
+          isStable(pool.base_token_price_usd) &&
+          isStable(pool.quote_token_price_usd)
+      );
+    }
+    console.log(filterPool)
+    return filterPool?.sort((a, b) => b.ratio - a.ratio);
   }, [data, filter.isStable]);
 
   return (
@@ -118,14 +126,14 @@ export function ListPools() {
         dataSource={pools || []}
         rowKey="address"
         pagination={false}
-      // pagination={{
-      //   // pageSizeOptions: [5, 10, 20, 50],
-      //   showSizeChanger: false,
-      //   total: 200,
-      //   onChange: onChangePagination,
-      //   current: filter?.page,
-      //   pageSize: 20,
-      // }}
+        // pagination={{
+        //   // pageSizeOptions: [5, 10, 20, 50],
+        //   showSizeChanger: false,
+        //   total: 200,
+        //   onChange: onChangePagination,
+        //   current: filter?.page,
+        //   pageSize: 20,
+        // }}
       />
     </Box>
   );

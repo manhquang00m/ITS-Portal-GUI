@@ -32,7 +32,7 @@ export const getPools = async (
 ): Promise<IResponsePool> => {
   const promises: Promise<IResponsePool>[] = [];
 
-  for (let page = 1; page <= 7; page++) {
+  for (let page = 1; page <= 8; page++) {
     const { network, dex } = params;
     promises.push(fetchPool({ network, page: page, dex }));
   }
